@@ -11,6 +11,8 @@
 
 .partner-slider {
     padding: 0 70px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .partner-slider .partner-item {
@@ -22,10 +24,13 @@
     transform: scale(1.1);
 }
 
+.partner-slider .slick-slide {
+    margin: 0 !important;
+}
+
 .slick-initialized .slick-slide {
     color: #FFF;
     height: 200px;
-    margin: 0 15px 0 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -367,7 +372,7 @@
 
 @media (max-width: 480px) {
     .partner-slider {
-        padding: 0 20px;
+        padding: 0 10px;
     }
 
     .partner-slider .slick-slide {
@@ -380,9 +385,9 @@
     }
 
     .partner-slider .slick-slide img {
-        width: auto;            /* auto width to preserve aspect ratio */
-        max-width: 150px;       /* limit logo width */
-        max-height: 60px;       /* limit height */
+        width: auto;
+        max-width: 120px;
+        max-height: 50px;
         object-fit: contain;
         height: auto;
     }
