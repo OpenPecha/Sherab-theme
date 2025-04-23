@@ -10,13 +10,13 @@ $(document).ready(function(){
         autoplay: false,
         responsive: [
             {
-                breakpoint: 991,
+                breakpoint: 768,
                 settings: {
-                    slidesToShow: 3,
+                    slidesToShow: 2,
                 }
             },
             {
-                breakpoint: 767,
+                breakpoint: 480,
                 settings: {
                     slidesToShow: 1,
                 }
