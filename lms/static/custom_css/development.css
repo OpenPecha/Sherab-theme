@@ -366,6 +366,10 @@
 }
 
 @media (max-width: 480px) {
+    .partner-slider {
+        padding: 0 20px;
+    }
+
     .partner-slider .slick-slide {
         flex: 0 0 100%;
         max-width: 100%;
@@ -376,8 +380,10 @@
     }
 
     .partner-slider .slick-slide img {
-        width: 60%;        /* Adjust size as needed */
-        max-height: 60px;  /* Keeps logo height in check */
+        width: auto;            /* auto width to preserve aspect ratio */
+        max-width: 150px;       /* limit logo width */
+        max-height: 60px;       /* limit height */
         object-fit: contain;
+        height: auto;
     }
 }
