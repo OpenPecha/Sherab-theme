@@ -1,0 +1,6 @@
+/* Custom styling for the logo */
+.logo {
+    transform: scale(1.2);
+    transform-origin: left center;
+    max-height: 100%;
+}
