@@ -3,10 +3,10 @@ name: Deploy Open edX to AWS EC2
 on:
   push:
     branches:
-      - staging
+      - sherab-dev
   pull_request:
     branches:
-      - staging
+      - sherab-dev
 
 jobs:
   deploy:
@@ -39,7 +39,7 @@ jobs:
           cd "$TUTOR_ROOT/env/build/openedx/themes/${{ secrets.THEME_NAME }}"
 
           # Pull the latest changes from the master branch
-          git pull origin staging
+          git pull origin sherab-dev
 
           # Check if EDX_PLATFORM_REPOSITORY and EDX_PLATFORM_VERSION secrets are set
           if [ -n "${{ secrets.EDX_PLATFORM_REPOSITORY }}" ] && [ -n "${{ secrets.EDX_PLATFORM_VERSION }}" ]; then
