@@ -111,6 +111,12 @@
    */
   function hideFooter() {
     if (footer.classList.contains('footer-visible')) {
+      // Remove the extra padding from content when footer is hidden
+      const contentWrapper = document.querySelector('.content-wrapper');
+      if (contentWrapper) {
+        contentWrapper.style.paddingBottom = '';
+      }
+      
       footer.classList.remove('footer-visible');
       footer.parentElement.setAttribute('aria-hidden', 'true');
     }
