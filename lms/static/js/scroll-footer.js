@@ -25,30 +25,28 @@
       return;
     }
     
-    ('Footer initialized');
+    
     
     // Get footer height for calculations
     footerHeight = footer.offsetHeight;
-    ('Footer height:', footerHeight);
+    
     
     // Set initial state
     footer.parentElement.setAttribute('aria-hidden', 'true');
     
     // Check if page is scrollable immediately
     const isScrollable = isPageScrollable();
-    ('Is page scrollable:', isScrollable);
     
     // Show footer immediately on non-scrollable pages
     // Don't wait for the delay
     if (!isScrollable) {
-      ('Page is not scrollable, showing footer immediately');
       showFooter();
     }
     
     // Enable footer behavior after initial delay
     setTimeout(() => {
       isFooterEnabled = true;
-      ('Footer behavior enabled');
+      
       
       // Check if page is scrollable
       checkIfPageIsScrollable();
@@ -200,7 +198,7 @@
       document.documentElement.clientHeight
     );
     
-    ('Document height:', height, 'Window height:', window.innerHeight);
+    
     return height;
   }
   
@@ -211,7 +209,7 @@
     setTimeout(() => {
       const footer = document.getElementById('scroll-footer');
       if (footer && !isPageScrollable()) {
-        ('Forcing footer visibility on non-scrollable page');
+        
         showFooter(true);
       }
     }, 1000);
@@ -221,7 +219,7 @@
     setTimeout(() => {
       const footer = document.getElementById('scroll-footer');
       if (footer && !isPageScrollable()) {
-        ('Forcing footer visibility on non-scrollable page');
+        
         showFooter(true);
       }
     }, 1000);
