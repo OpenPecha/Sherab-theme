@@ -10,8 +10,8 @@
 <% icp_license_info = getattr(settings, 'ICP_LICENSE_INFO', {})%>
 <%namespace name='static' file='static_content.html'/>
 
-<div class="fixed-footer-wrapper">
-  <footer id="footer-fixed" class="footer">
+<div class="scroll-footer-wrapper" aria-hidden="true">
+  <footer id="scroll-footer" class="footer" role="contentinfo">
     <a href="${reverse('root')}" class="footer-logo-link" aria-label="${_('Go to main page')}">
       <img src="${static.url('images/logo.png')}" alt="${_('Your Brand')}" class="footer-logo" />
       <span class="custom-tooltip">${_('Go to main page')}</span>
@@ -47,6 +47,7 @@
 % endif
 
 <link rel="stylesheet" type="text/css" href="${static.url('custom_css/footer.css')}"></link>
+<script type="text/javascript" src="${static.url('js/scroll-footer.js')}"></script>
 
 % if footer_css_urls:
   % for url in footer_css_urls:
