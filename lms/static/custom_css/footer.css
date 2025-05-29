@@ -22,7 +22,7 @@
   overflow: visible !important;
   /* Initial state - hidden off-screen */
   transform: translateY(100%);
-  transition: transform 0.3s ease-out;
+  transition: transform 0.2s ease-out;
   will-change: transform;
 }
 
@@ -45,7 +45,7 @@
 }
 
 .footer-logo {
-  height: 40px;
+  height: 45px;
   width: auto;
 }
 
@@ -54,14 +54,14 @@
   visibility: hidden;
   position: absolute;
   bottom: 110%; /* Move up a bit */
-  left: 40%;    /* Move left */
+  left: 2.7%;    /* Move left */
   transform: translateX(-10%);
   background-color: #333;
   color: white;
   text-align: center;
   padding: 6px 14px;
   border-radius: 4px;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   white-space: nowrap;
   opacity: 0;
   transition: opacity 0.3s, visibility 0.3s;
