@@ -108,30 +108,14 @@
   function checkIfPageIsScrollable() {
     if (!isFooterEnabled) return;
     
-    console.log('Checking if page is scrollable...');
     const isScrollable = isPageScrollable();
-    console.log('Page scrollable check result:', isScrollable);
-    
-    // If document is not tall enough to scroll
     if (!isScrollable) {
-      console.log('Page is not scrollable, showing footer');
-      // Page is not scrollable, so always show footer
-      showFooter();
-    } else {
-      console.log('Page is scrollable, checking position');
-      // Page is scrollable, let scroll position determine visibility
-      // If we're not at the bottom, hide the footer
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const windowHeight = window.innerHeight;
-      const documentHeight = getDocumentHeight();
-      const isAtBottom = (windowHeight + scrollTop) >= (documentHeight - SCROLL_THRESHOLD);
-      
-      console.log('Is at bottom:', isAtBottom);
-      
-      if (!isAtBottom) {
-        hideFooter();
-      }
+      // If not scrollable, always show footer and skip toggling logic
+      showFooter(true);
+      return;
     }
+    // If scrollable, use scroll position logic
+    checkScrollPosition();
   }
   
   /**
@@ -139,18 +123,19 @@
    */
   function checkScrollPosition() {
     if (!isFooterEnabled) return;
-    
+    // If not scrollable, always show and skip toggling logic
+    if (!isPageScrollable()) {
+      showFooter(true);
+      return;
+    }
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const windowHeight = window.innerHeight;
     const documentHeight = getDocumentHeight();
-    
     // Check if user is near bottom of page
     const isAtBottom = (windowHeight + scrollTop) >= (documentHeight - SCROLL_THRESHOLD);
-    
     // Check scroll direction
     const isScrollingDown = scrollTop > lastScrollTop;
     lastScrollTop = scrollTop;
-    
     // Update footer visibility
     if (isAtBottom && isScrollingDown) {
       showFooter();
