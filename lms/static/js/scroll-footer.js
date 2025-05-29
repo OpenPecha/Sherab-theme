@@ -25,30 +25,30 @@
       return;
     }
     
-    console.log('Footer initialized');
+    ('Footer initialized');
     
     // Get footer height for calculations
     footerHeight = footer.offsetHeight;
-    console.log('Footer height:', footerHeight);
+    ('Footer height:', footerHeight);
     
     // Set initial state
     footer.parentElement.setAttribute('aria-hidden', 'true');
     
     // Check if page is scrollable immediately
     const isScrollable = isPageScrollable();
-    console.log('Is page scrollable:', isScrollable);
+    ('Is page scrollable:', isScrollable);
     
     // Show footer immediately on non-scrollable pages
     // Don't wait for the delay
     if (!isScrollable) {
-      console.log('Page is not scrollable, showing footer immediately');
+      ('Page is not scrollable, showing footer immediately');
       showFooter();
     }
     
     // Enable footer behavior after initial delay
     setTimeout(() => {
       isFooterEnabled = true;
-      console.log('Footer behavior enabled');
+      ('Footer behavior enabled');
       
       // Check if page is scrollable
       checkIfPageIsScrollable();
@@ -111,10 +111,13 @@
     const isScrollable = isPageScrollable();
     if (!isScrollable) {
       // If not scrollable, always show footer and skip toggling logic
+      setContentPadding(false);
       showFooter(true);
       return;
     }
-    // If scrollable, use scroll position logic
+    // If scrollable, always set content padding
+    setContentPadding(true);
+    // Use scroll position logic
     checkScrollPosition();
   }
   
@@ -125,9 +128,11 @@
     if (!isFooterEnabled) return;
     // If not scrollable, always show and skip toggling logic
     if (!isPageScrollable()) {
+      setContentPadding(false);
       showFooter(true);
       return;
     }
+    setContentPadding(true);
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const windowHeight = window.innerHeight;
     const documentHeight = getDocumentHeight();
@@ -145,22 +150,28 @@
   }
   
   /**
+   * Set or remove bottom padding on content for scrollable pages
+   * @param {boolean} enable - true to set, false to remove
+   */
+  function setContentPadding(enable) {
+    const contentWrapper = document.querySelector('.content-wrapper');
+    if (contentWrapper) {
+      if (enable) {
+        contentWrapper.style.paddingBottom = `${footerHeight + 20}px`;
+      } else {
+        contentWrapper.style.paddingBottom = '';
+      }
+    }
+  }
+
+  /**
    * Show the footer
    * @param {boolean} force - If true, force the footer to be visible regardless of other conditions
    */
   function showFooter(force = false) {
-    console.log('Showing footer, force =', force);
-    
     if (!footer.classList.contains('footer-visible') || force) {
-      // Add padding to the main content container to prevent footer from blocking content
-      const contentWrapper = document.querySelector('.content-wrapper');
-      if (contentWrapper) {
-        contentWrapper.style.paddingBottom = `${footerHeight + 20}px`; // Add extra padding
-      }
-      
       footer.classList.add('footer-visible');
       footer.parentElement.setAttribute('aria-hidden', 'false');
-      console.log('Footer is now visible');
     }
   }
   
@@ -169,12 +180,6 @@
    */
   function hideFooter() {
     if (footer.classList.contains('footer-visible')) {
-      // Remove the extra padding from content when footer is hidden
-      const contentWrapper = document.querySelector('.content-wrapper');
-      if (contentWrapper) {
-        contentWrapper.style.paddingBottom = '';
-      }
-      
       footer.classList.remove('footer-visible');
       footer.parentElement.setAttribute('aria-hidden', 'true');
     }
@@ -195,7 +200,7 @@
       document.documentElement.clientHeight
     );
     
-    console.log('Document height:', height, 'Window height:', window.innerHeight);
+    ('Document height:', height, 'Window height:', window.innerHeight);
     return height;
   }
   
@@ -206,7 +211,7 @@
     setTimeout(() => {
       const footer = document.getElementById('scroll-footer');
       if (footer && !isPageScrollable()) {
-        console.log('Forcing footer visibility on non-scrollable page');
+        ('Forcing footer visibility on non-scrollable page');
         showFooter(true);
       }
     }, 1000);
@@ -216,7 +221,7 @@
     setTimeout(() => {
       const footer = document.getElementById('scroll-footer');
       if (footer && !isPageScrollable()) {
-        console.log('Forcing footer visibility on non-scrollable page');
+        ('Forcing footer visibility on non-scrollable page');
         showFooter(true);
       }
     }, 1000);
