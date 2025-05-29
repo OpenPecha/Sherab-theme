@@ -95,6 +95,12 @@
    */
   function showFooter() {
     if (!footer.classList.contains('footer-visible')) {
+      // Add padding to the main content container to prevent footer from blocking content
+      const contentWrapper = document.querySelector('.content-wrapper');
+      if (contentWrapper) {
+        contentWrapper.style.paddingBottom = `${footerHeight + 20}px`; // Add extra padding
+      }
+      
       footer.classList.add('footer-visible');
       footer.parentElement.setAttribute('aria-hidden', 'false');
     }
