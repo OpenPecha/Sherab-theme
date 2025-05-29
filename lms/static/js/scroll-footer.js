@@ -21,7 +21,6 @@
   function initScrollFooter() {
     footer = document.getElementById('scroll-footer');
     if (!footer) {
-      console.error('Footer element not found. Make sure the ID "scroll-footer" exists.');
       return;
     }
     
