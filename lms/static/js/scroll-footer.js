@@ -20,17 +20,35 @@
    */
   function initScrollFooter() {
     footer = document.getElementById('scroll-footer');
-    if (!footer) return;
+    if (!footer) {
+      console.error('Footer element not found. Make sure the ID "scroll-footer" exists.');
+      return;
+    }
+    
+    console.log('Footer initialized');
     
     // Get footer height for calculations
     footerHeight = footer.offsetHeight;
+    console.log('Footer height:', footerHeight);
     
     // Set initial state
     footer.parentElement.setAttribute('aria-hidden', 'true');
     
+    // Check if page is scrollable immediately
+    const isScrollable = isPageScrollable();
+    console.log('Is page scrollable:', isScrollable);
+    
+    // Show footer immediately on non-scrollable pages
+    // Don't wait for the delay
+    if (!isScrollable) {
+      console.log('Page is not scrollable, showing footer immediately');
+      showFooter();
+    }
+    
     // Enable footer behavior after initial delay
     setTimeout(() => {
       isFooterEnabled = true;
+      console.log('Footer behavior enabled');
       
       // Check if page is scrollable
       checkIfPageIsScrollable();
@@ -73,23 +91,42 @@
   }
   
   /**
+   * Check if the page is scrollable
+   * @returns {boolean} true if page can be scrolled, false otherwise
+   */
+  function isPageScrollable() {
+    const windowHeight = window.innerHeight;
+    const documentHeight = getDocumentHeight();
+    
+    // Add a small buffer (1px) to account for rounding errors
+    return documentHeight > (windowHeight + 1);
+  }
+  
+  /**
    * Check if the page is scrollable and show footer if it's not
    */
   function checkIfPageIsScrollable() {
     if (!isFooterEnabled) return;
     
-    const windowHeight = window.innerHeight;
-    const documentHeight = getDocumentHeight();
+    console.log('Checking if page is scrollable...');
+    const isScrollable = isPageScrollable();
+    console.log('Page scrollable check result:', isScrollable);
     
     // If document is not tall enough to scroll
-    if (documentHeight <= windowHeight) {
+    if (!isScrollable) {
+      console.log('Page is not scrollable, showing footer');
       // Page is not scrollable, so always show footer
       showFooter();
     } else {
+      console.log('Page is scrollable, checking position');
       // Page is scrollable, let scroll position determine visibility
       // If we're not at the bottom, hide the footer
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const windowHeight = window.innerHeight;
+      const documentHeight = getDocumentHeight();
       const isAtBottom = (windowHeight + scrollTop) >= (documentHeight - SCROLL_THRESHOLD);
+      
+      console.log('Is at bottom:', isAtBottom);
       
       if (!isAtBottom) {
         hideFooter();
@@ -124,9 +161,12 @@
   
   /**
    * Show the footer
+   * @param {boolean} force - If true, force the footer to be visible regardless of other conditions
    */
-  function showFooter() {
-    if (!footer.classList.contains('footer-visible')) {
+  function showFooter(force = false) {
+    console.log('Showing footer, force =', force);
+    
+    if (!footer.classList.contains('footer-visible') || force) {
       // Add padding to the main content container to prevent footer from blocking content
       const contentWrapper = document.querySelector('.content-wrapper');
       if (contentWrapper) {
@@ -135,6 +175,7 @@
       
       footer.classList.add('footer-visible');
       footer.parentElement.setAttribute('aria-hidden', 'false');
+      console.log('Footer is now visible');
     }
   }
   
@@ -159,7 +200,8 @@
    * Cross-browser compatible method
    */
   function getDocumentHeight() {
-    return Math.max(
+    // Get the document height using multiple methods for cross-browser compatibility
+    const height = Math.max(
       document.body.scrollHeight,
       document.documentElement.scrollHeight,
       document.body.offsetHeight,
@@ -167,12 +209,31 @@
       document.body.clientHeight,
       document.documentElement.clientHeight
     );
+    
+    console.log('Document height:', height, 'Window height:', window.innerHeight);
+    return height;
   }
   
   // Initialize when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initScrollFooter);
+    // Also add a direct call after a delay to ensure the footer shows up
+    setTimeout(() => {
+      const footer = document.getElementById('scroll-footer');
+      if (footer && !isPageScrollable()) {
+        console.log('Forcing footer visibility on non-scrollable page');
+        showFooter(true);
+      }
+    }, 1000);
   } else {
     initScrollFooter();
+    // Also add a direct call after a delay to ensure the footer shows up
+    setTimeout(() => {
+      const footer = document.getElementById('scroll-footer');
+      if (footer && !isPageScrollable()) {
+        console.log('Forcing footer visibility on non-scrollable page');
+        showFooter(true);
+      }
+    }, 1000);
   }
 })();
