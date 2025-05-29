@@ -53,30 +53,25 @@
 .custom-tooltip {
   visibility: hidden;
   position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 110%; /* Move up a bit */
+  left: 40%;    /* Move left */
+  transform: translateX(-10%);
   background-color: #333;
   color: white;
   text-align: center;
-  padding: 5px 10px;
+  padding: 6px 14px;
   border-radius: 4px;
   font-size: 0.8rem;
   white-space: nowrap;
   opacity: 0;
   transition: opacity 0.3s, visibility 0.3s;
   z-index: 1001;
+  box-shadow: none;
+  border: none;
 }
 
 .custom-tooltip::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #333 transparent transparent transparent;
+  display: none;
 }
 
 .footer-logo-link:hover .custom-tooltip {
