@@ -31,6 +31,10 @@
     // Enable footer behavior after initial delay
     setTimeout(() => {
       isFooterEnabled = true;
+      
+      // Check if page is scrollable
+      checkIfPageIsScrollable();
+      
       // Initial check in case page is already at bottom on load
       checkScrollPosition();
       
@@ -62,7 +66,35 @@
   function onResize() {
     // Recalculate footer height in case of responsive changes
     footerHeight = footer.offsetHeight;
+    
+    // Check if page became scrollable or non-scrollable after resize
+    checkIfPageIsScrollable();
     checkScrollPosition();
+  }
+  
+  /**
+   * Check if the page is scrollable and show footer if it's not
+   */
+  function checkIfPageIsScrollable() {
+    if (!isFooterEnabled) return;
+    
+    const windowHeight = window.innerHeight;
+    const documentHeight = getDocumentHeight();
+    
+    // If document is not tall enough to scroll
+    if (documentHeight <= windowHeight) {
+      // Page is not scrollable, so always show footer
+      showFooter();
+    } else {
+      // Page is scrollable, let scroll position determine visibility
+      // If we're not at the bottom, hide the footer
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const isAtBottom = (windowHeight + scrollTop) >= (documentHeight - SCROLL_THRESHOLD);
+      
+      if (!isAtBottom) {
+        hideFooter();
+      }
+    }
   }
   
   /**
