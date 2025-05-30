@@ -1,16 +1,55 @@
 <%page expression_filter="h"/>
 <%! from django.utils.translation import gettext as _ %>
 <%inherit file="../main.html" />
+<%namespace name='static' file='../static_content.html'/>
 
 <%block name="pagetitle">${_("Contact Us")}</%block>
 
+<%block name="js_extra">
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<!-- custom contact page CSS -->
+<link rel="stylesheet" href="${static.url('custom_css/contact.css')}">
+</%block>
+
 <main id="main" aria-label="Content" tabindex="-1">
-    <section class="container about" id="static-pages-content">
-        <h1>
-            <%block name="pageheader">${page_header or _("Contact Us")}</%block>
-        </h1>
-        <p>
-            Email: <a href="mailto:hello@sherab.org">hello@sherab.org</a>
-        </p>
+    <section class="container about contact-page" id="static-pages-content">
+        <div class="contact-container">
+            <h1>
+                <%block name="pageheader">${page_header or _("Contact Us")}</%block>
+            </h1>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt fa-lg"></i>
+                    </div>
+                    <div class="contact-text">
+                        <p>Esukhia Asia Society,<br>
+                        Opposite Dalai Lama Temple,<br>
+                        Mcleod Ganj, Dharamsala 176219<br>
+                        Distt.-Kangra, H.P. India</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone fa-lg"></i>
+                    </div>
+                    <div class="contact-text">
+                        <p>Phone: <a href="tel:+918580796453">+91-8580796453</a></p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope fa-lg"></i>
+                    </div>
+                    <div class="contact-text">
+                        <p>Mail: <a href="mailto:info@sherab.org">info@sherab.org</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 </main>
