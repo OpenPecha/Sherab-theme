@@ -92,14 +92,21 @@
         margin-top: 20px;
     }
     
+    .contact-text {
+        text-align: center;
+        width: 100%;
+    }
+    
     .contact-item {
         flex-direction: column;
+        align-items: center;
     }
     
     .contact-icon {
         margin-bottom: 10px;
         width: 100%;
         margin-right: 0;
+        text-align: center;
     }
     
     .contact-page h1 {
