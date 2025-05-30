@@ -25,7 +25,6 @@
     }
     
     
-    
     // Get footer height for calculations
     footerHeight = footer.offsetHeight;
     
@@ -84,7 +83,22 @@
     
     // Check if page became scrollable or non-scrollable after resize
     checkIfPageIsScrollable();
-    checkScrollPosition();
+    
+    // Force recalculation of scroll position
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const windowHeight = window.innerHeight;
+    const documentHeight = getDocumentHeight();
+    
+    // Check if user is near bottom of page
+    const isAtBottom = (windowHeight + scrollTop) >= (documentHeight - SCROLL_THRESHOLD);
+    
+    // If at bottom, explicitly show the footer
+    if (isAtBottom) {
+      showFooter(true);
+    } else {
+      // Otherwise use normal scroll position check
+      checkScrollPosition();
+    }
   }
   
   /**
