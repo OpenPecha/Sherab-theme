@@ -23,7 +23,7 @@ from openedx.core.djangoapps.content.course_overviews.models import CourseOvervi
 <link rel="stylesheet" href="${static.url('custom_css/slick-theme.css')}" />
 <link rel="stylesheet" href="${static.url('custom_css/slick.css')}" />
 <link rel="stylesheet" href="${static.url('custom_css/development.css')}" />
-<link rel="stylesheet" href="${static.url('custom_css/header.css')}">
+<link rel="stylesheet" href="${static.url('custom_css/homepage.css')}">
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="home">
       <header class="welcome-header">
@@ -173,6 +173,7 @@ from openedx.core.djangoapps.content.course_overviews.models import CourseOvervi
    </script>
   <script src="${static.url('js/slick.min.js')}"></script>
   <script src="${static.url('js/development.js')}"></script>
+  <script src="${static.url('js/homepage.js')}"></script>
 </%block>
 
 % if show_signup_immediately is not UNDEFINED:
