@@ -1,62 +1,83 @@
 <%page expression_filter="h"/>
 <%! from django.utils.translation import gettext as _ %>
 <%inherit file="../main.html" />
+<%namespace name='static' file='../static_content.html'/>
 
 <%block name="pagetitle">${_("About Us")}</%block>
 
+<%block name="js_extra">
+<!-- Add custom about page CSS -->
+<link rel="stylesheet" href="${static.url('custom_css/about.css')}">
+</%block>
+
 <main id="main" aria-label="Content" tabindex="-1">
-    <section class="container about" id="static-pages-content">
-        <h1>
-            <%block name="pageheader">${page_header or _("About Us")}</%block>
-        </h1>
-        <h2>Sherab:Democratizing Education for Buddhists and Tibetans</h2>
-        <p>
-            Sherab is an e-learning mobile app designed to empower the next generation of Buddhists and Tibetans by providing accessible and affordable education. The app offers a wide range of courses across various disciplines, including Buddhist philosophy, Tibetan language, and professional development skills. Sherab is maintained by Esukhia and Monlam IT. It was built using open-edx, an open source e-learning solutions.
-        </p>
-        <h2>Mission:</h2>
-        <p>Sherab's mission is to democratize education and facilitate professional growth for Buddhists and Tibetans around the world. The app aims to bridge the gap between traditional education systems and the needs of the modern world, empowering individuals with the knowledge and skills they need to succeed in the 21st century.</p>
+    <section class="container about about-page" id="static-pages-content">
+        <div class="about-container">
+            <h1>
+                <%block name="pageheader">${page_header or _("About Us")}</%block>
+            </h1>
+            
+            <h2>Sherab: Democratizing Education for Buddhists and Tibetans</h2>
+            <p>
+                Sherab is an e-learning mobile app designed to empower the next generation of Buddhists and Tibetans by providing accessible and affordable education. The app offers a wide range of courses across various disciplines, including Buddhist philosophy, Tibetan language, and professional development skills. Sherab is maintained by Esukhia and Monlam IT. It was built using open-edx, an open source e-learning solutions.
+            </p>
+            
+            <div class="mission">
+                <h2>Mission:</h2>
+                <p>Sherab's mission is to democratize education and facilitate professional growth for Buddhists and Tibetans around the world. The app aims to bridge the gap between traditional education systems and the needs of the modern world, empowering individuals with the knowledge and skills they need to succeed in the 21st century.</p>
+            </div>
 
-        <h2>Benefits for Learners:</h2>
-        <ul>
-            <li>
-                <b>Comprehensive Course Library:</b> Learners gain access to a diverse range of courses from experienced instructors and experts covering Buddhist philosophy, Tibetan language, meditation, Tibetan medicine, Yoga, and professional development skills.
-            </li>
-            <li>
-                <b>Interactive Learning:</b> Multimedia content, quizzes, and discussion forums enhance engagement, understanding, and interactivity. Learners can track their progress, set learning goals, and receive personalized course recommendations.
-            </li>
-            <li>
-                <b>Personalized Learning Paths:</b> Learners can create personalized learning paths tailored to their interests and goals. They can track their progress, set learning goals, and receive personalized course recommendations.
-            </li>
-            <li>
-                <b>Community Engagement:</b> Discussion forums and social media integration foster a sense of community, connecting learners with shared interests.
-            </li>
-        </ul>
+        <div class="benefits-section">
+            <h2>Benefits for Learners:</h2>
+            <ul>
+                <li class="feature-item">
+                    <b>Comprehensive Course Library:</b> Learners gain access to a diverse range of courses from experienced instructors and experts covering Buddhist philosophy, Tibetan language, meditation, Tibetan medicine, Yoga, and professional development skills.
+                </li>
+                <li class="feature-item">
+                    <b>Interactive Learning:</b> Multimedia content, quizzes, and discussion forums enhance engagement, understanding, and interactivity. Learners can track their progress, set learning goals, and receive personalized course recommendations.
+                </li>
+                <li class="feature-item">
+                    <b>Personalized Learning Paths:</b> Learners can create personalized learning paths tailored to their interests and goals. They can track their progress, set learning goals, and receive personalized course recommendations.
+                </li>
+                <li class="feature-item">
+                    <b>Community Engagement:</b> Discussion forums and social media integration foster a sense of community, connecting learners with shared interests.
+                </li>
+            </ul>
+        </div>
 
-        <h2>Benefits for Course Providers:</h2>
-        <ul>
-            <li>
-                <b>Monetization Platform:</b> Course creators can publish their courses on the app and set their own pricing, generating revenue from their teaching efforts.
-            </li>
-            <li>
-                <b>Community Engagement:</b> Instructors can connect with learners, build a community around their teaching, and enhance interaction through discussion forums and social media integration.
-            </li>
-            <li>
-                <b>Increased Reach and Visibility:</b> Sherab's platform provides a global audience, expanding the reach and visibility of course providers and attracting learners from diverse regions.
-            </li>
-            <li>
-                <b>Reputation Building:</b> Instructors can establish their expertise and reputation in their field by publishing courses on Sherab, enhancing their professional standing.
-            </li>
-        </ul>
-        <h2>Collaboration and Partnerships</h2>
-        <p>
-            Sherab collaborates with various institutions specializing in Buddhist education, textual and cultural preservation, Tibetan language education, and professional development. These partnerships ensure that the courses offered on the platform are accurate, authentic, and relevant to the needs of learners worldwide. Our course creation partners include organizations such as BDRC and Sarah College.
-        </p>
-        <h2>Empowering the Next Generation</h2>
-        <p>
-            By leveraging the expertise of these institutions, Sherab provides a comprehensive and diverse range of courses that cater to the diverse interests and needs of learners. This collaboration ensures that Sherab remains a reliable source of education for Buddhists and Tibetans, empowering them with the knowledge and skills they need to thrive in the modern world. 
-        </p>
-        <p>
-            Sherab is a transformative educational platform that will change the lives of Buddhists and Tibetans worldwide. By providing accessible and affordable education, the app is empowering the next generation to succeed in the modern world and contribute to the preservation of their cultural heritage.
-        </p>
+        <div class="benefits-section">
+            <h2>Benefits for Course Providers:</h2>
+            <ul>
+                <li class="feature-item">
+                    <b>Monetization Platform:</b> Course creators can publish their courses on the app and set their own pricing, generating revenue from their teaching efforts.
+                </li>
+                <li class="feature-item">
+                    <b>Community Engagement:</b> Instructors can connect with learners, build a community around their teaching, and enhance interaction through discussion forums and social media integration.
+                </li>
+                <li class="feature-item">
+                    <b>Increased Reach and Visibility:</b> Sherab's platform provides a global audience, expanding the reach and visibility of course providers and attracting learners from diverse regions.
+                </li>
+                <li class="feature-item">
+                    <b>Reputation Building:</b> Instructors can establish their expertise and reputation in their field by publishing courses on Sherab, enhancing their professional standing.
+                </li>
+            </ul>
+        </div>
+        <div class="benefits-section">
+            <h2>Collaboration and Partnerships</h2>
+            <p>
+                Sherab collaborates with various institutions specializing in Buddhist education, textual and cultural preservation, Tibetan language education, and professional development. These partnerships ensure that the courses offered on the platform are accurate, authentic, and relevant to the needs of learners worldwide. Our course creation partners include organizations such as BDRC and Sarah College.
+            </p>
+        </div>
+        
+        <div class="benefits-section">
+            <h2>Empowering the Next Generation</h2>
+            <p>
+                By leveraging the expertise of these institutions, Sherab provides a comprehensive and diverse range of courses that cater to the diverse interests and needs of learners. This collaboration ensures that Sherab remains a reliable source of education for Buddhists and Tibetans, empowering them with the knowledge and skills they need to thrive in the modern world. 
+            </p>
+            <p>
+                Sherab is a transformative educational platform that will change the lives of Buddhists and Tibetans worldwide. By providing accessible and affordable education, the app is empowering the next generation to succeed in the modern world and contribute to the preservation of their cultural heritage.
+            </p>
+        </div>
+        </div>
      </section>
 </main>

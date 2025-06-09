@@ -10,42 +10,45 @@
 <% icp_license_info = getattr(settings, 'ICP_LICENSE_INFO', {})%>
 <%namespace name='static' file='static_content.html'/>
 
-  <div class="wrapper wrapper-footer">
-    <footer id="footer-openedx" class="grid-container"
-      ## When rendering the footer through the branding API,
-      ## the direction may not be set on the parent element,
-      ## so we set it here.
-      % if bidi:
-        dir=${bidi}
-      % endif
-    >
-      <div class="colophon">
-        <nav class="nav-colophon" aria-label="${_('About')}">
-          <ol>
-            <li class="nav-colophon-01">
-              <a id="about" href="/about">${_("About Us")}</a>
-            </li>
-            <li class="nav-colophon-02">
-              <a id="contact" href="/contact">${_("Contact Us")}</a>
-            </li>
-            <li class="nav-colophon-03">
-              <a id="privacy" href="/privacy">${_("Privacy Policy")}</a>
-            </li>
-          </ol>
-        </nav>
+<div class="scroll-footer-wrapper" aria-hidden="true">
+  <footer id="scroll-footer" class="footer" role="contentinfo">
+    <a href="${reverse('root')}" class="footer-logo-link" aria-label="${_('Go to main page')}">
+      <img src="${static.url('images/logo.png')}" alt="${_('Your Brand')}" class="footer-logo" />
+      <span class="custom-tooltip">${_('Go to main page')}</span>
+    </a>
+    
+    <div class="footer-links">
+      <nav class="nav-footer" aria-label="${_('About')}">
+        <ol>
+          <li class="nav-footer-item">
+            <a id="about" href="/about">${_('About Us')}</a>
+          </li>
+          <li class="nav-footer-item">
+            <a id="contact" href="/contact">${_('Contact Us')}</a>
+          </li>
+          <li class="nav-footer-item">
+            <a id="privacy" href="/privacy">${_('Privacy Policy')}</a>
+          </li>
+        </ol>
+      </nav>
 
-        % if context.get('include_language_selector', footer_language_selector_is_enabled()):
-            <%include file="${static.get_template_path('widgets/footer-language-selector.html')}"/>
-        % endif
-      </div>
-    </footer>
-  </div>
+      % if context.get('include_language_selector', footer_language_selector_is_enabled()):
+          <%include file="${static.get_template_path('widgets/footer-language-selector.html')}"/>
+      % endif
+    </div>
+  </footer>
+</div>
+
 % if include_dependencies:
   <%static:js group='base_vendor'/>
   <%static:css group='style-vendor'/>
   <%include file="widgets/segment-io.html" />
   <%include file="widgets/segment-io-footer.html" />
 % endif
+
+<link rel="stylesheet" type="text/css" href="${static.url('custom_css/footer.css')}"></link>
+<script type="text/javascript" src="${static.url('js/scroll-footer.js')}"></script>
+
 % if footer_css_urls:
   % for url in footer_css_urls:
     <link rel="stylesheet" type="text/css" href="${url}"></link>

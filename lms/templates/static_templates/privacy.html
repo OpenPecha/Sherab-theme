@@ -1,22 +1,28 @@
 <%page expression_filter="h"/>
 <%! from django.utils.translation import gettext as _ %>
-
 <%inherit file="../main.html" />
+<%namespace name='static' file='../static_content.html'/>
 
 <%block name="pagetitle">${_("Privacy Policy for Sherab")}</%block>
 
+<%block name="js_extra">
+<!-- Add custom privacy page CSS -->
+<link rel="stylesheet" href="${static.url('custom_css/privacy.css')}">
+</%block>
+
 <main id="main" aria-label="Content" tabindex="-1">
-    <section class="container about" id="static-pages-content">
-        <h1>
-            <%block name="pageheader">${page_header or _("Privacy Policy for Sherab")}</%block>
-        </h1>
-        <p>
-            <b>Effective Date:</b> 2024-04-04
-        </p>
-        <br>
-        <p>
-            Welcome to Sherab, an e-learning platform and mobile app designed to empower the next generation of Buddhists and Tibetans through education. Sherab is built on the open-edx platform, offering a wide range of educational resources and interactive learning experiences. This Privacy Policy outlines how we collect, use, protect, and share information about our users and their use of Sherab's services.
-        </p>
+    <section class="container about privacy-page" id="static-pages-content">
+        <div class="privacy-container">
+            <h1>
+                <%block name="pageheader">${page_header or _("Privacy Policy for Sherab")}</%block>
+            </h1>
+            <p class="effective-date">
+                <b>Effective Date:</b> 2024-04-04
+            </p>
+            
+            <p class="intro">
+                Welcome to Sherab, an e-learning platform and mobile app designed to empower the next generation of Buddhists and Tibetans through education. Sherab is built on the open-edx platform, offering a wide range of educational resources and interactive learning experiences. This Privacy Policy outlines how we collect, use, protect, and share information about our users and their use of Sherab's services.
+            </p>
         <h2>1. Information We Collect</h2>
         <ul>
             <li>
@@ -78,9 +84,7 @@
         <p>
             If you have any questions about this Privacy Policy, please contact us at <a href="mailto:hello@sherab.org">hello@sherab.org</a>.
         </p>
-        <br>
-        <br>
-        <br>
         <p>By using Sherab, you acknowledge that you have read and understood this Privacy Policy.</p>
+        </div>
     </section>
 </main>

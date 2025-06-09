@@ -1,31 +1,199 @@
-#static-pages-content h2{font-family: inherit;font-weight: 600;font-size: 22px;color: #000;}
-#static-pages-content p, #static-pages-content ul li{line-height: 21px;}
-#static-pages-content ul li{padding-bottom: 15px;}
-#static-pages-content p+h2, #static-pages-content ul+h2{margin-top: 25px;}
-.wrapper-footer footer#footer-openedx .select-lang-button{background: none;box-shadow: none;text-shadow: none;font-family: inherit;letter-spacing: 0px;padding: 0 10px;border-radius: 3px;font-size: 17px;height: auto;}
-.courses-container .courses .course .course-image{position: relative;}   
-.courses-container .courses .course .course-image .partner-logo-wrapper{padding: 7px;position: absolute;bottom: -30px;left: 20px;background: #fff;border-radius: 3px;box-shadow: 1px 1px 2px 0 hsla(0, 0%, 66.7%, .5);}
-.courses-container .courses .course .course-image .partner-logo-wrapper img{height: 47px;width: 93.0625px;}
-.courses-container .courses .course .course-info .course-organization{padding-top: 35px;}
-.courses-container .courses .course .course-info .course-title{height: 50px;}
-.global-header .nav-links .secondary .dropdown-user-menu{z-index: 10000}
-#schools-partners-div .partner-slider {display: flex;overflow-x: auto;}
-#schools-partners-div .partner-item {flex: 0 0 auto;margin: 10px;align-self: center;}
-#schools-partners-div .partner-slider .slick-slide img{display: block;max-height: 135px;object-fit: contain;width: auto;}
-#schools-partners-div .slick-arrow{border: none; box-shadow: none;}
-#schools-partners-div .slick-arrow:hover, #schools-partners-div .slick-arrow:focus{background: none !important; box-shadow: none;}
-.discovery-card .d-card-body{padding-bottom: 0 !important}
-.course-info header.course-profile .intro-inner-wrapper .intro .main-cta a.register{width: 30%; display: inline-block;}
-.course-info header.course-profile .intro-inner-wrapper .intro .main-cta a.wishlist-btn{width: 30%;border: 1px solid #000663;border-bottom: 1px solid #00003a;box-shadow: inset 0 1px 0 0 #2592c0;color: #fff;background-color: #0075b4;background-image: -webkit-linear-gradient(top, #0075b4 0%, #004393 50%, #002a84 50%, #002f86 100%);background-image: linear-gradient(to bottom, #0075b4 0%, #004393 50%, #002a84 50%, #002f86 100%);text-decoration: none;text-shadow: 0 -1px 1px #000042;box-sizing: border-box;border-radius: 3px;display: inline-block;font: normal 1.2rem / 1.6rem "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;letter-spacing: 1px;padding: 10px 0;text-align: center; margin-left: 15px;}
-#wishlist_message{padding: 12px;margin-top: 5px;color: #fff;}
-#wishlist_message.error{background: #cb0712;}
-#wishlist_message.success{background: #098c2c;}
+#static-pages-content h2 {
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 22px;
+    color: #000;
+}
+
+#static-pages-content p,
+#static-pages-content ul li {
+    line-height: 21px;
+}
+
+#static-pages-content ul li {
+    padding-bottom: 15px;
+}
+
+#static-pages-content p+h2,
+#static-pages-content ul+h2 {
+    margin-top: 25px;
+}
+
+.wrapper-footer footer#footer-openedx .select-lang-button {
+    background: none;
+    box-shadow: none;
+    text-shadow: none;
+    font-family: inherit;
+    letter-spacing: 0px;
+    padding: 0 10px;
+    border-radius: 3px;
+    font-size: 17px;
+    height: auto;
+}
+
+.courses-container .courses .course .course-image {
+    position: relative;
+}
+
+.courses-container .courses .course .course-image .partner-logo-wrapper {
+    padding: 7px;
+    position: absolute;
+    bottom: -30px;
+    left: 20px;
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 1px 1px 2px 0 hsla(0, 0%, 66.7%, .5);
+}
+
+.courses-container .courses .course .course-image .partner-logo-wrapper img {
+    height: 47px;
+    width: 93.0625px;
+}
+
+.courses-container .courses .course .course-info .course-organization {
+    padding-top: 35px;
+}
+
+.courses-container .courses .course .course-info .course-title {
+    height: 50px;
+}
+
+.global-header .nav-links .secondary .dropdown-user-menu {
+    z-index: 10000
+}
+
+#schools-partners-div .partner-slider {
+    display: flex;
+    overflow-x: auto;
+}
+
+#schools-partners-div .partner-item {
+    flex: 0 0 auto;
+    margin: 10px;
+    align-self: center;
+}
+
+#schools-partners-div .partner-slider .slick-slide img {
+    display: block;
+    max-height: 135px;
+    object-fit: contain;
+    width: auto;
+}
+
+#schools-partners-div .slick-arrow {
+    border: none;
+    box-shadow: none;
+}
+
+#schools-partners-div .slick-arrow:hover,
+#schools-partners-div .slick-arrow:focus {
+    background: none !important;
+    box-shadow: none;
+}
+
+.discovery-card .d-card-body {
+    padding-bottom: 0 !important
+}
+
+.course-info header.course-profile .intro-inner-wrapper .intro .main-cta a.register {
+    width: 30%;
+    display: inline-block;
+}
+
+.course-info header.course-profile .intro-inner-wrapper .intro .main-cta a.wishlist-btn {
+    width: 30%;
+    border: 1px solid #000663;
+    border-bottom: 1px solid #00003a;
+    box-shadow: inset 0 1px 0 0 #2592c0;
+    color: #fff;
+    background-color: #0075b4;
+    background-image: -webkit-linear-gradient(top, #0075b4 0%, #004393 50%, #002a84 50%, #002f86 100%);
+    background-image: linear-gradient(to bottom, #0075b4 0%, #004393 50%, #002a84 50%, #002f86 100%);
+    text-decoration: none;
+    text-shadow: 0 -1px 1px #000042;
+    box-sizing: border-box;
+    border-radius: 3px;
+    display: inline-block;
+    font: normal 1.2rem / 1.6rem "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    letter-spacing: 1px;
+    padding: 10px 0;
+    text-align: center;
+    margin-left: 15px;
+}
+
+#wishlist_message {
+    padding: 12px;
+    margin-top: 5px;
+    color: #fff;
+}
+
+#wishlist_message.error {
+    background: #cb0712;
+}
+
+#wishlist_message.success {
+    background: #098c2c;
+}
+
 @media (max-width: 768px) {
-    .course-info header.course-profile .intro-inner-wrapper .intro .main-cta{float: none;padding-bottom: 0;}
-    .course-info header.course-profile .intro-inner-wrapper .intro .main-cta strong{float: none; display: block; width: 100%;}
-    .course-info header.course-profile .intro-inner-wrapper .intro .main-cta a{display: block;width: 100% !important;margin: 10px 0; margin-left: 0 !important;}
-    .course-info header.course-profile .intro-inner-wrapper .intro>.heading-group{border: none;}
-    .course-info header.course-profile .intro-inner-wrapper>div.table{display: flex;justify-content: space-between;align-items: flex-start;flex-wrap: wrap;flex-direction: column;}
-    .course-info header.course-profile .intro-inner-wrapper .intro{width: 100%;flex: 1;}
-    .course-info header.course-profile .intro-inner-wrapper .media{flex: 1;padding: 20px;order: -1;width: 100%;}
+    .course-info header.course-profile .intro-inner-wrapper .intro .main-cta {
+        float: none;
+        padding-bottom: 0;
+    }
+
+    .course-info header.course-profile .intro-inner-wrapper .intro .main-cta strong {
+        float: none;
+        display: block;
+        width: 100%;
+    }
+
+    .course-info header.course-profile .intro-inner-wrapper .intro .main-cta a {
+        display: block;
+        width: 100% !important;
+        margin: 10px 0;
+        margin-left: 0 !important;
+    }
+
+    .course-info header.course-profile .intro-inner-wrapper .intro>.heading-group {
+        border: none;
+    }
+
+    .course-info header.course-profile .intro-inner-wrapper>div.table {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+
+    .course-info header.course-profile .intro-inner-wrapper .intro {
+        width: 100%;
+        flex: 1;
+    }
+
+    .course-info header.course-profile .intro-inner-wrapper .media {
+        flex: 1;
+        padding: 20px;
+        order: -1;
+        width: 100%;
+    }
+}
+
+.global-header {
+    border-bottom: 1px solid #FFAF66;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+    background: #fff;
+    line-height: 1.5;
+}
+
+.global-header .nav-links .main .nav-tab a.active,
+.global-header .nav-links .main .nav-tab a:hover {
+    border-bottom-style: solid;
+    border-bottom-color: #FC8044;
+}
+
+@media (max-width: 1080px) {
+    .global-header .nav-links .main .nav-tab a {
+        padding: 7px 20px 19px;
+    }
 }
