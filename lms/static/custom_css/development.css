@@ -7,6 +7,7 @@
     font-weight: bold;
     color: #000;
     font-size: 1.5rem;
+
 }
 
 .partner-slider {
@@ -159,6 +160,7 @@
     margin-right: 15px;
     background-color: #FFECCD;
     line-height: 28px;
+    border-radius: 20px 20px 0 0;
 }
 
 .events__tabs .events__tab:hover,
@@ -166,6 +168,8 @@
     text-decoration: none;
     color: #000;
     background-color: #F1E7E2;
+    border-radius: 20px 20px 0 0;
+
 }
 
 .events__tab.-active {
@@ -174,6 +178,11 @@
     order: 1;
     position: relative;
     z-index: 1;
+    border-radius: 20px 20px 0 0;
+    
+    
+    
+
 }
 
 @media (min-width: 1024px) {
@@ -221,7 +230,12 @@
 
 .events__list.-active {
     display: block;
-    background: transparent;
+    background: #F1E7E2;
+    border-radius: 0 20px 20px 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+
+
+    
 }
 
 .events__row {
@@ -350,24 +364,28 @@
     box-shadow: 0 0 1px #414c9b;
 }
 
-#partner-details h2.partner-name{
-  font-family: inherit !important;
-  padding: 25px 0;
-}
-.discovery-card .discovery-card-link:hover,
-.discovery-card .discovery-card-link:focus{
-  text-decoration: none !important;
+#partner-details h2.partner-name {
+    font-family: inherit !important;
+    padding: 25px 0;
 }
 
-#main-content .category-inner{
+.discovery-card .discovery-card-link:hover,
+.discovery-card .discovery-card-link:focus {
+    text-decoration: none !important;
+}
+
+#main-content .category-inner {
     border-bottom: 1px solid #918c8c;
     margin-bottom: 25px;
 }
-#main-content .category-inner .category-title{
+
+#main-content .category-inner .category-title {
     font-family: inherit;
     font-size: 15px;
 }
-#partner-details .partner-content, #partner-details .partner-content *{
+
+#partner-details .partner-content,
+#partner-details .partner-content * {
     font-family: inherit !important;
 }
 
@@ -385,11 +403,5 @@
         align-items: center;
     }
 
-    .partner-slider .slick-slide img {
-        width: auto;
-        max-width: 180px;
-        max-height: 90px;
-        object-fit: contain;
-        height: auto;
-    }
+    
 }
