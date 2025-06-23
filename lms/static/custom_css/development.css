@@ -87,7 +87,7 @@
 }
 
 #categories-div .events {
-    background: #e5e2e28c;
+    background: transparent;
     padding: 15px;
 }
 
@@ -157,7 +157,7 @@
     border: none;
     box-shadow: none;
     margin-right: 15px;
-    background-color: #d3d3d3;
+    background-color: #FFECCD;
     line-height: 28px;
 }
 
@@ -165,11 +165,12 @@
 .events__tabs .events__tab:focus {
     text-decoration: none;
     color: #000;
-    background-color: #9c9c9c;
+    background-color: #F1E7E2;
 }
 
 .events__tab.-active {
-    background-color: #9c9c9c;
+    background-color: #F1E7E2;
+    color: #000;
     order: 1;
     position: relative;
     z-index: 1;
@@ -214,13 +215,13 @@
 }
 
 .events__list {
-    border: solid 1px #9c9c9c;
+    border: none;
     display: none;
 }
 
 .events__list.-active {
     display: block;
-    background: #9c9c9c;
+    background: transparent;
 }
 
 .events__row {
