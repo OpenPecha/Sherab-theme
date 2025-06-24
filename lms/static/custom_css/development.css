@@ -509,11 +509,14 @@
     overflow: hidden;
     border: none;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    isolation: isolate; /* Fix for flickering corners on hover */
+    will-change: transform; /* Optimize for transform animation */
+    transform: translateZ(0); /* Force hardware acceleration */
 }
 
 .courses-listing-item:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px) translateZ(0); /* Maintain 3D context on hover */
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
@@ -524,6 +527,15 @@
 .events__list .courses-listing .course {
     border: none !important;
     box-shadow: none !important;
+    border-radius: 15px;
+    overflow: hidden; /* Ensure child elements are clipped */
+}
+
+/* Fix flickering corners by targeting the image container directly */
+.course .course-image {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    overflow: hidden;
 }
 
 /* Override the 40px top padding to reduce the gap between tab and courses */
