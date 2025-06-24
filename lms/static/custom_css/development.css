@@ -509,14 +509,29 @@
     overflow: hidden;
     border: none;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    isolation: isolate; /* Fix for flickering corners on hover */
-    will-change: transform; /* Optimize for transform animation */
-    transform: translateZ(0); /* Force hardware acceleration */
+    transition: all 0.3s ease-in-out;
+    position: relative;
+}
+
+.courses-listing-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 15px;
+    pointer-events: none;
+    transition: all 0.3s ease-in-out;
+    z-index: 1;
+}
+
+.courses-listing-item * {
+    border-radius: inherit;
 }
 
 .courses-listing-item:hover {
-    transform: translateY(-5px) translateZ(0); /* Maintain 3D context on hover */
+    transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
@@ -527,21 +542,11 @@
 .events__list .courses-listing .course {
     border: none !important;
     box-shadow: none !important;
-    border-radius: 15px;
-    overflow: hidden; /* Ensure child elements are clipped */
-}
-
-/* Fix flickering corners by targeting the image container directly */
-.course .course-image {
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    overflow: hidden;
 }
 
 /* Override the 40px top padding to reduce the gap between tab and courses */
 .events__list .highlighted-courses .courses {
     padding-top: 35px;
-   
-  
-}
 
+
+}
