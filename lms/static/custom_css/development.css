@@ -525,3 +525,11 @@
     border: none !important;
     box-shadow: none !important;
 }
+
+/* Override the 40px top padding to reduce the gap between tab and courses */
+.events__list .highlighted-courses .courses {
+    padding-top: 35px;
+   
+  
+}
+
