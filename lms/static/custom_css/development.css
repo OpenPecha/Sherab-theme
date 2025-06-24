@@ -129,7 +129,6 @@
 
 @media (min-width: 1024px) {
     .events__tab {
-        box-shadow: none;
         border-radius: 8px 8px 0 0;
         box-shadow: inset 0 -1px 3px 0 rgba(0, 0, 0, 0.2);
         margin-bottom: 0;
@@ -154,40 +153,130 @@
 .events__tabs .events__tab {
     color: #000;
     text-transform: capitalize;
-    font-size: 22px;
+    font-size: 20px;
     border: none;
     box-shadow: none;
-    margin-right: 15px;
+    margin-right: 25px;
+    /* Increased from 15px to 25px for more space between tabs */
     background-color: #FFECCD;
-    line-height: 28px;
-    border-radius: 20px 20px 0 0;
+    line-height: 40px;
+    border-radius: 15px 15px 0 0;
+    position: relative;
+    /* Create space for the outside rounded corners */
+    margin-bottom: -2px;
+    padding-bottom: 2px;
+
+    /* Move text up */
+    padding-top: 7px;
+    padding-bottom: 9px;
+    display: flex;
+    align-items: flex-start;
+    z-index: 1;
+    /* Lower than active tab and content */
 }
 
+/* Create the outside rounded corners */
+.events__tabs .events__tab::before,
+.events__tabs .events__tab::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 10px;
+    height: 10px;
+    background-color: transparent;
+    z-index: 1;
+}
+
+/* Hide outside rounded corners on mobile and tablet */
+@media (max-width: 1023px) {
+
+    .events__tabs .events__tab::before,
+    .events__tabs .events__tab::after {
+        display: none;
+    }
+}
+
+/* Remove left-side border for the first tab */
+.events__tabs .events__tab:first-child::before {
+    display: none;
+}
+
+.events__tabs .events__tab::before {
+    left: -10px;
+    border-bottom-right-radius: 9px;
+    box-shadow: 5px 5px 0 5px #FFECCD;
+}
+
+.events__tabs .events__tab::after {
+    right: -10px;
+    border-bottom-left-radius: 9px;
+    box-shadow: -5px 5px 0 5px #FFECCD;
+}
+
+/* Events Tab Hover */
 .events__tabs .events__tab:hover,
 .events__tabs .events__tab:focus {
     text-decoration: none;
     color: #000;
     background-color: #F1E7E2;
-    border-radius: 20px 20px 0 0;
-
+    border-radius: 15px 15px 0 0;
 }
 
+.events__tabs .events__tab:hover::before,
+.events__tabs .events__tab:focus::before {
+    box-shadow: 5px 5px 0 5px #F1E7E2;
+}
+
+.events__tabs .events__tab:hover::after,
+.events__tabs .events__tab:focus::after {
+    box-shadow: -5px 5px 0 5px #F1E7E2;
+}
+
+/* Events Tab Active */
 .events__tab.-active {
     background-color: #F1E7E2;
     color: #000;
     order: 1;
     position: relative;
-    z-index: 1;
-    border-radius: 20px 20px 0 0;
-    
-    
-    
+    z-index: 4;
+    /* Higher than inactive tabs (1) but lower than content (5) */
+    border-radius: 15px 15px 0 0;
 
+}
+
+.events__tab.-active::before {
+    box-shadow: 5px 5px 0 5px #F1E7E2;
+}
+
+.events__tab.-active::after {
+    box-shadow: -5px 5px 0 5px #F1E7E2;
 }
 
 @media (min-width: 1024px) {
     .events__tab.-active {
         order: 0;
+    }
+}
+
+@media (max-width: 1023px) {
+
+    .events__tab,
+    .events__list {
+        box-sizing: border-box;
+        width: 100%;
+    }
+
+    .events__tab {
+        left: unset;
+        right: unset;
+    }
+
+    .events__tab.-active {
+        border-bottom-color: transparent;
+    }
+
+    .events__list.-active {
+        margin-top: -0.3rem;
     }
 }
 
@@ -228,14 +317,22 @@
     display: none;
 }
 
+/* Events List Active */
 .events__list.-active {
     display: block;
     background: #F1E7E2;
     border-radius: 0 20px 20px 20px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    position: relative;
+    z-index: 5;
+    /* Higher than inactive tabs */
+}
 
-
-    
+/* Adjust border radius for mobile and tablet */
+@media (max-width: 1023px) {
+    .events__list.-active {
+        border-radius: 0 0 20px 20px;
+    }
 }
 
 .events__row {
@@ -403,5 +500,28 @@
         align-items: center;
     }
 
-    
+
+}
+
+/* Courses Listing */
+.courses-listing-item {
+    border-radius: 15px;
+    overflow: hidden;
+    border: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+.courses-listing-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.courses-listing-item:not(:last-child) {
+    margin-bottom: 1.5rem;
+}
+
+.events__list .courses-listing .course {
+    border: none !important;
+    box-shadow: none !important;
 }
