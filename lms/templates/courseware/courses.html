@@ -32,6 +32,11 @@
 
 <%block name="pagetitle">${_("Courses")}</%block>
 
+<%block name="headextra">
+  <link rel="stylesheet" type="text/css" href="${static.url('custom_css/discover.css')}">
+  <script type="text/javascript" src="${static.url('js/search-bar-fix.js')}"></script>
+</%block>
+
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="find-courses">
       <section class="courses-container">
@@ -44,7 +49,7 @@
             <button type="submit" class="button postfix discovery-submit" title="${_('Search')}">
               <span class="icon fa fa-search" aria-hidden="true"></span>
               <div aria-live="polite" aria-relevant="all">
-                <div id="loading-indicator" class="loading-spinner hidden">
+                <div id="loading-indicator" class="loading-spinner hidden" style="display: none;">
                   <span class="icon fa fa-spinner fa-spin" aria-hidden="true"></span>
                   <span class="sr">${_('Loading')}</span>
                 </div>

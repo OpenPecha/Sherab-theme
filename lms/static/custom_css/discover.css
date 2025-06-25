@@ -1,0 +1,118 @@
+/* 
+ * Override styles for the course search bar
+ * Adds rounded corners and drop shadow to the search input
+ * Removes gray background from the entire page
+ */
+
+/* Search input styling */
+.find-courses .discovery-input {
+    border-radius: 20px !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+    transition: box-shadow 0.3s ease;
+    border: 1px solid #e7e7e7 !important;
+    padding-right: 40px !important;
+    background-color: #f0f0f0 !important;
+}
+
+.find-courses .discovery-input:focus {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Adjust the submit button to match the rounded input */
+.find-courses .discovery-submit {
+    border-radius: 0 20px 20px 0 !important;
+    background: transparent !important;
+    border: none !important;
+    color: #FFAF66 !important;
+    box-shadow: none !important;
+    position: absolute !important;
+    right: 0 !important;
+    top: 0 !important;
+    z-index: 10 !important;
+}
+
+/* Change the search icon color */
+.find-courses .discovery-submit .icon.fa.fa-search {
+    color: #FFAF66 !important;
+    font-size: 18px !important;
+    position: relative !important;
+    top: -2px !important;
+}
+
+
+
+/* Ensure proper icon visibility */
+.find-courses .discovery-submit .hidden {
+    display: none !important;
+}
+
+
+
+/* Remove gray background from the entire page */
+.find-courses,
+.university-profile {
+    background-color: white !important;
+    background: white !important;
+}
+
+/* Add rounded corners to the search facet menu */
+.search-facets {
+    border-radius: 20px !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+    background-color: #f0f0f0 !important;
+    border: 1px solid #e7e7e7 !important;
+}
+
+.search-facets .header-search-facets {
+    border-top-left-radius: 20px !important;
+    border-top-right-radius: 20px !important;
+    background-color: #f0f0f0 !important;
+    padding: 15px !important;
+    padding-bottom: 0 !important;
+}
+
+.search-facets-lists {
+    border-bottom-left-radius: 20px !important;
+    border-bottom-right-radius: 20px !important;
+    background-color: #f0f0f0 !important;
+    padding: 15px !important;
+    padding-bottom: 25px !important;
+}
+
+/* Target the main content area */
+main#main {
+    background-color: white !important;
+}
+
+/* Target the courses container */
+.find-courses .courses-container {
+    background-color: white !important;
+}
+
+/* Target the body element to ensure no gray background */
+body,
+html,
+.content-wrapper,
+.window-wrap,
+
+
+.view-courses,
+.wrapper-preview-menu,
+#main,
+.container,
+.wrapper-content,
+.wrapper-content-main,
+.content-primary,
+.content-supplementary {
+    background-color: white !important;
+    background: white !important;
+}
+
+/* Remove gray background from header */
+.find-courses header.search,
+.university-profile header.search {
+    background: white !important;
+    box-shadow: none !important;
+    border-bottom: none !important;
+}
