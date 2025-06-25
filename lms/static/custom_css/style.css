@@ -200,11 +200,24 @@
 
 /* empty dashboard message for wishlist */
 .empty-dashboard-message {
-    border: 3px solid #F1E7E2;
+    border: 3px solid ç#F1E7E2;
     background: #F1E7E2;
     padding: 40px 2px;
     text-align: center;
-    border-radius: 15px;
+    border-radius: 25px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
+/* Style the Explore courses button with rounded corners */
+.empty-dashboard-message .btn-primary {
+    border-radius: 25px !important;
+    padding: 18px 25px !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2) !important;
+}
+
+.empty-dashboard-message .btn-primary:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
 }
