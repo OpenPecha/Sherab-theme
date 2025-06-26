@@ -299,16 +299,6 @@
     font-size: 1.5rem !important;
 }
 
-.settings-language-form .language-selector-main .fa-caret-down {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    pointer-events: none;
-    padding-right: 3px;
-    font-size: 16px;
-}
-
 .settings-language-form .language-selector {
     display: inline-block;
     appearance: none;
@@ -339,39 +329,128 @@
     color: #1b6d99;
 }
 
-@media (max-width: 1280px) {
-    .global-header .nav-links .main .nav-tab a {
-        padding: 7px 15px 19px;
+.mobile-menu {
+    border-top: 1px solid #FFAF66;
+}
+
+.mobile-menu.hidden {
+    display: none !important;
+}
+
+@media (max-width: 1440px) {
+    .global-header .main-header {
+        height: 40px;
     }
 
-    .global-header .nav-links .secondary .nav-item {
-        margin: 0 5px;
+    .global-header .header-logo a {
+        margin-left: 50%;
     }
 
-    .nav-links .tab-nav-link {
-        display: inline-block;
-        max-width: 12ch !important;
-        white-space: nowrap;
+    .global-header .header-logo a .logo {
+        margin-left: -50%;
+    }
+
+    .global-header .hamburger-menu {
+        display: block;
+        left: 20px;
+        position: absolute;
+        top: 18px;
+        width: 30px;
+        height: 20px;
+        padding-bottom: 5px;
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+        -webkit-transition: 0.5s ease-in-out;
+        transition: 0.5s ease-in-out;
+        cursor: pointer;
+    }
+
+    .global-header .hamburger-menu .line {
+        display: block;
+        position: absolute;
+        height: 5px;
+        width: 100%;
+        background: #767676;
+        opacity: 1;
+        left: 0;
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+        -webkit-transition: 0.25s ease-in-out;
+        transition: 0.25s ease-in-out;
+    }
+
+    .global-header .hamburger-menu .line:nth-child(1) {
+        top: 0;
+    }
+
+    .global-header .hamburger-menu .line:nth-child(2) {
+        top: 10px;
+    }
+
+    .global-header .hamburger-menu .line:nth-child(3) {
+        top: 10px;
+    }
+
+    .global-header .hamburger-menu .line:nth-child(4) {
+        top: 20px;
+    }
+
+    .global-header .hamburger-menu.open .line:nth-child(1) {
+        top: 18px;
+        width: 0%;
+        left: 50%;
+    }
+
+    .global-header .hamburger-menu.open .line:nth-child(2) {
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+
+    .global-header .hamburger-menu.open .line:nth-child(3) {
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+    }
+
+    .global-header .hamburger-menu.open .line:nth-child(4) {
+        top: 18px;
+        width: 0%;
+        left: 50%;
+    }
+
+    .mobile-menu .mobile-nav-link {
+        position: static;
+        transform: none;
         overflow: hidden;
-        text-overflow: ellipsis;
-        vertical-align: middle;
-    }
-}
-
-@media (max-width: 1140px) {
-    .global-header .nav-links .main .nav-tab a {
-        padding: 7px 10px 19px;
+        padding: 0;
     }
 
-    .global-header .nav-links .secondary .nav-item {
-        margin: 0 2px;
+    .mobile-menu .mobile-nav-link a {
+        font-size: 1rem;
+        font-weight: 600;
+        text-decoration: none;
+        outline: none;
+        display: block;
+        background-color: #fff;
+        border-radius: 0;
+        width: 100%;
+        padding: 12px 20px;
+        border-bottom: 1px solid #e7e7e7;
+        text-align: left;
+        cursor: pointer;
+    }
+    .hidden-mobile:not(.mobile-nav-link) {
+        display: none !important;
     }
 
-    .nav-links .tab-nav-link {
-        max-width: 8ch !important;
+    .mobile-menu .mobile-nav-link a::after {
+        content: '\00BB';
+        padding-left: 4px;
     }
-}
-@media all and (max-width: 991px) {
+
+    .mobile-menu {
+        display: block !important;
+    }
+
     .mobile-nav-item .settings-language-form {
         display: block;
         padding: 11px 20px;
@@ -409,5 +488,15 @@
     .mobile-menu .mobile-nav-link form:hover, .mobile-menu .mobile-nav-link form:focus {
         background-color: #FFFFFF;
         color: #fff;
+    }
+}
+
+@media (min-width: 1440px) {
+    .hidden-mobile:not(.mobile-nav-link) {
+        display: block;
+    }
+
+    .global-header .nav-links .secondary .nav-item {
+        display: inline-block;
     }
 }
