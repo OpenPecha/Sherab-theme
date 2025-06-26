@@ -200,12 +200,40 @@
 
 /* empty dashboard message for wishlist */
 .empty-dashboard-message {
-    border: 3px solid ç#F1E7E2;
+    border: 3px solid #F1E7E2;
     background: #F1E7E2;
-    padding: 40px 2px;
+    padding: 40px 20px;
     text-align: center;
     border-radius: 25px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    line-height: 1.5;
+}
+
+/* Improve text spacing in empty dashboard message */
+.empty-dashboard-message h2,
+.empty-dashboard-message p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+/* Mobile specific styles for empty dashboard message */
+@media (max-width: 768px) {
+    .empty-dashboard-message {
+        padding: 30px 15px;
+    }
+    
+    .empty-dashboard-message h2 {
+        font-size: 22px;
+        line-height: 1.4;
+        margin-bottom: 20px;
+    }
+    
+    .empty-dashboard-message p {
+        font-size: 16px;
+        line-height: 1.6;
+        letter-spacing: 0.3px;
+        margin-bottom: 20px;
+    }
 }
 
 /* Style the Explore courses button with rounded corners */
@@ -220,4 +248,13 @@
 .empty-dashboard-message .btn-primary:hover {
     transform: translateY(-2px) !important;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Mobile specific styles for the Explore courses button */
+@media (max-width: 768px) {
+    .empty-dashboard-message .btn-primary {
+        padding: 12px 20px !important;
+        font-size: 14px !important;
+        min-width: 160px !important;
+    }
 }
