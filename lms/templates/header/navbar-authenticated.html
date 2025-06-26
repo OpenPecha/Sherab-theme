@@ -29,18 +29,20 @@ from openedx.core.djangoapps.site_configuration import helpers as configuration_
 <div class="nav-links">
   <div class="main">
       <div class="mobile-nav-item hidden-mobile nav-item nav-tab">
+          <a class="tab-nav-link discover-new-link ${'active ' if request.path == '/' else ''}" href="/"
+             aria-current="${'page' if '/courses' in request.path else 'false'}">
+             ${_('Main Page')}
+          </a>
+      </div>
+      
+      <div class="mobile-nav-item hidden-mobile nav-item nav-tab">
         <a class="${'active ' if reverse('dashboard') == request.path else ''}tab-nav-link" href="${reverse('dashboard')}"
              aria-current="${'page' if reverse('dashboard') == request.path else 'false'}">
              ${_("Courses")}
         </a>
       </div>
-      <div class="mobile-nav-item hidden-mobile nav-item nav-tab">
-        <a class="${'active ' if reverse('wishlist:wishlist-view') == request.path else ''}tab-nav-link" href="${reverse('wishlist:wishlist-view')}"
-             aria-current="${'page' if reverse('wishlist:wishlist-view') == request.path else 'false'}">
-             ${_("Wishlist")}
-        </a>
-      </div>
-    % if show_explore_courses:
+
+      % if show_explore_courses:
       <div class="mobile-nav-item hidden-mobile nav-item nav-tab">
           <a class="tab-nav-link discover-new-link ${'active ' if marketing_link('COURSES') == request.path else ''}" href="${marketing_link('COURSES')}"
              aria-current="${'page' if '/courses' in request.path else 'false'}">
@@ -49,11 +51,13 @@ from openedx.core.djangoapps.site_configuration import helpers as configuration_
       </div>
     % endif
       <div class="mobile-nav-item hidden-mobile nav-item nav-tab">
-          <a class="tab-nav-link discover-new-link ${'active ' if request.path == '/' else ''}" href="/"
-             aria-current="${'page' if '/courses' in request.path else 'false'}">
-             ${_('Main Page')}
-          </a>
+        <a class="${'active ' if reverse('wishlist:wishlist-view') == request.path else ''}tab-nav-link" href="${reverse('wishlist:wishlist-view')}"
+             aria-current="${'page' if reverse('wishlist:wishlist-view') == request.path else 'false'}">
+             ${_("Wishlist")}
+        </a>
       </div>
+  
+      
       % if settings.COMMUNITY_FORUM_URL:
         <div class="mobile-nav-item hidden-mobile nav-item nav-tab">
             <a class="tab-nav-link discover-new-link" href="${settings.COMMUNITY_FORUM_URL}" target="_blank">

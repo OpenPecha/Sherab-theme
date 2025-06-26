@@ -1,0 +1,232 @@
+/* 
+ * Override styles for the course search bar
+ * Adds rounded corners and drop shadow to the search input
+ * Removes gray background from the entire page
+ */
+
+/* Search input styling */
+.find-courses .discovery-input {
+    border-radius: 20px !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+    transition: box-shadow 0.3s ease;
+    border: 1px solid #f0f0f0!important;
+    padding-right: 40px !important;
+    background-color: #f0f0f0 !important;
+}
+
+.find-courses .discovery-input:focus {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Adjust the submit button to match the rounded input */
+.find-courses .discovery-submit {
+    border-radius: 0 20px 20px 0 !important;
+    background: transparent !important;
+    border: none !important;
+    color: #FFAF66 !important;
+    box-shadow: none !important;
+    position: absolute !important;
+    right: 0 !important;
+    top: 0 !important;
+    z-index: 10 !important;
+    transition: transform 0.3s ease, color 0.3s ease !important;
+}
+
+/* Add hover effect for search icon */
+.find-courses .discovery-submit:hover {
+    transform: scale(1.2) !important;
+    color: #FF8C33 !important;
+}
+
+.find-courses .discovery-submit:hover .icon.fa.fa-search {
+    color: #FF8C33 !important;
+    animation: pulse 0.5s ease-in-out;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* Change the search icon color */
+.find-courses .discovery-submit .icon.fa.fa-search {
+    color: #FFAF66 !important;
+    font-size: 18px !important;
+    position: relative !important;
+    top: -2px !important;
+}
+
+/* Ensure proper icon visibility */
+.find-courses .discovery-submit .hidden {
+    display: none !important;
+}
+
+/* Remove gray background from the entire page */
+.find-courses,
+.university-profile {
+    background-color: white !important;
+}
+
+/* Add rounded corners to the search facet menu */
+.search-facets {
+    border-radius: 20px !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+    background-color: #f0f0f0 !important;
+    border: 1px solid #e7e7e7 !important;
+}
+
+.search-facets .header-search-facets {  
+    border-top-left-radius: 20px !important;
+    border-top-right-radius: 20px !important;
+    background-color: #f0f0f0 !important;
+    padding: 15px !important;
+    padding-bottom: 0 !important;
+}
+
+.search-facets-lists {
+    border-bottom-left-radius: 20px !important;
+    border-bottom-right-radius: 20px !important;
+    background-color: #f0f0f0 !important;
+    padding: 15px !important;
+    padding-bottom: 25px !important;
+}
+
+/* Target the courses container */
+.find-courses .courses-container {
+    background-color: white !important;
+}
+
+/* Reduce padding at the top of the courses list */
+.courses-container .courses {
+    padding-top: 27px !important;
+}
+
+/* Add vertical spacing between course cards */
+.courses-listing-item {
+    margin-bottom: 38px !important;
+}
+
+/* Style course cards with rounded corners */
+.courses-listing .course {
+    border-radius: 20px !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+    border: none !important;
+}
+
+/* Center course cards in mobile view */
+@media (max-width: 991px) {
+    /* Reset any existing styles that might interfere */
+    .courses-container .courses,
+    .courses-container .courses .courses-listing,
+    .courses-container .courses-listing {
+        float: none !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        text-align: center !important;
+    }
+    
+    /* Target the list items directly */
+    .courses-listing-item {
+        float: none !important;
+        display: inline-block !important;
+        width: 90% !important;
+        max-width: 400px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        text-align: left !important;
+    }
+    
+    /* Ensure the course cards themselves are full width of their container */
+    .courses-listing .course {
+        width: 100% !important;
+        margin: 0 auto !important;
+    }
+    
+    /* Force the courses listing to use block layout */
+    ul.courses-listing {
+        display: block !important;
+    }
+}
+
+.courses-listing .course:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Ensure the course image has rounded top corners */
+.courses-listing .course .course-image {
+    border-top-left-radius: 20px !important;
+    border-top-right-radius: 20px !important;
+    overflow: visible !important;
+    position: relative !important;
+}
+
+/* Fix for course image container to ensure proper stacking */
+.courses-listing .course .course-image .cover-image img {
+    border-top-left-radius: 20px !important;
+    border-top-right-radius: 20px !important;
+}
+
+/* Ensure the course info section has rounded bottom corners */
+.courses-listing .course .course-info {
+    border-bottom-left-radius: 20px !important;
+    border-bottom-right-radius: 20px !important;
+    padding: 15px !important;
+    border: none !important;
+    border-top: none !important;
+    background-color: white !important;
+}
+
+/* Target the body element to ensure no gray background */
+body,
+html,
+.content-wrapper,
+.window-wrap,
+.view-courses,
+.wrapper-preview-menu,
+#main,
+.container,
+.wrapper-content,
+.wrapper-content-main,
+.content-primary,
+.content-supplementary {
+    background-color: white !important;
+}
+
+/* Remove gray background from header */
+.find-courses header.search,
+.university-profile header.search {
+    background: white !important;
+    box-shadow: none !important;
+    border-bottom: none !important;
+}
+
+/* Bring partner logo wrapper to the front */
+.courses-listing .course .course-image .partner-logo-wrapper,
+.courses-container .courses .course .course-image .partner-logo-wrapper,
+article.course .course-image .partner-logo-wrapper {
+    z-index: 999 !important;
+    position: absolute !important;
+    bottom: -30px !important;
+    left: 20px !important;
+    background: #fff !important;
+    border-radius: 3px !important;
+    box-shadow: 1px 1px 2px 0 hsla(0, 0%, 66.7%, .5) !important;
+    padding: 7px !important;
+}
+
+/* Adjust cover image to not interfere with logo */
+.courses-listing .course .course-image .cover-image {
+    z-index: 1 !important;
+}
+
+/* Adjust learn more overlay to not interfere with logo */
+.courses-listing .course .course-image .learn-more {
+    z-index: 2 !important;
+}
