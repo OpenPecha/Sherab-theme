@@ -173,6 +173,7 @@
     align-items: flex-start;
     z-index: 1;
     /* Lower than active tab and content */
+    transition: background-color 0.15s ease;
 }
 
 /* Create the outside rounded corners */
@@ -185,6 +186,7 @@
     height: 10px;
     background-color: transparent;
     z-index: 1;
+    transition: box-shadow 0.15s ease;
 }
 
 /* Hide outside rounded corners on mobile and tablet */
