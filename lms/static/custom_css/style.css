@@ -326,6 +326,15 @@
     color: #1b6d99;
 }
 
+/* Move language selector up when logged in - desktop only */
+@media (min-width: 1024px) {
+    .authenticated-settings-language-form .language-selector-main {
+        position: relative;
+        top: -10px;
+    }
+}
+
+
 .mobile-menu {
     border-top: 1px solid #FFAF66;
 }
@@ -516,7 +525,7 @@
     display: flex !important;
     align-items: center !important;
     gap: 5px !important;
- 
+
 }
 
 .toggle-user-dropdown:hover {
@@ -568,4 +577,3 @@
     /* margin-top: 5px !important; */
     /* padding-top: 5px !important; */
 }
-
