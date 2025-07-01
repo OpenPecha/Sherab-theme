@@ -221,13 +221,13 @@
     .empty-dashboard-message {
         padding: 30px 15px;
     }
-    
+
     .empty-dashboard-message h2 {
         font-size: 22px;
         line-height: 1.4;
         margin-bottom: 20px;
     }
-    
+
     .empty-dashboard-message p {
         font-size: 16px;
         line-height: 1.6;
@@ -305,11 +305,7 @@
     background: none;
     font-size: 16px;
     cursor: pointer;
-    border-radius: 5px;
     border: none;
-    width: auto;
-    min-width: 10px;
-    max-width: 100%;
 }
 
 .settings-language-form .language-selector option {
@@ -321,7 +317,7 @@
 }
 
 .authenticated-settings-language-form .language-selector {
-    padding: 8px 10px 9px 40px;
+    padding: 8px 5px 9px 40px;
 }
 
 .not-authenticated-settings-language-form .language-selector {
@@ -438,6 +434,7 @@
         text-align: left;
         cursor: pointer;
     }
+
     .hidden-mobile:not(.mobile-nav-link) {
         display: none !important;
     }
@@ -485,7 +482,8 @@
         padding-left: 1px;
     }
 
-    .mobile-menu .mobile-nav-link form:hover, .mobile-menu .mobile-nav-link form:focus {
+    .mobile-menu .mobile-nav-link form:hover,
+    .mobile-menu .mobile-nav-link form:focus {
         background-color: #FFFFFF;
         color: #fff;
     }

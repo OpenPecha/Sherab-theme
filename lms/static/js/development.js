@@ -119,3 +119,30 @@ $(document).ready(function() {
 
     Language.init();
 });
+
+
+// Dynamic size of language selector
+document.addEventListener("DOMContentLoaded", function () {
+const select = document.getElementById("settings-language-value");
+
+function resizeSelectWidth() {
+    const tempSelect = document.createElement("select");
+    const tempOption = document.createElement("option");
+
+    tempOption.textContent = select.options[select.selectedIndex].text;
+    tempSelect.appendChild(tempOption);
+
+    // Copy styles to get accurate width
+    tempSelect.style.visibility = "hidden";
+    tempSelect.style.position = "absolute";
+    tempSelect.style.font = window.getComputedStyle(select).font;
+    document.body.appendChild(tempSelect);
+
+    select.style.width = `${tempSelect.offsetWidth + 30}px`;
+
+    document.body.removeChild(tempSelect);
+}
+
+resizeSelectWidth(); // Initial resize
+select.addEventListener("change", resizeSelectWidth); // Resize on language change
+});
