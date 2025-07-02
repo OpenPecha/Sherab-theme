@@ -80,10 +80,10 @@ from openedx.core.djangoapps.site_configuration import helpers as configuration_
                 % else:
                     <input title="session update url" type="hidden" class="url-endpoint" value="${reverse('update_language')}" data-user-is-authenticated="false">
                 % endif
-                  <div class="language-selector-main">
+                   <div class="language-selector-main">
                     <i class="fa-solid fa-globe fa-2x globe-icon"></i>
                     <label><span class="sr">${_("Choose Language")}</span>
-                    <select class="input select language-selector" id="settings-language-value" name="language" style="width: 108px;"> 
+                    <select class="input select language-selector" id="settings-language-value" name="language"> 
                       % for language in languages:
                         % if language[0] == LANGUAGE_CODE:
                             <option value="${language[0]}" selected="selected">${language[1]}</option>
@@ -92,34 +92,7 @@ from openedx.core.djangoapps.site_configuration import helpers as configuration_
                         % endif
                       % endfor
                     </select>
-                    <script>
-                      // Function to adjust the width of the language selector based on selected option text
-                      function adjustLanguageSelectorWidth() {
-                        const selector = document.getElementById('settings-language-value');
-                        if (selector) {
-                          const selectedOption = selector.options[selector.selectedIndex];
-                          // Create a temporary span to measure text width
-                          const tempSpan = document.createElement('span');
-                          tempSpan.style.visibility = 'hidden';
-                          tempSpan.style.position = 'absolute';
-                          tempSpan.style.whiteSpace = 'nowrap';
-                          tempSpan.style.font = window.getComputedStyle(selector).font;
-                          tempSpan.textContent = selectedOption.textContent;
-                          document.body.appendChild(tempSpan);
-                          
-                          // Set width with more padding to ensure full text visibility
-                          const textWidth = tempSpan.offsetWidth;
-                          selector.style.width = (textWidth + 55) + 'px';
-                          document.body.removeChild(tempSpan);
-                        }
-                      }
-                      
-                      // Adjust width on page load
-                      document.addEventListener('DOMContentLoaded', adjustLanguageSelectorWidth);
-                      
-                      // Adjust width when language changes
-                      document.getElementById('settings-language-value').addEventListener('change', adjustLanguageSelectorWidth);
-                    </script>
+
                     </label>
                   </div>
             </form>

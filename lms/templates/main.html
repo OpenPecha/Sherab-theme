@@ -248,6 +248,9 @@ from common.djangoapps.pipeline_mako import render_require_js_path_overrides
   <script type="text/javascript" src="${js}"></script>
   % endfor
   % endif
+  
+  <!-- Language selector JavaScript -->
+  <script type="text/javascript" src="${static.url('js/language-selector.js')}"></script>
 </body>
 </html>
 

@@ -1,0 +1,35 @@
+/**
+ * Language selector styles
+ */
+
+/* Base styles for language selector */
+.language-selector-main {
+  display: flex;
+  align-items: center;
+}
+
+.language-selector {
+  border-radius: 4px;
+  padding: 5px;
+  font-size: 14px;
+  min-width: 80px;
+}
+
+.globe-icon {
+  margin-right: 8px;
+}
+
+/* Move language selector down in expanded hamburger menu for 1024px and 1440px screens */
+@media screen and (min-width: 992px) and (max-width: 1600px) {
+  /* Only apply transform when in mobile menu */
+  .mobile-menu .language-selector-main {
+    transform: translateY(10px);
+  }
+}
+
+/* Additional responsive adjustments */
+@media screen and (max-width: 768px) {
+  .language-selector {
+    min-width: 100px; /* Ensure enough space on smaller screens */
+  }
+}
