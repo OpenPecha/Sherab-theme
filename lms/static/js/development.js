@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function () {
     $('.partner-slider').slick({
         slidesToShow: 4,
         slidesToScroll: 1,
@@ -29,11 +29,11 @@ $(document).ready(function(){
             }
         ]
     });
-    $('.events__trigger').click(function() {
+    $('.events__trigger').click(function () {
         $('.events__tabs').toggleClass('-open');
     });
 
-    $('.events__tab').click(function(e) {
+    $('.events__tab').click(function (e) {
         e.preventDefault();
 
         var thisTabId = $(this).attr('data-tabcontent');
@@ -49,13 +49,13 @@ $(document).ready(function(){
 
 
 // Language selection fix for mobile view
-var Language = (function() {
+var Language = (function () {
     'use strict';
 
     var $settings_language_selector,
         self = null;
     return {
-        init: function() {
+        init: function () {
             $settings_language_selector = $('#settings-language-value, #settings-language-value-mobile');
             self = this;
             this.listenForLanguagePreferenceChange();
@@ -65,13 +65,13 @@ var Language = (function() {
              * Listener on changing language from selector.
              * Send an ajax request to save user language preferences.
              */
-        listenForLanguagePreferenceChange: function() {
-            $settings_language_selector.change(function(event) {
+        listenForLanguagePreferenceChange: function () {
+            $settings_language_selector.change(function (event) {
                 var language = this.value,
                     url = $('.url-endpoint').val(),
                     is_user_authenticated = JSON.parse($('.url-endpoint').data('user-is-authenticated'));
                 event.preventDefault();
-                self.submitAjaxRequest(language, url, function() {
+                self.submitAjaxRequest(language, url, function () {
                     if (is_user_authenticated) {
                         // User language preference has been set successfully
                         // Now submit the form in success callback.
@@ -85,34 +85,21 @@ var Language = (function() {
 
         /**
              * Send an ajax request to set user language preferences.
-             * Also sets a cookie for MFEs to read the language preference.
              */
-        submitAjaxRequest: function(language, url, callback) {
-            // Set a cookie for MFEs to read the language preference
-            // Use path=/ to make it available across the entire domain
-            // Set expiry to 1 year (365 days)
-            var expiryDate = new Date();
-            expiryDate.setTime(expiryDate.getTime() + (365 * 24 * 60 * 60 * 1000));
-            
-            // Set the 'openedx-language-preference' cookie that MFEs will read
-            document.cookie = 'openedx-language-preference=' + language + '; path=/; expires=' + expiryDate.toUTCString();
-            
-            // Also set the Django language cookie for consistency
-            document.cookie = 'django_language=' + language + '; path=/; expires=' + expiryDate.toUTCString();
-            
+        submitAjaxRequest: function (language, url, callback) {
             $.ajax({
                 type: 'PATCH',
-                data: JSON.stringify({'pref-lang': language}),
+                data: JSON.stringify({ 'pref-lang': language }),
                 url: url,
                 dataType: 'json',
                 contentType: 'application/merge-patch+json',
                 notifyOnError: false,
-                beforeSend: function(xhr) {
+                beforeSend: function (xhr) {
                     xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
                 }
-            }).done(function() {
+            }).done(function () {
                 callback();
-            }).fail(function() {
+            }).fail(function () {
                 self.refresh();
             });
         },
@@ -120,14 +107,14 @@ var Language = (function() {
         /**
              * refresh the page.
              */
-        refresh: function() {
+        refresh: function () {
             // reloading the page so we can get the latest state of released languages from model
             location.reload();
         }
 
     };
 }());
-$(document).ready(function() {
+$(document).ready(function () {
     'use strict';
 
     Language.init();
@@ -136,12 +123,9 @@ $(document).ready(function() {
 
 // Dynamic size of language selector
 document.addEventListener("DOMContentLoaded", function () {
-    const desktopSelect = document.getElementById("settings-language-value");
-    const mobileSelect = document.getElementById("settings-language-value-mobile");
+    const select = document.getElementById("settings-language-value");
 
-    function resizeSelectWidth(select) {
-        if (!select) return;
-        
+    function resizeSelectWidth() {
         const tempSelect = document.createElement("select");
         const tempOption = document.createElement("option");
 
@@ -159,18 +143,6 @@ document.addEventListener("DOMContentLoaded", function () {
         document.body.removeChild(tempSelect);
     }
 
-    // Initialize both selectors
-    if (desktopSelect) {
-        resizeSelectWidth(desktopSelect);
-        desktopSelect.addEventListener("change", function() {
-            resizeSelectWidth(desktopSelect);
-        });
-    }
-    
-    if (mobileSelect) {
-        resizeSelectWidth(mobileSelect);
-        mobileSelect.addEventListener("change", function() {
-            resizeSelectWidth(mobileSelect);
-        });
-    }
+    resizeSelectWidth(); // Initial resize
+    select.addEventListener("change", resizeSelectWidth); // Resize on language change
 });
