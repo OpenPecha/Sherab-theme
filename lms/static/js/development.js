@@ -69,13 +69,17 @@ var Language = (function() {
             $settings_language_selector.change(function(event) {
                 var language = this.value,
                     url = $('.url-endpoint').val(),
-                    is_user_authenticated = JSON.parse($('.url-endpoint').data('user-is-authenticated'));
+                    is_user_authenticated = JSON.parse($('.url-endpoint').data('user-is-authenticated')),
+                    // Determine which form to submit based on which selector was changed
+                    formToSubmit = this.id === 'settings-language-value-mobile' ? 
+                        $('#language-settings-form-mobile') : $('#language-settings-form');
+                
                 event.preventDefault();
                 self.submitAjaxRequest(language, url, function() {
                     if (is_user_authenticated) {
                         // User language preference has been set successfully
-                        // Now submit the form in success callback.
-                        $('#language-settings-form').submit();
+                        // Now submit the correct form in success callback.
+                        formToSubmit.submit();
                     } else {
                         self.refresh();
                     }
