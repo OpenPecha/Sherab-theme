@@ -27,6 +27,13 @@
   }
 }
 
+/* Move language selector up in hamburger menu for non-authenticated users */
+@media screen and (min-width: 992px) and (max-width: 1600px) {
+  .mobile-menu .not-authenticated-settings-language-form .language-selector-main {
+    transform: translateY(-0px);
+  }
+}
+
 /* Additional responsive adjustments */
 @media screen and (max-width: 768px) {
   .language-selector {

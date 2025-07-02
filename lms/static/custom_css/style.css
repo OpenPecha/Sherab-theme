@@ -179,25 +179,6 @@
     }
 }
 
-.global-header {
-    border-bottom: 1px solid #FFAF66;
-    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
-    background: #fff;
-    line-height: 1.5;
-}
-
-.global-header .nav-links .main .nav-tab a.active,
-.global-header .nav-links .main .nav-tab a:hover {
-    border-bottom-style: solid;
-    border-bottom-color: #FC8044;
-}
-
-@media (max-width: 1080px) {
-    .global-header .nav-links .main .nav-tab a {
-        padding: 7px 20px 19px;
-    }
-}
-
 /* empty dashboard message for wishlist */
 .empty-dashboard-message {
     border: 3px solid #F1E7E2;
@@ -259,6 +240,25 @@
     }
 }
 
+.global-header {
+    border-bottom: 1px solid #FFAF66;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+    background: #fff;
+    line-height: 1.5;
+}
+
+.global-header .nav-links .main .nav-tab a.active,
+.global-header .nav-links .main .nav-tab a:hover {
+    border-bottom-style: solid;
+    border-bottom-color: #FC8044;
+
+}
+
+@media (max-width: 1080px) {
+    .global-header .nav-links .main .nav-tab a {
+        padding: 7px 20px 19px;
+    }
+}
 
 .global-header .nav-links .secondary .nav-item {
     padding: 0;
