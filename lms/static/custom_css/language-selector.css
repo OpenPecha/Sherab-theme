@@ -19,13 +19,6 @@
   margin-right: 8px;
 }
 
-/* Move language selector down in expanded hamburger menu for 1024px and 1440px screens */
-@media screen and (min-width: 992px) and (max-width: 1600px) {
-  /* Only apply transform when in mobile menu */
-  .mobile-menu .language-selector-main {
-    transform: translateY(10px);
-  }
-}
 
 /* Move language selector up in hamburger menu for non-authenticated users */
 @media screen and (min-width: 992px) and (max-width: 1600px) {
