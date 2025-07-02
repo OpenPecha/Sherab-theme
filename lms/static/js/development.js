@@ -69,17 +69,13 @@ var Language = (function() {
             $settings_language_selector.change(function(event) {
                 var language = this.value,
                     url = $('.url-endpoint').val(),
-                    is_user_authenticated = JSON.parse($('.url-endpoint').data('user-is-authenticated')),
-                    // Determine which form to submit based on which selector was changed
-                    formToSubmit = this.id === 'settings-language-value-mobile' ? 
-                        $('#language-settings-form-mobile') : $('#language-settings-form');
-                
+                    is_user_authenticated = JSON.parse($('.url-endpoint').data('user-is-authenticated'));
                 event.preventDefault();
                 self.submitAjaxRequest(language, url, function() {
                     if (is_user_authenticated) {
                         // User language preference has been set successfully
-                        // Now submit the correct form in success callback.
-                        formToSubmit.submit();
+                        // Now submit the form in success callback.
+                        $('#language-settings-form').submit();
                     } else {
                         self.refresh();
                     }
@@ -89,8 +85,21 @@ var Language = (function() {
 
         /**
              * Send an ajax request to set user language preferences.
+             * Also sets a cookie for MFEs to read the language preference.
              */
         submitAjaxRequest: function(language, url, callback) {
+            // Set a cookie for MFEs to read the language preference
+            // Use path=/ to make it available across the entire domain
+            // Set expiry to 1 year (365 days)
+            var expiryDate = new Date();
+            expiryDate.setTime(expiryDate.getTime() + (365 * 24 * 60 * 60 * 1000));
+            
+            // Set the 'openedx-language-preference' cookie that MFEs will read
+            document.cookie = 'openedx-language-preference=' + language + '; path=/; expires=' + expiryDate.toUTCString();
+            
+            // Also set the Django language cookie for consistency
+            document.cookie = 'django_language=' + language + '; path=/; expires=' + expiryDate.toUTCString();
+            
             $.ajax({
                 type: 'PATCH',
                 data: JSON.stringify({'pref-lang': language}),
@@ -127,26 +136,41 @@ $(document).ready(function() {
 
 // Dynamic size of language selector
 document.addEventListener("DOMContentLoaded", function () {
-const select = document.getElementById("settings-language-value");
+    const desktopSelect = document.getElementById("settings-language-value");
+    const mobileSelect = document.getElementById("settings-language-value-mobile");
 
-function resizeSelectWidth() {
-    const tempSelect = document.createElement("select");
-    const tempOption = document.createElement("option");
+    function resizeSelectWidth(select) {
+        if (!select) return;
+        
+        const tempSelect = document.createElement("select");
+        const tempOption = document.createElement("option");
 
-    tempOption.textContent = select.options[select.selectedIndex].text;
-    tempSelect.appendChild(tempOption);
+        tempOption.textContent = select.options[select.selectedIndex].text;
+        tempSelect.appendChild(tempOption);
 
-    // Copy styles to get accurate width
-    tempSelect.style.visibility = "hidden";
-    tempSelect.style.position = "absolute";
-    tempSelect.style.font = window.getComputedStyle(select).font;
-    document.body.appendChild(tempSelect);
+        // Copy styles to get accurate width
+        tempSelect.style.visibility = "hidden";
+        tempSelect.style.position = "absolute";
+        tempSelect.style.font = window.getComputedStyle(select).font;
+        document.body.appendChild(tempSelect);
 
-    select.style.width = `${tempSelect.offsetWidth + 30}px`;
+        select.style.width = `${tempSelect.offsetWidth + 30}px`;
 
-    document.body.removeChild(tempSelect);
-}
+        document.body.removeChild(tempSelect);
+    }
 
-resizeSelectWidth(); // Initial resize
-select.addEventListener("change", resizeSelectWidth); // Resize on language change
+    // Initialize both selectors
+    if (desktopSelect) {
+        resizeSelectWidth(desktopSelect);
+        desktopSelect.addEventListener("change", function() {
+            resizeSelectWidth(desktopSelect);
+        });
+    }
+    
+    if (mobileSelect) {
+        resizeSelectWidth(mobileSelect);
+        mobileSelect.addEventListener("change", function() {
+            resizeSelectWidth(mobileSelect);
+        });
+    }
 });
