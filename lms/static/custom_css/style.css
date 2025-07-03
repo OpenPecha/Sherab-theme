@@ -498,6 +498,7 @@
         display: inline-block;
     }
 }
+
 /* Make user profile image round */
 .user-image-frame {
     border-radius: 50% !important;
