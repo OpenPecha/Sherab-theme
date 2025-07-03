@@ -82,3 +82,7 @@ from openedx.core.djangoapps.site_configuration import helpers as configuration_
 % if settings.FEATURES.get('ENABLE_COOKIE_CONSENT', False):
   <%include file="../widgets/cookie-consent.html" />
 % endif
+
+<%block name="js_extra">
+  <script src="${static.url('js/language-selector.js')}"></script>
+</%block>
