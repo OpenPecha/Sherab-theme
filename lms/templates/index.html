@@ -77,9 +77,10 @@ from openedx.core.djangoapps.content.course_overviews.models import CourseOvervi
               % for index, category in enumerate(categories, start=1):
                 <a class="events__tab ${'-active' if index == 1 else ''}" data-tabcontent="tab-${index}" role="button">${category.name}</a>
               % endfor 
-              <a class="events__trigger" href="#" role="button">
-                <i class="fas fa-chevron-down"></i>
-                <i class="fas fa-chevron-up"></i>
+              <a class="events__trigger" role="button" aria-label="Show tabs">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M5 8l5 5 5-5" stroke="#1a3d58" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </a>
             </nav>
             % for index, category in enumerate(categories, start=1):
