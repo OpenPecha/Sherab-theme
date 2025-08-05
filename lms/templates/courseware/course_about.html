@@ -17,74 +17,73 @@ from six import string_types
 
 <%inherit file="../main.html" />
 <%block name="headextra">
-  ## OG (Open Graph) title and description added below to give social media info to display
-  ## (https://developers.facebook.com/docs/opengraph/howtos/maximizing-distribution-media-content#tags)
-  <meta property="og:title" content="${course.display_name_with_default}" />
-  <meta property="og:description" content="${get_course_about_section(request, course, 'short_description')}" />
+    ## OG (Open Graph) title and description added below to give social media info to display
+    ## (https://developers.facebook.com/docs/opengraph/howtos/maximizing-distribution-media-content#tags)
+    <meta property="og:title" content="${course.display_name_with_default}" />
+    <meta property="og:description" content="${get_course_about_section(request, course, 'short_description')}" />
 </%block>
 <%block name="js_extra">
-  <script type="text/javascript">
-  (function() {
-    $(".register").click(function(event) {
-      $("#class_enroll_form").submit();
-      event.preventDefault();
-    });
+    <script type="text/javascript">
+    (function() {
+        $(".register").click(function(event) {
+            $("#class_enroll_form").submit();
+            event.preventDefault();
+        });
 
-    $('#class_enroll_form').on('ajax:complete', function(event, xhr) {
-      if (xhr.status == 200) {
-        if (xhr.responseText == "") {
-          location.href = "${reverse('dashboard') | n, js_escaped_string}";
-        }
-        else {
-          location.href = xhr.responseText;
-        }
-      } else if (xhr.status == 403) {
-        // redirect unauthenticated user to the login page
-        location.replace("${reverse('signin_user') | n, js_escaped_string}?next=" + encodeURIComponent("${request.path | n, js_escaped_string}"));
-      } else {
-        $('#register_error').text(
-            (xhr.responseText ? xhr.responseText : "${_("An error occurred. Please try again later.") | n, js_escaped_string}")
-        ).css("display", "block");
-      }
-    });
-
-
-    $(".wishlist-btn").click(function(event) {
-        event.preventDefault();
-        if ($(this).hasClass('add-to-wishlist')) {
-            $("#wishlist_action").val("add");
-        } else if ($(this).hasClass('remove-from-wishlist')) {
-            $("#wishlist_action").val("remove");
-        }
-        $("#wishlist_form").submit();
-    });
-
-    $('#wishlist_form').on('ajax:complete', function(event, xhr) {
-        var action = $("#wishlist_action").val();
-        if (xhr.status == 200) {
-            if (action === "add") {
-                $(".add-to-wishlist").hide();
-                $(".remove-from-wishlist").show();
-            } else if (action === "remove") {
-                $(".remove-from-wishlist").hide();
-                $(".add-to-wishlist").show();
+        $('#class_enroll_form').on('ajax:complete', function(event, xhr) {
+            if (xhr.status == 200) {
+                if (xhr.responseText == "") {
+                    location.href = "${reverse('dashboard') | n, js_escaped_string}";
+                }
+                else {
+                    location.href = xhr.responseText;
+                }
+            } else if (xhr.status == 403) {
+                // redirect unauthenticated user to the login page
+                location.replace("${reverse('signin_user') | n, js_escaped_string}?next=" + encodeURIComponent("${request.path | n, js_escaped_string}"));
+            } else {
+                $('#register_error').text(
+                    (xhr.responseText ? xhr.responseText : "${_("An error occurred. Please try again later.") | n, js_escaped_string}")
+                ).css("display", "block");
             }
-            $('#wishlist_message').text(xhr.responseText).css("display", "block");
-            $('#wishlist_message').addClass('success')
-        } else if (xhr.status == 403) {
-            location.replace("${reverse('signin_user') | n, js_escaped_string}?next=" + encodeURIComponent("${request.path | n, js_escaped_string}"));
-        } else {
-            $('#wishlist_message').text(
-                (xhr.responseText ? xhr.responseText : "${_("An error occurred. Please try again later.") | n, js_escaped_string}")
-            ).css("display", "block");
-            $('#wishlist_message').addClass('error')
-      }
-    });
+        });
 
-  })(this)
-  </script>
+        $(".wishlist-btn").click(function(event) {
+            event.preventDefault();
+            if ($(this).hasClass('add-to-wishlist')) {
+                $("#wishlist_action").val("add");
+            } else if ($(this).hasClass('remove-from-wishlist')) {
+                $("#wishlist_action").val("remove");
+            }
+            $("#wishlist_form").submit();
+        });
 
-  <script src="${static.url('js/course_info.js')}"></script>
+        $('#wishlist_form').on('ajax:complete', function(event, xhr) {
+            var action = $("#wishlist_action").val();
+            if (xhr.status == 200) {
+                if (action === "add") {
+                    $(".add-to-wishlist").hide();
+                    $(".remove-from-wishlist").show();
+                } else if (action === "remove") {
+                    $(".remove-from-wishlist").hide();
+                    $(".add-to-wishlist").show();
+                }
+                $('#wishlist_message').text(xhr.responseText).css("display", "block");
+                $('#wishlist_message').addClass('success')
+            } else if (xhr.status == 403) {
+                location.replace("${reverse('signin_user') | n, js_escaped_string}?next=" + encodeURIComponent("${request.path | n, js_escaped_string}"));
+            } else {
+                $('#wishlist_message').text(
+                    (xhr.responseText ? xhr.responseText : "${_("An error occurred. Please try again later.") | n, js_escaped_string}")
+                ).css("display", "block");
+                $('#wishlist_message').addClass('error')
+            }
+        });
+
+    })(this)
+    </script>
+
+    <script src="${static.url('js/course_info.js')}"></script>
 </%block>
 
 <%block name="pagetitle">${course.display_name_with_default}</%block>
@@ -106,12 +105,10 @@ from six import string_types
                         </div>
                         <div class="main-cta">
                             %if user.is_authenticated and registered:
-                                %if show_courseware_link:
+                                    %if show_courseware_link:
                                     <a href="${course_target}">
-                                %endif
-                                %if show_courseware_link:
-                                    <strong>${_("View Course")}</strong>
-                                </a>
+                                        <strong>${_("View Course")}</strong>
+                                    </a>
                                 %endif
                             % elif is_course_full:
                                 <span class="register disabled">${_("Course is full")}</span>
@@ -122,20 +119,20 @@ from six import string_types
                                 ## so that they can register and become a real user that can enroll.
                             % elif not is_shib_course and not can_enroll:
                                 <span class="register disabled">${_("Enrollment is Closed")}</span>
-                            %elif allow_anonymous:
-                                %if show_courseware_link:
+                            % elif allow_anonymous:
+                                % if show_courseware_link:
                                     <a href="${course_target}"><strong>${_("View Course")}</strong></a>
-                                %endif
-                            %else:
+                                % endif
+                            % else:
                                 <%
                                     if ecommerce_checkout:
-                                      reg_href = ecommerce_checkout_link
+                                        reg_href = ecommerce_checkout_link
                                     else:
-                                      reg_href="#"
+                                        reg_href="#"
                                     if single_paid_mode:
-                                      href_class = "add-to-cart"
+                                        href_class = "add-to-cart"
                                     else:
-                                      href_class = "register"
+                                        href_class = "register"
                                 %>
                                 <a href="${reg_href}" class="${href_class}">${_("Enroll Now")}</a>
                                 <div id="register_error"></div>
@@ -157,7 +154,7 @@ from six import string_types
                                 <div class="play-intro"></div>
                             </div>
                         </a>
-                    %else:
+                    % else:
                         <div class="media">
                             <div class="hero">
                                 <img src="${course_image_urls['large']}" alt="" />
@@ -232,18 +229,22 @@ from six import string_types
                                 <span class="important-dates-item-text effort">${get_course_about_section(request, course, "effort")}</span>
                             </li>
                         % endif
-                        <li class="important-dates-item">
-                            <span class="icon fa fa-clock-o" aria-hidden="true"></span>
-                            <p class="important-dates-item-title">${_('Course Length')}</p>
-                            <span class="important-dates-item-text course-length">${_('{number} weeks').format(number=15)}</span>
-                        </li>
-                        %if course_price and (is_cosmetic_price_enabled):
+                        
+                        % if get_course_about_section(request, course, "duration"):
+                            <li class="important-dates-item">
+                                <span class="icon fa fa-clock-o" aria-hidden="true"></span>
+                                <p class="important-dates-item-title">${_('Course Length')}</p>
+                                <span class="important-dates-item-text course-length">${get_course_about_section(request, course, "duration")}</span>
+                            </li>
+                        % endif
+
+                        % if course_price and (is_cosmetic_price_enabled):
                             <li class="important-dates-item">
                                 <span class="icon fa fa-money" aria-hidden="true"></span>
                                 <p class="important-dates-item-title">${_("Price")}</p>
                                 <span class="important-dates-item-text">${course_price}</span>
                             </li>
-                        %endif
+                        % endif
                         % if pre_requisite_courses:
                             <% prc_target = reverse('about_course', args=[text_type(pre_requisite_courses[0]['key'])]) %>
                             <li class="prerequisite-course important-dates-item">
@@ -280,7 +281,7 @@ from six import string_types
                     <h2 class="opencourseware">MITOpenCourseware</h2>
                     ${get_course_about_section(request, course, "ocw_links")}
                 </div>
-            %endif
+            % endif
         </div>
         % if sidebar_html_enabled:
             % if get_course_about_section(request, course, "about_sidebar_html"):
@@ -288,26 +289,26 @@ from six import string_types
                     ${get_course_about_section(request, course, "about_sidebar_html")}
                 </section>
             % endif
-        %endif
+        % endif
     </div>
 </section>
 ## Need to put this hidden form on the page so that the registration button works.
 ## Since it's no harm to display a hidden form, we display it with the most permissive conditional
 ## which is when the student is not registered.
-%if active_reg_button or is_shib_course:
-<div style="display: none;">
-    <form id="class_enroll_form" method="post" data-remote="true" action="${reverse('change_enrollment')}">
-        <fieldset class="enroll_fieldset">
-            <legend class="sr">${pgettext("self","Enroll")}</legend>
-            <input name="course_id" type="hidden" value="${course.id}">
-            <input name="enrollment_action" type="hidden" value="enroll">
-        </fieldset>
-        <div class="submit">
-            <input name="submit" type="submit" value="${pgettext('self','enroll')}">
-        </div>
-    </form>
-</div>
-%endif
+% if active_reg_button or is_shib_course:
+    <div style="display: none;">
+        <form id="class_enroll_form" method="post" data-remote="true" action="${reverse('change_enrollment')}">
+            <fieldset class="enroll_fieldset">
+                <legend class="sr">${pgettext("self","Enroll")}</legend>
+                <input name="course_id" type="hidden" value="${course.id}">
+                <input name="enrollment_action" type="hidden" value="enroll">
+            </fieldset>
+            <div class="submit">
+                <input name="submit" type="submit" value="${pgettext('self','enroll')}">
+            </div>
+        </form>
+    </div>
+% endif
 <div style="display: none;">
     <form id="wishlist_form" method="post" data-remote="true" action="${reverse('wishlist:change-wishlist-status')}">
         <fieldset class="enroll_fieldset">
