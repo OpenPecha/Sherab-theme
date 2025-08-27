@@ -1,0 +1,214 @@
+/* Course About: Instructors section styling */
+
+/* Hide field titles when content is empty */
+.course-description:empty,
+.course-description-body:empty,
+.important-dates-item-text:empty,
+.learning-outcomes-list:empty {
+    display: none;
+}
+
+/* Hide section titles when content is empty */
+.course-description-body:empty ~ h2,
+.important-dates-item-text:empty ~ .important-dates-item-title,
+.learning-outcomes-list:empty ~ h2 {
+    display: none;
+}
+
+/* Specifically target course description title */
+.course-description.empty-field h2,
+.empty-field .course-description-body {
+    display: none;
+}
+
+/* Hide empty fields in the sidebar */
+.effort:empty,
+.course-length:empty,
+.prerequisites:empty {
+    display: none;
+}
+
+/* Hide parent elements with empty content */
+.empty-field {
+    display: none;
+}
+
+/* Main button container styling */
+.course-info header.course-profile .intro-inner-wrapper .intro .main-cta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+/* Reset and apply common styling to all buttons */
+.course-info header.course-profile .intro-inner-wrapper .intro .main-cta a,
+.course-info header.course-profile .intro-inner-wrapper .intro .main-cta a.register,
+.course-info header.course-profile .intro-inner-wrapper .intro .main-cta a.wishlist-btn,
+.course-info header.course-profile .intro-inner-wrapper .intro .main-cta a.add-to-wishlist,
+.course-info header.course-profile .intro-inner-wrapper .intro .main-cta a.remove-from-wishlist,
+.course-info header.course-profile .intro-inner-wrapper .intro .main-cta a:hover,
+.course-info header.course-profile .intro-inner-wrapper .intro .main-cta a.register:hover,
+.course-info header.course-profile .intro-inner-wrapper .intro .main-cta a.wishlist-btn:hover,
+.course-info header.course-profile .intro-inner-wrapper .intro .main-cta a.add-to-wishlist:hover,
+.course-info header.course-profile .intro-inner-wrapper .intro .main-cta a.remove-from-wishlist:hover {
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+    min-width: 300px !important;
+    width: 300px !important;
+    flex: 0 0 300px !important;
+    border: 1px solid #072544;
+    border-bottom: 1px solid #051c33;
+    box-shadow: inset 0 1px 0 0 #1a4b7c;
+    color: #fff;
+    background-color: #093055;
+    background-image: none;
+    text-decoration: none;
+    text-shadow: none;
+    box-sizing: border-box;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font: normal 1.2rem / 1.6rem "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    letter-spacing: 1px;
+    padding: 10px 20px;
+    text-align: center;
+    height: 45px;
+}
+
+/* Specific styling for the View Course button with strong tag */
+.course-info header.course-profile .intro-inner-wrapper .intro .main-cta a strong,
+.course-info header.course-profile .intro-inner-wrapper .intro .main-cta a:hover strong,
+.course-info header.course-profile .intro-inner-wrapper .intro .main-cta a:hover strong::selection,
+.course-info header.course-profile .intro-inner-wrapper .intro .main-cta a strong::selection,
+.course-info header.course-profile .intro-inner-wrapper .intro .main-cta a:hover *,
+.course-info header.course-profile .intro-inner-wrapper .intro .main-cta a * {
+    display: inline !important;
+    width: auto !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: none !important;
+    background-color: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    color: inherit !important;
+    text-decoration: none !important;
+    text-shadow: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+}
+
+/* Override any wishlist button styles from the base theme with !important */
+.course-info header.course-profile .intro-inner-wrapper .intro .main-cta a.add-to-wishlist,
+.course-info header.course-profile .intro-inner-wrapper .intro .main-cta a.remove-from-wishlist,
+.course-info header.course-profile .intro-inner-wrapper .intro .main-cta a.wishlist-btn,
+.course-info header.course-profile .intro-inner-wrapper .intro .main-cta a.add-to-wishlist:hover,
+.course-info header.course-profile .intro-inner-wrapper .intro .main-cta a.remove-from-wishlist:hover,
+.course-info header.course-profile .intro-inner-wrapper .intro .main-cta a.wishlist-btn:hover {
+    min-width: 300px !important;
+    width: 300px !important;
+    flex: 0 0 300px !important;
+    background-color: #093055 !important;
+    background-image: none !important;
+    color: #fff !important;
+    border-radius: 15px !important;
+    text-decoration: none !important;
+    box-shadow: inset 0 1px 0 0 #1a4b7c !important;
+    border: 1px solid #072544 !important;
+    border-bottom: 1px solid #051c33 !important;
+    text-shadow: none !important;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .course-info header.course-profile .intro-inner-wrapper .intro .main-cta {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .course-info header.course-profile .intro-inner-wrapper .intro .main-cta a,
+    .course-info header.course-profile .intro-inner-wrapper .intro .main-cta a.register,
+    .course-info header.course-profile .intro-inner-wrapper .intro .main-cta a.wishlist-btn,
+    .course-info header.course-profile .intro-inner-wrapper .intro .main-cta a.add-to-wishlist,
+    .course-info header.course-profile .intro-inner-wrapper .intro .main-cta a.remove-from-wishlist {
+        margin-bottom: 10px;
+        width: 300px !important;
+        min-width: 300px !important;
+        flex: 0 0 300px !important;
+        margin-left: 0 !important;
+    }
+}
+
+.instructors {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e6e6e6;
+}
+
+.instructors h2 {
+    font-size: 1.5rem;
+    margin: 0 0 1rem 0;
+}
+
+.instructor-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem 1.25rem;
+}
+
+.instructor-list .instructor {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 0.75rem;
+}
+
+.instructor-image img {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid #e0e0e0;
+    background: #fafafa;
+}
+
+.instructor-meta {
+    flex: 1;
+}
+
+.instructor-name {
+    margin: 0 0 0.25rem 0;
+    font-size: 1rem;
+}
+
+.instructor-title-org {
+    margin: 0 0 0.5rem 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.instructor-bio {
+    color: #333;
+    font-size: 0.95rem;
+}
+
+/* Dark theme safety */
+body.is-dark-theme .instructor-list .instructor {
+    background: #1f1f1f;
+    border-color: #333;
+}
+
+body.is-dark-theme .instructor-title-org {
+    color: #aaa;
+}
