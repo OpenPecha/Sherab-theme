@@ -95,6 +95,7 @@
   white-space: nowrap;
   z-index: 100;
   pointer-events: none;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, sans-serif !important;
 }
 
 /* Dark theme support */
