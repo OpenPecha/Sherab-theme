@@ -1,5 +1,199 @@
 /* Course About: Instructors section styling */
 
+/* Style course card with light grey rounded border */
+.course-info header.course-profile {
+  border-radius: 15px !important;
+  overflow: hidden;
+}
+
+.course-info header.course-profile .intro-inner-wrapper {
+  border: 2px solid #e0e0e0 !important;
+  border-radius: 15px !important;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+
+/* Ensure all child elements respect the rounded corners */
+.course-info header.course-profile .intro-inner-wrapper .table,
+.course-info header.course-profile .intro-inner-wrapper .media,
+.course-info header.course-profile .intro-inner-wrapper .intro {
+  border-radius: 15px !important;
+}
+
+/* Make sure images have rounded corners */
+.course-info header.course-profile .intro-inner-wrapper .media img,
+.course-info header.course-profile .intro-inner-wrapper .hero img {
+  border-radius: 15px !important;
+  overflow: hidden;
+}
+
+/* Target the hero container specifically */
+.course-info header.course-profile .intro-inner-wrapper .hero {
+  border-radius: 15px !important;
+  overflow: hidden;
+}
+
+/* Remove bottom line */
+.course-info header.course-profile .intro-inner-wrapper .table::after,
+.course-info header.course-profile .intro-inner-wrapper::after,
+.course-info header.course-profile::after {
+  display: none !important;
+  border-bottom: none !important;
+}
+
+/* Remove bottom border from any element inside the course card */
+.course-info header.course-profile .intro-inner-wrapper .table,
+.course-info header.course-profile .intro-inner-wrapper > div,
+.course-info header.course-profile * {
+  border-bottom: none !important;
+}
+
+/* Target the specific horizontal line at the bottom */
+hr, .divider, .divider-2, .horizontal-divider {
+  display: none !important;
+}
+
+/* Target the specific bottom border */
+.course-info header.course-profile {
+  border-bottom: none !important;
+}
+
+/* Additional specific selector for the bottom line */
+.course-info header.course-profile .intro-inner-wrapper .table {
+  border-bottom: none !important;
+  position: relative;
+}
+
+/* Override any pseudo-elements that might be creating the line */
+.course-info header.course-profile .intro-inner-wrapper .table:before,
+.course-info header.course-profile .intro-inner-wrapper .table:after {
+  display: none !important;
+  content: none !important;
+  border: none !important;
+}
+
+/* Container layout fixes */
+.course-info .container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.course-info .container .details {
+  flex: 1;
+  min-width: 300px;
+  order: 1;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, sans-serif !important;
+}
+
+/* Apply Arial font to all text elements in the details section */
+.course-info .container .details h1,
+.course-info .container .details h2,
+.course-info .container .details h3,
+.course-info .container .details p,
+.course-info .container .details li,
+.course-info .container .details span,
+.course-info .container .details div {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, sans-serif !important;
+}
+
+.course-info .container .course-sidebar {
+  width: 350px;
+  flex-shrink: 0;
+  order: 2;
+}
+
+/* Make sure sidebar is full width on mobile */
+@media (max-width: 768px) {
+  .course-info .container {
+    flex-direction: column;
+  }
+  
+  .course-info .container .details,
+  .course-info .container .course-sidebar {
+    width: 100%;
+  }
+  
+  .course-info .container .details {
+    order: 2;
+  }
+  
+  .course-info .container .course-sidebar {
+    order: 1;
+  }
+}
+
+/* Sidebar styling with the same background as social sharing */
+.course-sidebar {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  min-height: 400px; /* Set minimum height for the sidebar */
+}
+
+/* Fix alignment of icons and text in important dates */
+.important-dates {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.important-dates-item {
+  display: grid;
+  grid-template-columns: 30px minmax(120px, auto) minmax(100px, 1fr);
+  grid-template-areas: "icon title value";
+  align-items: center;
+  margin-bottom: 1.25rem;
+  position: relative;
+  column-gap: 10px;
+}
+
+.important-dates-item .icon {
+  grid-area: icon;
+  font-size: 1.2rem;
+  color: #666;
+  width: 24px;
+  text-align: center;
+}
+
+.important-dates-item-title {
+  grid-area: title;
+  margin: 0;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #555;
+  white-space: nowrap;
+}
+
+.important-dates-item-text {
+  grid-area: value;
+  text-align: right;
+  font-weight: 500;
+  color: #333;
+  white-space: nowrap;
+}
+
+/* Dark theme support for important dates */
+body.is-dark-theme .important-dates-item .icon {
+  color: #aaa;
+}
+
+body.is-dark-theme .important-dates-item-title {
+  color: #bbb;
+}
+
+body.is-dark-theme .important-dates-item-text {
+  color: #ddd;
+}
+
+/* Dark theme support for sidebar */
+body.is-dark-theme .course-sidebar {
+  background: #2a2a2a;
+}
+
 /* Hide field titles when content is empty */
 .course-description:empty,
 .course-description-body:empty,

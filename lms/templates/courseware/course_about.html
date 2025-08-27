@@ -22,6 +22,7 @@ from six import string_types
     <meta property="og:title" content="${course.display_name_with_default}" />
     <meta property="og:description" content="${get_course_about_section(request, course, 'short_description')}" />
     <link rel="stylesheet" type="text/css" href="${static.url('custom_css/course_about.css')}">
+    <link rel="stylesheet" type="text/css" href="${static.url('custom_css/social_sharing.css')}">
 </%block>
 <%block name="js_extra">
     <script type="text/javascript">
@@ -102,7 +103,11 @@ from six import string_types
                                 ${course.display_name_with_default}
                             </h1>
                             <br />
-                            <span>${course.display_org_with_default}</span>
+                            <br/>
+            <p>
+                <strong>${_("Organization: ")}</strong>
+                <span>${course.display_org_with_default}</span>
+            </p>
                         </div>
                         <div class="main-cta">
                             %if user.is_authenticated and registered:
@@ -189,13 +194,14 @@ from six import string_types
                 % if description:
                     % if has_description:
                         <div class="course-description">
-                            <h2>${_("Course Description")}</h2>
+                            <h2><strong>${_("Course Description")}</strong></h2>
                             <div class="course-description-body">
                                 ${clean_dangerous_html(description)}
                             </div>
                         </div>
                     % endif
                 % endif
+                
                 <%
                     learning_outcomes = getattr(course, 'learning_info', []) or []
                 %>
@@ -204,7 +210,7 @@ from six import string_types
                 %>
                 % if has_outcomes:
                     <div class="learning-outcomes">
-                        <h2>${_("Learning Outcomes")}</h2>
+                        <h2><strong>${_("Learning Outcomes")}</strong></h2>
                         <ul class="learning-outcomes-list">
                             % for outcome in learning_outcomes:
                                 % if outcome and outcome.strip():
@@ -227,7 +233,7 @@ from six import string_types
                 <% has_instructors = instructors and any(inst for inst in instructors if inst) %>
                 % if has_instructors:
                     <div class="instructors">
-                        <h2>${_("Instructors")}</h2>
+                        <h2><strong>${_("Instructors")}</strong></h2>
                         <ul class="instructor-list">
                             % for inst in instructors:
                                 <%
