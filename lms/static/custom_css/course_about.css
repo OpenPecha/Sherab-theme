@@ -88,6 +88,31 @@ hr, .divider, .divider-2, .horizontal-divider {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, sans-serif !important;
 }
 
+/* Style wishlist message with rounded corners */
+#wishlist_message {
+  border-radius: 8px !important;
+  padding: 8px 12px;
+  margin-top: 10px;
+  display: none;
+  width: 100%;
+  text-align: center;
+  font-weight: 500;
+}
+
+#wishlist_message.success {
+  background-color: #dff0d8 !important;
+  color: #3c763d !important;
+  border: 1px solid #d6e9c6 !important;
+  border-radius: 8px !important;
+}
+
+#wishlist_message.error {
+  background-color: #f2dede !important;
+  color: #a94442 !important;
+  border: 1px solid #ebccd1 !important;
+  border-radius: 8px !important;
+}
+
 /* Apply Arial font to all text elements in the details section */
 .course-info .container .details h1,
 .course-info .container .details h2,
@@ -262,7 +287,7 @@ body.is-dark-theme .course-sidebar {
     text-decoration: none;
     text-shadow: none;
     box-sizing: border-box;
-    border-radius: 15px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -310,7 +335,7 @@ body.is-dark-theme .course-sidebar {
     background-color: #093055 !important;
     background-image: none !important;
     color: #fff !important;
-    border-radius: 15px !important;
+    border-radius: 10px !important;
     text-decoration: none !important;
     box-shadow: inset 0 1px 0 0 #1a4b7c !important;
     border: 1px solid #072544 !important;
