@@ -174,11 +174,6 @@ from six import string_types
     <div class="container">
         <%block name="course_about_details">
             <div class="details">
-                % if staff_access and studio_url is not None:
-                    <div class="wrap-instructor-info studio-view">
-                        <a class="instructor-info-action" href="${studio_url}">${_("View About Page in studio")}</a>
-                    </div>
-                % endif
                 <div class="inner-wrapper">
                     % if get_course_about_section(request, course, "short_description"):
                         <div class="course-short-description">
@@ -395,6 +390,11 @@ from six import string_types
                     ## "MITOpenCourseware" should *not* be translated
                     <h2 class="opencourseware">MITOpenCourseware</h2>
                     ${get_course_about_section(request, course, "ocw_links")}
+                </div>
+            % endif
+            % if staff_access and studio_url is not None:
+                <div class="wrap-instructor-info studio-view" style="margin-top: 20px;">
+                    <a class="instructor-info-action" href="${studio_url}">${_("View About Page in Studio")}</a>
                 </div>
             % endif
         </div>

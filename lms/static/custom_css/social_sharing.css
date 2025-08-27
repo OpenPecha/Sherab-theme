@@ -25,6 +25,7 @@
   color: #fff !important;
   text-decoration: none !important;
   transition: all 0.3s ease;
+  position: relative;
 }
 
 /* Specific styling for each social platform */
@@ -66,7 +67,7 @@
   color: #fff !important;
 }
 
-/* Screen reader text */
+/* Screen reader text and tooltip */
 .social-sharing .sr {
   position: absolute;
   width: 1px;
@@ -77,6 +78,23 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* Tooltip styling */
+.social-sharing a.share:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -55px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 100;
+  pointer-events: none;
 }
 
 /* Dark theme support */

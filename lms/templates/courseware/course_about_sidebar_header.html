@@ -11,7 +11,6 @@ from django.conf import settings
 <header>
   % if static.get_value('course_about_show_social_links', True):
   <div class="social-sharing">
-    <div class="sharing-message">${_("Share with friends and family!")}</div>
     ## TODO: this should probably be an overrideable block,
     ##       or something allowing themes to do whatever they
     ##       want here (and on this whole page, really).
@@ -48,13 +47,13 @@ from django.conf import settings
             body=six.moves.urllib.parse.quote(email_body.encode('UTF-8'))
         )
       %>
-      <a href="${tweet_action}" class="share twitter-share">
-        <span class="icon fa fa-twitter fa-brands fa-x-twitter" aria-hidden="true"></span><span class="sr">${_("Tweet that you've enrolled in this course")}</span>
+      <a href="${tweet_action}" class="share twitter-share" data-tooltip="${_("Share on X that you've enrolled in this course")}">
+        <span class="icon fa-brands fa-x-twitter" aria-hidden="true"></span><span class="sr">${_("Share on X that you've enrolled in this course")}</span>
       </a>
-      <a href="${facebook_link}" class="share facebook-share">
+      <a href="${facebook_link}" class="share facebook-share" data-tooltip="${_("Post a Facebook message to say you've enrolled in this course")}">
         <span class="icon fa fa-facebook fa-brands fa-facebook-f" aria-hidden="true"></span><span class="sr">${_("Post a Facebook message to say you've enrolled in this course")}</span>
       </a>
-      <a href="${email_link}" class="share email-share">
+      <a href="${email_link}" class="share email-share" data-tooltip="${_("Email someone to say you've enrolled in this course")}">
         <span class="icon fa fa-envelope fa-solid fa-envelope" aria-hidden="true"></span><span class="sr">${_("Email someone to say you've enrolled in this course")}</span>
       </a>
   </div>
