@@ -20,7 +20,7 @@ from six import string_types
     ## OG (Open Graph) title and description added below to give social media info to display
     ## (https://developers.facebook.com/docs/opengraph/howtos/maximizing-distribution-media-content#tags)
     <meta property="og:title" content="${course.display_name_with_default}" />
-    <meta property="og:description" content="${get_course_about_section(request, course, 'short_description')}" />
+    <meta property="og:description" content="${get_course_about_section(request, course, 'short_description') or ''}" />
     <link rel="stylesheet" type="text/css" href="${static.url('custom_css/course_about.css')}">
     <link rel="stylesheet" type="text/css" href="${static.url('custom_css/social_sharing.css')}">
 </%block>
@@ -176,11 +176,14 @@ from six import string_types
             <div class="details">
                 <div class="inner-wrapper">
                     % if get_course_about_section(request, course, "short_description"):
+                        <% short_desc = get_course_about_section(request, course, "short_description").strip() %>
+                        % if short_desc:
                         <div class="course-short-description">
-                            <p>${clean_dangerous_html(get_course_about_section(request, course, "short_description"))}</p>
+                            <p>${clean_dangerous_html(short_desc) | n, decode.utf8}</p>
                         </div>
+                        % endif
                     % endif
-                    ${clean_dangerous_html(get_course_about_section(request, course, "overview"))}
+                    ${clean_dangerous_html(get_course_about_section(request, course, "overview") or '')}
                 </div>
                 <% 
                     description = get_course_about_section(request, course, "description") 
