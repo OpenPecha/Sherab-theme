@@ -175,30 +175,45 @@ from six import string_types
         <%block name="course_about_details">
             <div class="details">
                 <div class="inner-wrapper">
+                    <% 
+                        description = get_course_about_section(request, course, "description") 
+                        has_description = description and description.strip()
+                    %>
+                    % if description:
+                        % if has_description:
+                            <div class="course-description">
+                                <h2><strong>${_("Course Description")}</strong></h2>
+                                <div class="course-description-body">
+                                    ${clean_dangerous_html(description)}
+                                </div>
+                            </div>
+                        % endif
+                    % endif
+
+                    % if get_course_about_section(request, course, "short_description"):
+                        <% short_desc = get_course_about_section(request, course, "short_description").strip() %>
+                        
+                    % endif
+                    <%
+                        overview = get_course_about_section(request, course, "overview")
+                        has_overview = overview and overview.strip()
+                    %>
+                    % if has_overview:
+                        <div class="course-overview">
+                            <h2><strong>${_("Course Overview")}</strong></h2>
+                            <p>${clean_dangerous_html(overview)}</p>
+                        </div>
+                    % endif
                     % if get_course_about_section(request, course, "short_description"):
                         <% short_desc = get_course_about_section(request, course, "short_description").strip() %>
                         % if short_desc:
                         <div class="course-short-description">
+                            <h2><strong>${_("Course Requirements")}</strong></h2>
                             <p>${clean_dangerous_html(short_desc) | n, decode.utf8}</p>
                         </div>
                         % endif
                     % endif
-                    ${clean_dangerous_html(get_course_about_section(request, course, "overview") or '')}
                 </div>
-                <% 
-                    description = get_course_about_section(request, course, "description") 
-                    has_description = description and description.strip()
-                %>
-                % if description:
-                    % if has_description:
-                        <div class="course-description">
-                            <h2><strong>${_("Course Description")}</strong></h2>
-                            <div class="course-description-body">
-                                ${clean_dangerous_html(description)}
-                            </div>
-                        </div>
-                    % endif
-                % endif
                 
                 <%
                     learning_outcomes = getattr(course, 'learning_info', []) or []
