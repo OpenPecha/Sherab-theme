@@ -13,6 +13,7 @@ from openedx.core.djangolib.markup import clean_dangerous_html, HTML, Text
 from openedx.core.lib.courses import course_image_url
 from wishlist.models import Wishlist
 from six import string_types
+from openedx.core.djangoapps.models.course_details import CourseDetails
 %>
 
 <%inherit file="../main.html" />
@@ -175,6 +176,16 @@ from six import string_types
         <%block name="course_about_details">
             <div class="details">
                 <div class="inner-wrapper">
+                    % if get_course_about_section(request, course, "short_description"):
+                        <% short_desc = get_course_about_section(request, course, "short_description").strip() %>
+                        % if short_desc:
+                        <div class="course-short-description">
+                            <h2><strong>${_("About this Course")}</strong></h2>
+                            <p>${clean_dangerous_html(short_desc) | n, decode.utf8}</p>
+                        </div>
+                        % endif
+                    % endif
+
                     <% 
                         description = get_course_about_section(request, course, "description") 
                         has_description = description and description.strip()
@@ -190,10 +201,6 @@ from six import string_types
                         % endif
                     % endif
 
-                    % if get_course_about_section(request, course, "short_description"):
-                        <% short_desc = get_course_about_section(request, course, "short_description").strip() %>
-                        
-                    % endif
                     <%
                         overview = get_course_about_section(request, course, "overview")
                         has_overview = overview and overview.strip()
@@ -204,16 +211,20 @@ from six import string_types
                             <p>${clean_dangerous_html(overview)}</p>
                         </div>
                     % endif
-                    % if get_course_about_section(request, course, "short_description"):
-                        <% short_desc = get_course_about_section(request, course, "short_description").strip() %>
-                        % if short_desc:
-                        <div class="course-short-description">
-                            <h2><strong>${_("Course Requirements")}</strong></h2>
-                            <p>${clean_dangerous_html(short_desc) | n, decode.utf8}</p>
-                        </div>
-                        % endif
-                    % endif
                 </div>
+                <% 
+                    # Marketing Course Title (from extended course details). Use in main info as Requirements.
+                    marketing_title = CourseDetails.fetch_about_attribute(course.id, 'title')
+                    has_marketing_title = marketing_title and str(marketing_title).strip()
+                %>
+                % if has_marketing_title:
+                    <div class="course-requirements">
+                        <div class="inner-wrapper">
+                            <h2><strong>${_("Course Requirements")}</strong></h2>
+                            <p class="requirements-text">${clean_dangerous_html(marketing_title)}</p>
+                        </div>
+                    </div>
+                % endif
                 
                 <%
                     learning_outcomes = getattr(course, 'learning_info', []) or []
