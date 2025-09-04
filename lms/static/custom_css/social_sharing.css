@@ -1,0 +1,108 @@
+/* Social sharing buttons styling */
+.social-sharing {
+  margin: 0.5rem 0 -1rem;
+  padding: 0;
+  text-align: center;
+  position: relative;
+  top: -15px; /* Adjusted since we removed padding */
+}
+
+.social-sharing .sharing-message {
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Common styling for all share buttons */
+.social-sharing a.share {
+  display: inline-block;
+  margin: 0 0.5rem;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 50%;
+  color: #fff !important;
+  text-decoration: none !important;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* Specific styling for each social platform */
+.social-sharing a.twitter-share {
+  background-color: #000 !important; /* X/Twitter color */
+}
+
+.social-sharing a.facebook-share {
+  background-color: #3b5998 !important; /* Facebook color */
+}
+
+.social-sharing a.email-share {
+  background-color: #0072c6 !important; /* Email color */
+}
+
+.social-sharing a.share:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  opacity: 0.9;
+}
+
+/* Icon styling */
+.social-sharing .icon {
+  font-size: 1.25rem;
+  color: #fff !important;
+  position: relative;
+  top: -5px; 
+  line-height: 1;
+  vertical-align: middle;
+}
+
+/* Fix for Font Awesome 4 and 6 compatibility */
+.social-sharing .fa-twitter,
+.social-sharing .fa-x-twitter,
+.social-sharing .fa-facebook,
+.social-sharing .fa-facebook-f,
+.social-sharing .fa-envelope {
+  display: inline-block !important;
+  color: #fff !important;
+}
+
+/* Screen reader text and tooltip */
+.social-sharing .sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Tooltip styling */
+.social-sharing a.share:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -55px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 100;
+  pointer-events: none;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, sans-serif !important;
+}
+
+/* Dark theme support */
+body.is-dark-theme .social-sharing {
+  background: #2a2a2a;
+}
+
+body.is-dark-theme .social-sharing .sharing-message {
+  color: #eee;
+}
