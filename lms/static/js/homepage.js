@@ -39,26 +39,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const closeBtn = banner.querySelector('.banner-close');
 
+  // Dismissal state for current page view only (resets on reload)
+  let dismissed = false;
+
   function isSmallScreen() {
     return window.matchMedia('(max-width: 768px)').matches;
   }
 
-  function showBannerIfEligible() {
-    if (isSmallScreen()) {
-      banner.removeAttribute('hidden');
-    } else {
+  function updateBannerVisibility() {
+    // Respect dismissal state on every check (resize can fire on scroll on mobile)
+    if (dismissed || !isSmallScreen()) {
       banner.setAttribute('hidden', '');
+    } else {
+      banner.removeAttribute('hidden');
     }
   }
 
   if (closeBtn) {
     closeBtn.addEventListener('click', function () {
-      // Hide for the current page view only; will reappear on reload if eligible
+      // Dismiss for current page view and hide
+      dismissed = true;
       banner.setAttribute('hidden', '');
     });
   }
 
   // Initial check and on resize
-  showBannerIfEligible();
-  window.addEventListener('resize', showBannerIfEligible);
+  updateBannerVisibility();
+  window.addEventListener('resize', updateBannerVisibility);
 });
