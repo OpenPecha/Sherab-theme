@@ -83,7 +83,38 @@
 .footer-links {
   display: flex;
   align-items: center;
+  gap: 16px;
   margin-left: 1rem;
+  width: 100%;
+}
+
+/* App download badges on the right */
+.footer-app-downloads {
+  margin-left: auto;
+  margin-right: 30px; /* nudge from right edge */
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-app-downloads .footer-app-label {
+  font-size: 16px;
+  font-weight: 500;
+  color: #1A6D99;
+  margin-right: 6px;
+  font-family: Open Sans;
+}
+
+.footer-store-badge img {
+  height: 40px;
+  width: auto;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Hide app badges on mobile and tablet */
+@media (max-width: 768px) {
+  .footer-app-downloads { display: none !important; }
 }
 
 .nav-footer ol {
@@ -130,7 +161,7 @@
   .footer-links {
     flex-wrap: wrap;
     margin-left: 0;
-    width: auto;
+    width: 100%;
     justify-content: flex-start;
   }
   .nav-footer ol {
