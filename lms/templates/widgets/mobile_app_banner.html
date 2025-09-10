@@ -1,0 +1,40 @@
+<%page expression_filter="h"/>
+<%namespace name='static' file='../static_content.html'/>
+<%!
+from django.utils.translation import gettext as _
+%>
+<%
+    # Determine smart URL for QR code and buttons.
+    # Prefer settings.MOBILE_APP_SMART_URL if available, else fallback to site root.
+    try:
+        smart_url = settings.MOBILE_APP_SMART_URL
+    except Exception:
+        smart_url = '/'  # Fallback
+%>
+<div id="mobile-app-banner" class="mobile-app-banner" role="region" aria-label="${_("Get the app")}" hidden>
+  <button class="banner-close" aria-label="${_("Dismiss banner")}" type="button">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M6 6 L18 18 M18 6 L6 18" />
+    </svg>
+  </button>
+  <div class="banner-content">
+    <div class="banner-text">
+      <strong>${_("Get our mobile app")}</strong>
+      <br>
+      <span class="subtitle">${_("Learn on the go. It's faster and easier in the app.")}</span>
+    </div>
+    <div class="qr">
+      <div class="qr-box">
+        <img alt="${_("Scan to get the app")}" src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=https://sherab-smart-qr.tenkal.workers.dev/" width="120" height="120" loading="lazy" decoding="async" />
+      </div>
+    </div>
+    <div class="banner-actions">
+      <a class="store-button play" href="https://play.google.com/store/apps/details?id=org.sherab.app" aria-label="${_("Get it on Google Play")}" rel="noopener">
+        <img src="${static.url('images/googleplay.png')}" alt="${_("Get it on Google Play")}" decoding="async" fetchpriority="high" />
+      </a>
+      <a class="store-button appstore" href="https://apps.apple.com/us/app/sherab/id6747565399" aria-label="${_("Download on the App Store")}" rel="noopener">
+        <img src="${static.url('images/appstore.png')}" alt="${_("Download on the App Store")}" decoding="async" fetchpriority="high" />
+      </a>
+    </div>
+  </div>
+</div>

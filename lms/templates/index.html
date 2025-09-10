@@ -24,6 +24,10 @@ from openedx.core.djangoapps.content.course_overviews.models import CourseOvervi
 <link rel="stylesheet" href="${static.url('custom_css/slick.css')}" />
 <link rel="stylesheet" href="${static.url('custom_css/development.css')}" />
 <link rel="stylesheet" href="${static.url('custom_css/homepage.css')}">
+<%block name="head_extra">
+  <link rel="preload" as="image" href="${static.url('images/googleplay.png')}">
+  <link rel="preload" as="image" href="${static.url('images/appstore.png')}">
+</%block>
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="home">
       <header class="welcome-header">
@@ -156,6 +160,7 @@ from openedx.core.djangoapps.content.course_overviews.models import CourseOvervi
     </section>
 </main>
 
+<%include file="widgets/mobile_app_banner.html" />
 % if show_homepage_promo_video:
   <section id="video-modal" class="modal home-page-video-modal video-modal">
     <div class="inner-wrapper">

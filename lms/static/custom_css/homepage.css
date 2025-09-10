@@ -139,3 +139,159 @@
 		padding: 0 1rem 4rem !important;
 	}
 }
+
+/* Mobile App Banner */
+.mobile-app-banner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.24);
+  border-radius: 12px;
+  width: min(92%, 560px);
+  margin: 0 auto;
+  transform: translate(-50%, -50%);
+  transition: transform 200ms ease-out, opacity 200ms ease-out;
+  outline: none;
+}
+
+.mobile-app-banner[hidden] {
+  opacity: 0;
+  transform: translate(-50%, calc(-50% - 12px));
+  pointer-events: none;
+}
+
+.mobile-app-banner .banner-content {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 16px;
+  column-gap: 16px;
+  align-items: center;
+  padding: 20px 20px 22px 20px;
+}
+
+.mobile-app-banner .banner-text {
+  grid-column: 1 / -1;
+  text-align: center;
+}
+
+.mobile-app-banner .banner-text strong {
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.mobile-app-banner .banner-text .subtitle {
+  font-size: 14px;
+  color: rgba(255,255,255,0.85);
+}
+
+.mobile-app-banner .banner-actions {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 16px;
+  align-items: end;
+}
+
+.mobile-app-banner .store-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+.mobile-app-banner .store-button img {
+  height: clamp(28px, 11vw, 44px);
+  width: auto;
+  max-width: 100%;
+  display: block;
+}
+
+/* No background colors needed for image badges */
+
+.mobile-app-banner .qr {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+}
+.mobile-app-banner .qr-box {
+  display: inline-block;
+  padding: 8px;
+  border-radius: 12px;
+  background: #ffffff;
+}
+.mobile-app-banner .qr img {
+  width: clamp(120px, 45vw, 180px);
+  height: clamp(120px, 45vw, 180px);
+  border-radius: 4px; /* or 0; small rounding if desired */
+  background: #fff;
+}
+
+/* On very narrow screens, stack the buttons for better fit */
+@media (max-width: 360px) {
+  .mobile-app-banner .banner-actions {
+    grid-template-columns: 1fr;
+    row-gap: 12px;
+  }
+  .mobile-app-banner .store-button {
+    justify-content: center;
+  }
+}
+
+.mobile-app-banner .banner-close {
+  position: absolute;
+  top: -10px; /* float slightly outside */
+  right: -10px;
+  width: 36px;
+  height: 36px;
+  background: #e53935; /* red circle */
+  border: none;
+  color: #ffffff;
+  font-size: 22px;
+  line-height: 22px;
+  cursor: pointer;
+  opacity: 1;
+  /* Circular button */
+  padding: 0;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  outline: none !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  -webkit-appearance: none;
+  appearance: none;
+  z-index: 1;
+}
+
+/* Remove default focus ring to avoid blue outline on mobile browsers */
+.mobile-app-banner .banner-close:focus { outline: none !important; box-shadow: none !important; }
+.mobile-app-banner .banner-close:focus-visible { outline: none !important; box-shadow: none !important; }
+.mobile-app-banner .banner-close:active { outline: none !important; box-shadow: none !important; }
+.mobile-app-banner .banner-close::-moz-focus-inner { border: 0; }
+
+/* Style the inline SVG X icon */
+.mobile-app-banner .banner-close svg {
+  width: 18px;
+  height: 18px;
+  stroke: #ffffff; /* white X */
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  fill: none;
+}
+
+.mobile-app-banner .banner-close:hover { box-shadow: 0 3px 10px rgba(0,0,0,0.3); background: #d32f2f; }
+.mobile-app-banner .banner-close:active { transform: scale(0.98); background: #c62828; }
+
+/* Show banner only on small screens */
+@media (min-width: 769px) {
+  .mobile-app-banner { display: none !important; }
+}
+
+/* No need for extra bottom padding since banner is top-centered */
