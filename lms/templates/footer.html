@@ -35,6 +35,17 @@
       % if context.get('include_language_selector', footer_language_selector_is_enabled()):
           <%include file="${static.get_template_path('widgets/footer-language-selector.html')}"/>
       % endif
+
+      <!-- App download badges -->
+      <div class="footer-app-downloads" aria-label="${_('Download our mobile app')}">
+        <div class="footer-app-label">${_('Download our app')}</div>
+        <a class="footer-store-badge play" href="https://play.google.com/store/apps/details?id=org.sherab.app" aria-label="${_('Get it on Google Play')}" rel="noopener">
+          <img src="${static.url('images/googleplay.png')}" alt="${_('Get it on Google Play')}" loading="lazy" decoding="async" />
+        </a>
+        <a class="footer-store-badge appstore" href="https://apps.apple.com/us/app/sherab/id6747565399" aria-label="${_('Download on the App Store')}" rel="noopener">
+          <img src="${static.url('images/appstore.png')}" alt="${_('Download on the App Store')}" loading="lazy" decoding="async" />
+        </a>
+      </div>
     </div>
   </footer>
 </div>

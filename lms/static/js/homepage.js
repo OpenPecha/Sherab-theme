@@ -31,3 +31,34 @@ document.addEventListener("DOMContentLoaded", function () {
   updateHeading();
   window.addEventListener('resize', updateHeading);
 });
+
+// Mobile App Banner Logic
+document.addEventListener('DOMContentLoaded', function () {
+  const banner = document.getElementById('mobile-app-banner');
+  if (!banner) return;
+
+  const closeBtn = banner.querySelector('.banner-close');
+
+  function isSmallScreen() {
+    return window.matchMedia('(max-width: 768px)').matches;
+  }
+
+  function showBannerIfEligible() {
+    if (isSmallScreen()) {
+      banner.removeAttribute('hidden');
+    } else {
+      banner.setAttribute('hidden', '');
+    }
+  }
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', function () {
+      // Hide for the current page view only; will reappear on reload if eligible
+      banner.setAttribute('hidden', '');
+    });
+  }
+
+  // Initial check and on resize
+  showBannerIfEligible();
+  window.addEventListener('resize', showBannerIfEligible);
+});
