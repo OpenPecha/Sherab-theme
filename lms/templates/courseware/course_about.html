@@ -362,7 +362,10 @@ from openedx.core.djangoapps.models.course_details import CourseDetails
                         % endif
                         
                         <% 
-                            duration = get_course_about_section(request, course, "duration")
+                            try:
+                                duration = get_course_about_section(request, course, "duration")
+                            except Exception:
+                                duration = None
                             has_duration = duration and duration.strip()
                         %>
                         % if has_duration:
