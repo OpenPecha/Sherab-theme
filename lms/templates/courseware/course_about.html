@@ -360,19 +360,12 @@ from openedx.core.djangoapps.models.course_details import CourseDetails
                                 <span class="important-dates-item-text effort">${effort}</span>
                             </li>
                         % endif
-                        
-                        <% 
-                            try:
-                                duration = get_course_about_section(request, course, "duration")
-                            except Exception:
-                                duration = None
-                            has_duration = duration and duration.strip()
-                        %>
-                        % if has_duration:
+
+                        % if get_course_about_section(request, course, "duration"):
                             <li class="important-dates-item">
                                 <span class="icon fa fa-clock-o" aria-hidden="true"></span>
                                 <p class="important-dates-item-title">${_('Course Duration')}</p>
-                                <span class="important-dates-item-text course-length">${duration}</span>
+                                <span class="important-dates-item-text course-length">${get_course_about_section(request, course, "duration")}</span>
                             </li>
                         % endif
 
