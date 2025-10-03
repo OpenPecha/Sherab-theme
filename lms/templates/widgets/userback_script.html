@@ -43,3 +43,12 @@ from openedx.core.djangolib.js_utils import js_escaped_string
     })(document);
   </script>
 % endif
+
+<style>
+  /* Override Userback feedback button */
+  .userback-controls-send.userback-button-input {
+    background-image: none !important;  /* remove background */
+    box-shadow: none !important;        /* remove shadows if exist */
+    text-shadow: none !important;       /* remove text shadows if exist */
+  }
+</style>
