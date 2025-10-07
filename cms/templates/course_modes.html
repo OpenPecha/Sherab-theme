@@ -1,0 +1,1050 @@
+<%page expression_filter="h"/>
+<%!
+from django.utils.translation import gettext as _
+from django.urls import reverse
+from cms.djangoapps.contentstore import utils
+from openedx.core.djangolib.js_utils import dump_js_escaped_json, js_escaped_string
+%>
+
+<%inherit file="base.html" />
+<%def name="online_help_token()"><% return "course_modes" %></%def>
+
+<%namespace name='static' file='static_content.html'/>
+
+<%block name="title">${_("Course Modes")} | ${context_course.display_name_with_default}</%block>
+<%block name="bodyclass">is-signedin course settings course-modes</%block>
+
+<%block name="header_extras">
+<style>
+    .course-modes-container {
+        margin: 20px 0;
+    }
+    
+    .course-modes-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background: #fff;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+    
+    .course-modes-table th {
+        background: #f8f8f8;
+        padding: 12px;
+        text-align: left;
+        font-weight: 600;
+        border-bottom: 2px solid #ddd;
+        color: #333;
+    }
+    
+    .course-modes-table td {
+        padding: 12px;
+        border-bottom: 1px solid #e8e8e8;
+    }
+    
+    .course-modes-table tr:hover {
+        background: #f9f9f9;
+    }
+    
+    .empty-message {
+        text-align: center;
+        padding: 40px !important;
+        color: #666;
+        font-style: italic;
+    }
+    
+    .mode-actions {
+        white-space: nowrap;
+    }
+    
+    .mode-actions .button {
+        margin-right: 5px;
+        padding: 6px 12px;
+        font-size: 13px;
+        border: none !important;
+        border-radius: 6px !important;
+        box-shadow: none !important;
+    }
+    
+    .introduction {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 20px 24px;
+        border-radius: 12px;
+        margin-bottom: 24px;
+        color: white;
+        box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+    }
+
+    /* Spacing between main table and sidebar list on stacked layouts */
+    .content-supplementary {
+        margin-top: 60px;
+    }
+    
+    .intro-icon {
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 12px;
+    }
+    
+    .intro-icon .icon {
+        font-size: 20px;
+        color: white;
+    }
+    
+    .intro-title {
+        font-size: 22px;
+        font-weight: 600;
+        margin: 0 0 8px 0;
+        color: white;
+    }
+    
+    .intro-description {
+        margin: 6px 0;
+        line-height: 1.5;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.95);
+    }
+    
+    .intro-tags {
+        display: flex;
+        gap: 8px;
+        margin-top: 12px;
+        flex-wrap: wrap;
+    }
+    
+    .intro-tag {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(8px);
+        padding: 6px 12px;
+        border-radius: 16px;
+        font-size: 13px;
+        color: white;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+    
+    .intro-tag .icon {
+        font-size: 14px;
+    }
+    
+    /* Sidebar Mode Guide Styles */
+    .mode-guide-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #333;
+        margin: 0 0 12px 0;
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+    
+    .mode-item {
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #f5f5f5;
+    }
+
+    /* Ensure a small gap below the heading before the first item */
+    .mode-item:first-of-type {
+        margin-top: 6px;
+    }
+    
+    .mode-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+    
+    .mode-item-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 4px;
+    }
+    
+    .mode-icon {
+        color: #667eea;
+        font-size: 16px;
+        width: 20px;
+        text-align: center;
+    }
+    
+    .mode-item-header strong {
+        font-size: 15px;
+        color: #333;
+        font-weight: 600;
+    }
+    
+    .mode-item-description {
+        margin: 0;
+        padding-left: 24px;
+        font-size: 13px;
+        color: #666;
+        line-height: 1.5;
+    }
+    
+    /* Modal Styles */
+    #course-mode-modal.modal-cover {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        background: rgba(0, 0, 0, 0.7) !important;
+        z-index: 999999 !important;
+        overflow-y: auto !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+    }
+    
+    #course-mode-modal .modal {
+        max-width: 700px !important;
+        width: 90% !important;
+        max-height: 90vh !important;
+        margin: 50px auto !important;
+        background: white !important;
+        border-radius: 16px !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+        position: relative !important;
+        z-index: 10000 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        visibility: visible !important;
+        left: 0 !important;
+        right: 0 !important;
+        overflow: hidden !important;
+    }
+    
+    .modal-cover .modal-header {
+        padding: 24px !important;
+        border-bottom: 1px solid #e5e5e5 !important;
+        position: relative !important;
+        background: white !important;
+        flex-shrink: 0 !important;
+    }
+    
+    .modal-cover .modal-title {
+        margin: 0 !important;
+        font-size: 20px !important;
+        font-weight: 600 !important;
+    }
+    
+    .modal-cover .modal-close {
+        position: absolute !important;
+        top: 20px !important;
+        right: 20px !important;
+        background: none !important;
+        border: none !important;
+        font-size: 24px !important;
+        cursor: pointer !important;
+        color: #666 !important;
+    }
+    
+    .modal-cover .modal-close:hover {
+        color: #000 !important;
+    }
+    
+    .modal-cover .modal-body {
+        padding: 24px !important;
+        background: white !important;
+        flex: 1 !important;
+        overflow-y: auto !important;
+        min-height: 0 !important;
+    }
+    
+    .modal-cover .form-group {
+        margin-bottom: 20px !important;
+    }
+    
+    .modal-cover label {
+        display: block !important;
+        margin-bottom: 5px !important;
+        font-weight: 600 !important;
+    }
+    
+    .modal-cover input[type="text"],
+    .modal-cover input[type="number"],
+    .modal-cover input[type="datetime-local"],
+    .modal-cover select,
+    .modal-cover textarea {
+        width: 100% !important;
+        padding: 8px 12px !important;
+        border: 1px solid #ddd !important;
+        border-radius: 3px !important;
+        font-size: 14px !important;
+        box-sizing: border-box !important;
+    }
+    
+    .modal-cover .help-text {
+        display: block !important;
+        margin-top: 5px !important;
+        color: #666 !important;
+        font-size: 12px !important;
+    }
+    
+    .modal-cover .required {
+        color: #d9534f !important;
+    }
+    
+    .modal-cover .modal-footer {
+        text-align: right !important;
+        padding: 20px 24px !important;
+        border-top: 1px solid #e5e5e5 !important;
+        background: #f9f9f9 !important;
+        display: flex !important;
+        justify-content: flex-end !important;
+        gap: 10px !important;
+        flex-shrink: 0 !important;
+    }
+    
+    .modal-cover .modal-footer .button {
+        margin: 0 !important;
+        padding: 10px 20px !important;
+        font-size: 14px !important;
+        border-radius: 6px !important;
+        cursor: pointer !important;
+        border: none !important;
+    }
+    
+    .modal-cover .cancel-button {
+        background: #e0e0e0 !important;
+        color: #333 !important;
+    }
+    
+    .modal-cover .cancel-button:hover {
+        background: #d0d0d0 !important;
+    }
+    
+    .modal-cover .save-button,
+    .modal-cover .action-primary {
+        background: #0075b4 !important;
+        color: white !important;
+    }
+    
+    .modal-cover .save-button:hover,
+    .modal-cover .action-primary:hover {
+        background: #005a8b !important;
+    }
+    
+    .new-course-mode-button {
+        background: #0075b4;
+        color: white;
+        border: none;
+    }
+    
+    .new-course-mode-button:hover {
+        background: #005a8b;
+    }
+    
+    /* Custom Notification Styles */
+    .notification-container {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 999999;
+        max-width: 400px;
+    }
+    
+    .notification {
+        background: white;
+        border-radius: 12px;
+        padding: 16px 20px;
+        margin-bottom: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        animation: slideIn 0.3s ease-out;
+        border-left: 4px solid #667eea;
+    }
+    
+    @keyframes slideIn {
+        from {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes slideOut {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+    }
+    
+    .notification.success {
+        border-left-color: #5cb85c;
+    }
+    
+    .notification.error {
+        border-left-color: #d9534f;
+    }
+    
+    .notification.warning {
+        border-left-color: #f0ad4e;
+    }
+    
+    .notification-icon {
+        font-size: 24px;
+        flex-shrink: 0;
+    }
+    
+    .notification.success .notification-icon {
+        color: #5cb85c;
+    }
+    
+    .notification.error .notification-icon {
+        color: #d9534f;
+    }
+    
+    .notification.warning .notification-icon {
+        color: #f0ad4e;
+    }
+    
+    .notification-content {
+        flex: 1;
+    }
+    
+    .notification-title {
+        font-weight: 600;
+        font-size: 15px;
+        margin: 0 0 4px 0;
+        color: #333;
+    }
+    
+    .notification-message {
+        font-size: 13px;
+        color: #666;
+        margin: 0;
+    }
+    
+    .notification-close {
+        background: none;
+        border: none;
+        color: #999;
+        font-size: 20px;
+        cursor: pointer;
+        padding: 0;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        flex-shrink: 0;
+    }
+    
+    .notification-close:hover {
+        background: #f0f0f0;
+        color: #333;
+    }
+    
+    .delete-mode-button,
+    .action-delete {
+        background: #d9534f;
+        color: #fff;
+        border: none !important;
+        border-radius: 6px !important;
+        box-shadow: none !important;
+    }
+    .delete-mode-button:hover,
+    .action-delete:hover {
+        background: #c9302c;
+    }
+    .delete-mode-button:focus,
+    .action-delete:focus,
+    .delete-mode-button:active,
+    .action-delete:active {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(217,83,79,0.25) !important;
+    }
+
+    .edit-mode-button {
+        background: #5cb85c;
+        color: #fff;
+        border: none !important;
+        border-radius: 6px !important;
+        box-shadow: none !important;
+    }
+    .edit-mode-button:hover {
+        background: #449d44;
+    }
+    .edit-mode-button:focus,
+    .edit-mode-button:active {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(92,184,92,0.25) !important;
+    }
+</style>
+</%block>
+
+<%block name="content">
+<!-- Notification Container -->
+<div class="notification-container" id="notification-container"></div>
+
+<div class="wrapper-mast wrapper">
+    <header class="mast has-actions has-subtitle">
+        <h1 class="page-header">
+            <small class="subtitle">${_("Settings")}</small>
+            <span class="sr">&gt; </span>${_("Course Modes")}
+        </h1>
+        <nav class="nav-actions" aria-label="${_('Page Actions')}">
+            <h3 class="sr">${_("Page Actions")}</h3>
+            <ul>
+                <li class="nav-item">
+                    <a href="#" class="button new-button new-course-mode-button">
+                        <span class="icon fa fa-plus" aria-hidden="true"></span> ${_("New Course Mode")}
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+</div>
+
+<div class="wrapper-content wrapper">
+    <section class="content">
+        <article class="content-primary" role="main">
+            <div class="introduction">
+                <div class="intro-icon">
+                    <span class="icon fa fa-graduation-cap" aria-hidden="true"></span>
+                </div>
+                <h2 class="intro-title">${_("Course Modes")}</h2>
+                <p class="intro-description">${_("Course modes determine how learners can enroll in your course and what they receive upon completion.")}</p>
+                <p class="intro-description">${_("You can offer your course in multiple modes to provide learners with different experiences and benefits.")}</p>
+                <div class="intro-tags">
+                    <span class="intro-tag">
+                        <span class="icon fa fa-certificate" aria-hidden="true"></span>
+                        ${_("Certificates")}
+                    </span>
+                    <span class="intro-tag">
+                        <span class="icon fa fa-dollar" aria-hidden="true"></span>
+                        ${_("Pricing Options")}
+                    </span>
+                    <span class="intro-tag">
+                        <span class="icon fa fa-users" aria-hidden="true"></span>
+                        ${_("Learner Access")}
+                    </span>
+                </div>
+            </div>
+
+            <div class="course-modes-container">
+                <table class="course-modes-table">
+                    <thead>
+                        <tr>
+                            <th>${_("Mode")}</th>
+                            <th>${_("Display Name")}</th>
+                            <th>${_("Price")}</th>
+                            <th>${_("Currency")}</th>
+                            <th>${_("Upgrade Deadline")}</th>
+                            <th>${_("SKU")}</th>
+                            <th>${_("Actions")}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        % for mode_slug, mode in course_modes.items():
+                        <tr class="course-mode-row" data-mode-slug="${mode_slug}">
+                            <td class="mode-slug">${mode_slug}</td>
+                            <td class="mode-display-name">${mode.name}</td>
+                            <td class="mode-price">
+                                % if mode.min_price > 0:
+                                    ${mode.min_price}
+                                % else:
+                                    ${_("Free")}
+                                % endif
+                            </td>
+                            <td class="mode-currency">${mode.currency.upper()}</td>
+                            <td class="mode-expiration">
+                                % if mode.expiration_datetime:
+                                    ${mode.expiration_datetime.strftime('%Y-%m-%d %H:%M')}
+                                % else:
+                                    ${_("None")}
+                                % endif
+                            </td>
+                            <td class="mode-sku">
+                                % if mode.sku:
+                                    ${mode.sku}
+                                % else:
+                                    ${_("None")}
+                                % endif
+                            </td>
+                            <td class="mode-actions">
+                                <button class="button edit-mode-button" data-mode-slug="${mode_slug}">
+                                    <span class="icon fa fa-edit" aria-hidden="true"></span> ${_("Edit")}
+                                </button>
+                                <button class="button delete-mode-button action-delete" data-mode-slug="${mode_slug}">
+                                    <span class="icon fa fa-trash" aria-hidden="true"></span> ${_("Delete")}
+                                </button>
+                            </td>
+                        </tr>
+                        % endfor
+                        % if not course_modes:
+                        <tr>
+                            <td colspan="7" class="empty-message">
+                                ${_("No course modes have been configured yet. Click 'New Course Mode' to add one.")}
+                            </td>
+                        </tr>
+                        % endif
+                    </tbody>
+                </table>
+            </div>
+        </article>
+
+        <aside class="content-supplementary" role="complementary">
+            <div class="bit">
+                <h3 class="mode-guide-title">${_("Mode Types")}</h3>
+                
+                <div class="mode-item">
+                    <div class="mode-item-header">
+                        <span class="mode-icon fa fa-eye" aria-hidden="true"></span>
+                        <strong>${_("Audit")}</strong>
+                    </div>
+                    <p class="mode-item-description">${_("Free access to course content, no certificate")}</p>
+                </div>
+                
+                <div class="mode-item">
+                    <div class="mode-item-header">
+                        <span class="mode-icon fa fa-check-circle" aria-hidden="true"></span>
+                        <strong>${_("Verified")}</strong>
+                    </div>
+                    <p class="mode-item-description">${_("Paid access with verified certificate")}</p>
+                </div>
+                
+                <div class="mode-item">
+                    <div class="mode-item-header">
+                        <span class="mode-icon fa fa-certificate" aria-hidden="true"></span>
+                        <strong>${_("Honor")}</strong>
+                    </div>
+                    <p class="mode-item-description">${_("Free access with honor certificate (legacy)")}</p>
+                </div>
+                
+                <div class="mode-item">
+                    <div class="mode-item-header">
+                        <span class="mode-icon fa fa-briefcase" aria-hidden="true"></span>
+                        <strong>${_("Professional")}</strong>
+                    </div>
+                    <p class="mode-item-description">${_("Professional education track")}</p>
+                </div>
+            </div>
+        </aside>
+    </section>
+</div>
+
+<!-- Modal for Add/Edit Course Mode -->
+<div class="modal-cover" id="course-mode-modal" style="display: none;">
+    <div class="modal">
+        <div class="modal-header">
+            <h2 class="modal-title">${_("Add Course Mode")}</h2>
+            <button class="modal-close" aria-label="${_('Close')}">
+                <span class="icon fa fa-times" aria-hidden="true"></span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="course-mode-form">
+                <div class="form-group">
+                    <label for="mode-slug">${_("Mode Type")} <span class="required">*</span></label>
+                    <select id="mode-slug" name="mode_slug" required>
+                        <option value="">${_("Select a mode")}</option>
+                        <option value="audit">${_("Audit")}</option>
+                        <option value="verified">${_("Verified")}</option>
+                        <option value="honor">${_("Honor")}</option>
+                        <option value="professional">${_("Professional")}</option>
+                        <option value="no-id-professional">${_("No ID Professional")}</option>
+                        <option value="credit">${_("Credit")}</option>
+                        <option value="masters">${_("Masters")}</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mode-display-name">${_("Display Name")} <span class="required">*</span></label>
+                    <input type="text" id="mode-display-name" name="mode_display_name" required />
+                </div>
+                
+                <div class="form-group">
+                    <label for="mode-min-price">${_("Price")}</label>
+                    <input type="number" id="mode-min-price" name="min_price" min="0" value="0" />
+                    <span class="help-text">${_("Enter 0 for free modes")}</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mode-currency">${_("Currency")}</label>
+                    <select id="mode-currency" name="currency">
+                        <option value="inr">${_("INR (₹)")}</option>
+                        <option value="usd">${_("USD ($)")}</option>
+                        <option value="eur">${_("EUR (€)")}</option>
+                        <option value="gbp">${_("GBP (£)")}</option>
+                        <option value="cad">${_("CAD (C$)")}</option>
+                        <option value="aud">${_("AUD (A$)")}</option>
+                        <option value="cny">${_("CNY (¥)")}</option>
+                        <option value="jpy">${_("JPY (¥)")}</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mode-expiration">${_("Upgrade Deadline")}</label>
+                    <input type="datetime-local" id="mode-expiration" name="expiration_datetime" />
+                    <span class="help-text">${_("Optional: Date after which learners cannot upgrade to this mode")}</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mode-description">${_("Description")}</label>
+                    <textarea id="mode-description" name="description" rows="3"></textarea>
+                    <span class="help-text">${_("Optional: Description shown to learners")}</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mode-sku">${_("SKU")}</label>
+                    <input type="text" id="mode-sku" name="sku" />
+                    <span class="help-text">${_("Required for e-commerce integration")}</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mode-bulk-sku">${_("Bulk SKU")}</label>
+                    <input type="text" id="mode-bulk-sku" name="bulk_sku" />
+                    <span class="help-text">${_("Optional: For bulk purchase")}</span>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="button cancel-button">${_("Cancel")}</button>
+            <button class="button action-primary save-button">${_("Save")}</button>
+        </div>
+    </div>
+</div>
+
+<%block name="jsextra">
+<script type="text/javascript">
+(function() {
+    'use strict';
+    
+    var courseModesUrl = "${reverse('course_modes_handler', kwargs={'course_key_string': str(context_course.id)})}";
+    var isEditMode = false;
+    var editingModeSlug = null;
+    
+    // Custom notification system
+    function showNotification(title, message, type) {
+        type = type || 'success';
+        var container = document.getElementById('notification-container');
+        
+        var iconMap = {
+            'success': 'fa-check-circle',
+            'error': 'fa-times-circle',
+            'warning': 'fa-exclamation-triangle'
+        };
+        
+        var notification = document.createElement('div');
+        notification.className = 'notification ' + type;
+        notification.innerHTML = 
+            '<span class="notification-icon fa ' + iconMap[type] + '"></span>' +
+            '<div class="notification-content">' +
+                '<div class="notification-title">' + title + '</div>' +
+                '<div class="notification-message">' + message + '</div>' +
+            '</div>' +
+            '<button class="notification-close" aria-label="Close">&times;</button>';
+        
+        container.appendChild(notification);
+        
+        // Close button handler
+        notification.querySelector('.notification-close').addEventListener('click', function() {
+            notification.style.animation = 'slideOut 0.3s ease-out';
+            setTimeout(function() {
+                notification.remove();
+            }, 300);
+        });
+        
+        // Auto-remove after 15 seconds
+        setTimeout(function() {
+            if (notification.parentNode) {
+                notification.style.animation = 'slideOut 0.3s ease-out';
+                setTimeout(function() {
+                    notification.remove();
+                }, 300);
+            }
+        }, 15000);
+    }
+    
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    
+    function openModal(forEdit) {
+        isEditMode = forEdit || false;
+        var modal = document.getElementById('course-mode-modal');
+        var modalTitle = document.querySelector('.modal-title');
+        
+        if (!isEditMode) {
+            document.getElementById('course-mode-form').reset();
+            modalTitle.textContent = 'Add Course Mode';
+            document.getElementById('mode-slug').disabled = false;
+        } else {
+            modalTitle.textContent = 'Edit Course Mode';
+            document.getElementById('mode-slug').disabled = true;
+        }
+        
+        if (modal) {
+            modal.style.display = 'block';
+        }
+    }
+    
+    function closeModal() {
+        var modal = document.getElementById('course-mode-modal');
+        if (modal) {
+            modal.style.display = 'none';
+            document.getElementById('course-mode-form').reset();
+            isEditMode = false;
+            editingModeSlug = null;
+        }
+    }
+    
+    function saveMode() {
+        var form = document.getElementById('course-mode-form');
+        var modeSlug = document.getElementById('mode-slug').value;
+        var displayName = document.getElementById('mode-display-name').value;
+        var minPrice = parseInt(document.getElementById('mode-min-price').value) || 0;
+        var currency = document.getElementById('mode-currency').value;
+        var expiration = document.getElementById('mode-expiration').value;
+        var description = document.getElementById('mode-description').value;
+        var sku = document.getElementById('mode-sku').value;
+        var bulkSku = document.getElementById('mode-bulk-sku').value;
+        
+        // Validate required fields
+        if (!modeSlug || !displayName) {
+            showNotification('Required Fields Missing', 'Please fill in Mode Type and Display Name', 'warning');
+            return;
+        }
+        
+        var data = {
+            mode_slug: modeSlug,
+            mode_display_name: displayName,
+            min_price: minPrice,
+            currency: currency
+        };
+        
+        // Only add optional fields if they have values
+        if (description) {
+            data.description = description;
+        }
+        if (sku) {
+            data.sku = sku;
+        }
+        if (bulkSku) {
+            data.bulk_sku = bulkSku;
+        }
+        if (expiration) {
+            data.expiration_datetime = new Date(expiration).toISOString();
+        }
+        
+        var method = isEditMode ? 'PUT' : 'POST';
+        var csrftoken = getCookie('csrftoken');
+        
+        console.log('Saving mode:', method, data);
+        
+        fetch(courseModesUrl, {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-CSRFToken': csrftoken
+            },
+            body: JSON.stringify(data)
+        })
+        .then(function(response) {
+            console.log('Response status:', response.status);
+            return response.json().then(function(data) {
+                return {status: response.status, data: data};
+            });
+        })
+        .then(function(result) {
+            if (result.status >= 200 && result.status < 300) {
+                var title = isEditMode ? 'Mode Updated' : 'Mode Created';
+                var message = isEditMode ? 'Course mode has been updated successfully' : 'New course mode has been created successfully';
+                showNotification(title, message, 'success');
+                closeModal();
+                setTimeout(function() {
+                    location.reload();
+                }, 1000);
+            } else {
+                var errorMsg = result.data.error || result.data.errors || JSON.stringify(result.data);
+                console.error('Server error:', result.data);
+                showNotification('Error', errorMsg, 'error');
+            }
+        })
+        .catch(function(error) {
+            console.error('Fetch error:', error);
+            showNotification('Error', error.message, 'error');
+        });
+    }
+    
+    function editMode(modeSlug) {
+        editingModeSlug = modeSlug;
+        
+        // Find the row with this mode
+        var row = document.querySelector('tr[data-mode-slug="' + modeSlug + '"]');
+        if (!row) {
+            showNotification('Error', 'Mode not found', 'error');
+            return;
+        }
+        
+        // Get mode data from the table
+        var displayName = row.querySelector('.mode-display-name').textContent.trim();
+        var priceText = row.querySelector('.mode-price').textContent.trim();
+        var price = priceText === 'Free' ? 0 : parseInt(priceText);
+        var currency = row.querySelector('.mode-currency').textContent.trim().toLowerCase();
+        
+        // Populate form
+        document.getElementById('mode-slug').value = modeSlug;
+        document.getElementById('mode-display-name').value = displayName;
+        document.getElementById('mode-min-price').value = price;
+        document.getElementById('mode-currency').value = currency;
+        
+        openModal(true);
+    }
+    
+    function deleteMode(modeSlug) {
+        if (!confirm('Are you sure you want to delete this course mode? This action cannot be undone.')) {
+            return;
+        }
+        
+        var csrftoken = getCookie('csrftoken');
+        
+        fetch(courseModesUrl, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-CSRFToken': csrftoken
+            },
+            body: JSON.stringify({
+                mode_slug: modeSlug
+            })
+        })
+        .then(function(response) {
+            if (response.ok) {
+                return response.json();
+            } else {
+                return response.json().then(function(err) {
+                    throw new Error(err.error || 'Failed to delete course mode');
+                });
+            }
+        })
+        .then(function(result) {
+            showNotification('Mode Deleted', 'Course mode has been deleted successfully', 'success');
+            setTimeout(function() {
+                location.reload();
+            }, 1000);
+        })
+        .catch(function(error) {
+            showNotification('Error', error.message, 'error');
+        });
+    }
+    
+    // Initialize when DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+        // New course mode button
+        var newButton = document.querySelector('.new-course-mode-button');
+        if (newButton) {
+            newButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                openModal(false);
+            });
+        }
+        
+        // Close button
+        var closeButton = document.querySelector('.modal-close');
+        if (closeButton) {
+            closeButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                closeModal();
+            });
+        }
+        
+        // Cancel button
+        var cancelButton = document.querySelector('.cancel-button');
+        if (cancelButton) {
+            cancelButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                closeModal();
+            });
+        }
+        
+        // Save button
+        var saveButton = document.querySelector('.save-button');
+        if (saveButton) {
+            saveButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                saveMode();
+            });
+        }
+        
+        // Edit buttons
+        var editButtons = document.querySelectorAll('.edit-mode-button');
+        editButtons.forEach(function(button) {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                var modeSlug = this.getAttribute('data-mode-slug');
+                editMode(modeSlug);
+            });
+        });
+        
+        // Delete buttons
+        var deleteButtons = document.querySelectorAll('.delete-mode-button');
+        deleteButtons.forEach(function(button) {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                var modeSlug = this.getAttribute('data-mode-slug');
+                deleteMode(modeSlug);
+            });
+        });
+        
+        // Mode slug change - auto-fill display name
+        var modeSlugSelect = document.getElementById('mode-slug');
+        if (modeSlugSelect) {
+            modeSlugSelect.addEventListener('change', function() {
+                if (!isEditMode) {
+                    var displayNameInput = document.getElementById('mode-display-name');
+                    var displayNames = {
+                        'audit': 'Audit',
+                        'verified': 'Verified Certificate',
+                        'honor': 'Honor Code Certificate',
+                        'professional': 'Professional Education',
+                        'no-id-professional': 'Professional Education (No ID)',
+                        'credit': 'Credit',
+                        'masters': 'Masters'
+                    };
+                    if (displayNames[this.value]) {
+                        displayNameInput.value = displayNames[this.value];
+                    }
+                }
+            });
+        }
+    });
+})();
+</script>
+</%block>
+</%block>
