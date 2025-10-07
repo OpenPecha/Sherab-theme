@@ -205,12 +205,46 @@ from openedx.core.djangolib.js_utils import dump_js_escaped_json, js_escaped_str
         opacity: 1 !important;
         pointer-events: auto !important;
     }
+    /* Apply same overlay rules to confirm delete modal */
+    #confirm-delete-modal.modal-cover {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        background: rgba(0, 0, 0, 0.7) !important;
+        z-index: 999999 !important;
+        overflow-y: auto !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+    }
     
     #course-mode-modal .modal {
         max-width: 700px !important;
         width: 90% !important;
-        max-height: 90vh !important;
+        max-height: 70vh !important;
         margin: 50px auto !important;
+        background: white !important;
+        border-radius: 16px !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+        position: relative !important;
+        z-index: 10000 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        visibility: visible !important;
+        left: 0 !important;
+        right: 0 !important;
+        overflow: hidden !important;
+    }
+    /* Match modal card styles for confirm delete modal */
+    #confirm-delete-modal .modal {
+        max-width: 520px !important;
+        width: 90% !important;
+        max-height: 60vh !important;
+        margin: 80px auto !important;
         background: white !important;
         border-radius: 16px !important;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
@@ -727,6 +761,29 @@ from openedx.core.djangolib.js_utils import dump_js_escaped_json, js_escaped_str
     </div>
 </div>
 
+<!-- Confirm Delete Modal -->
+<div class="modal-cover" id="confirm-delete-modal" style="display: none;">
+    <div class="modal">
+        <div class="modal-header">
+            <h2 class="modal-title">${_("Delete Course Mode")}</h2>
+            <button class="modal-close" aria-label="${_('Close')}">
+                <span class="icon fa fa-times" aria-hidden="true"></span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p class="confirm-text">${_("Are you sure you want to delete the course mode")}
+                <strong><span id="confirm-delete-mode"></span></strong>?<br/>
+                ${_("This action cannot be undone.")}
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button class="button cancel-button" id="confirm-delete-cancel">${_("Cancel")}</button>
+            <button class="button action-delete" id="confirm-delete-button">${_("Delete")}</button>
+        </div>
+    </div>
+    
+</div>
+
 <%block name="jsextra">
 <script type="text/javascript">
 (function() {
@@ -735,6 +792,7 @@ from openedx.core.djangolib.js_utils import dump_js_escaped_json, js_escaped_str
     var courseModesUrl = "${reverse('course_modes_handler', kwargs={'course_key_string': str(context_course.id)})}";
     var isEditMode = false;
     var editingModeSlug = null;
+    var pendingDeleteModeSlug = null;
     
     // Custom notification system
     function showNotification(title, message, type) {
@@ -927,12 +985,26 @@ from openedx.core.djangolib.js_utils import dump_js_escaped_json, js_escaped_str
     }
     
     function deleteMode(modeSlug) {
-        if (!confirm('Are you sure you want to delete this course mode? This action cannot be undone.')) {
-            return;
-        }
-        
+        openDeleteConfirm(modeSlug);
+    }
+
+    function openDeleteConfirm(modeSlug) {
+        pendingDeleteModeSlug = modeSlug;
+        var label = document.getElementById('confirm-delete-mode');
+        if (label) { label.textContent = modeSlug; }
+        var modal = document.getElementById('confirm-delete-modal');
+        if (modal) { modal.style.display = 'block'; }
+    }
+
+    function closeDeleteConfirm() {
+        var modal = document.getElementById('confirm-delete-modal');
+        if (modal) { modal.style.display = 'none'; }
+        pendingDeleteModeSlug = null;
+    }
+
+    function confirmDelete() {
+        if (!pendingDeleteModeSlug) { return; }
         var csrftoken = getCookie('csrftoken');
-        
         fetch(courseModesUrl, {
             method: 'DELETE',
             headers: {
@@ -941,7 +1013,7 @@ from openedx.core.djangolib.js_utils import dump_js_escaped_json, js_escaped_str
                 'X-CSRFToken': csrftoken
             },
             body: JSON.stringify({
-                mode_slug: modeSlug
+                mode_slug: pendingDeleteModeSlug
             })
         })
         .then(function(response) {
@@ -954,12 +1026,12 @@ from openedx.core.djangolib.js_utils import dump_js_escaped_json, js_escaped_str
             }
         })
         .then(function(result) {
+            closeDeleteConfirm();
             showNotification('Mode Deleted', 'Course mode has been deleted successfully', 'success');
-            setTimeout(function() {
-                location.reload();
-            }, 1000);
+            setTimeout(function() { location.reload(); }, 1000);
         })
         .catch(function(error) {
+            closeDeleteConfirm();
             showNotification('Error', error.message, 'error');
         });
     }
@@ -1021,6 +1093,32 @@ from openedx.core.djangolib.js_utils import dump_js_escaped_json, js_escaped_str
                 deleteMode(modeSlug);
             });
         });
+        
+        // Confirm Delete Modal events
+        var confirmDeleteModal = document.getElementById('confirm-delete-modal');
+        if (confirmDeleteModal) {
+            var confirmDeleteClose = confirmDeleteModal.querySelector('.modal-close');
+            if (confirmDeleteClose) {
+                confirmDeleteClose.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    closeDeleteConfirm();
+                });
+            }
+            var confirmDeleteCancel = document.getElementById('confirm-delete-cancel');
+            if (confirmDeleteCancel) {
+                confirmDeleteCancel.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    closeDeleteConfirm();
+                });
+            }
+            var confirmDeleteBtn = document.getElementById('confirm-delete-button');
+            if (confirmDeleteBtn) {
+                confirmDeleteBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    confirmDelete();
+                });
+            }
+        }
         
         // Mode slug change - auto-fill display name
         var modeSlugSelect = document.getElementById('mode-slug');
