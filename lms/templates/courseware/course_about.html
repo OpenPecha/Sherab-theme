@@ -378,7 +378,13 @@ from openedx.core.djangoapps.models.course_details import CourseDetails
                             </li>
                         % endif
 
-                        % if course_price and (is_cosmetic_price_enabled):
+                        % if course_mode_price_display:
+                            <li class="important-dates-item">
+                                <span class="icon fa fa-money" aria-hidden="true"></span>
+                                <p class="important-dates-item-title">${_("Price")}</p>
+                                <span class="important-dates-item-text">${course_mode_price_display}</span>
+                            </li>
+                        % elif course_price and (is_cosmetic_price_enabled):
                             <li class="important-dates-item">
                                 <span class="icon fa fa-money" aria-hidden="true"></span>
                                 <p class="important-dates-item-title">${_("Price")}</p>
