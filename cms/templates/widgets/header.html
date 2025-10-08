@@ -192,9 +192,6 @@
                   <li class="nav-item nav-course-settings-group-configurations">
                     <a href="${reverse('group_configurations_list_handler', kwargs={'course_key_string': str(course_key)})}">${_("Group Configurations")}</a>
                   </li>
-                  <li class="nav-item nav-course-settings-course-modes">
-                    <a href="${reverse('course_modes_handler', kwargs={'course_key_string': str(course_key)})}">${_("Course Modes")}</a>
-                  </li>
                   % if mfe_proctored_exam_settings_url:
                   <li class="nav-item nav-course-settings-exams">
                     <a href="${mfe_proctored_exam_settings_url}">${_("Proctored Exam Settings")}</a>
@@ -205,11 +202,17 @@
                     <a href="${advanced_settings_url}">${_("Advanced Settings")}</a>
                   </li>
                   % endif
+
                   % if has_studio_advanced_settings_access(request.user) and advanced_settings_mfe_enabled:
                   <li class="nav-item nav-course-settings-advanced">
                     <a href="${get_advanced_settings_url(course_key)}">${_("Advanced Settings")}</a>
                   </li>
                   % endif
+
+          
+                  <li class="nav-item nav-course-settings-course-modes">
+                    <a href="${reverse('course_modes_handler', kwargs={'course_key_string': str(course_key)})}">${_("Course Modes")}</a>
+                  </li>
                   % if certificates_url:
                   <li class="nav-item nav-course-settings-certificates">
                     <a href="${certificates_url}">${_("Certificates")}</a>

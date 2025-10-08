@@ -135,13 +135,22 @@ from openedx.core.djangoapps.models.course_details import CourseDetails
                                     if ecommerce_checkout:
                                         reg_href = ecommerce_checkout_link
                                     else:
-                                        reg_href="#"
+                                        reg_href = "#"
+
                                     if single_paid_mode:
                                         href_class = "add-to-cart"
                                     else:
                                         href_class = "register"
                                 %>
-                                <a href="${reg_href}" class="${href_class}">${_("Enroll Now")}</a>
+                                % if single_paid_mode and single_paid_mode_product_url:
+                                    <a href="${single_paid_mode_product_url}" class="buy-course-button" style="background-color: #FFAF66 !important; border: none !important; border-top: none !important; box-shadow: none !important; color: #FFFFFF !important;">
+                                        ${_("Buy Course")}
+                                    </a>
+                                % else:
+                                    <a href="${reg_href}" class="${href_class}">
+                                        ${_("Enroll Now")}
+                                    </a>
+                                % endif
                                 <div id="register_error"></div>
                             %endif
                             % if is_wishlisted:
