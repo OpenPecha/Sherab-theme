@@ -1,0 +1,558 @@
+/* Course Modes Page Styles */
+
+.course-modes-container {
+    margin: 20px 0;
+}
+
+.course-modes-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.course-modes-table th {
+    background: #f8f8f8;
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 2px solid #ddd;
+    color: #333;
+}
+
+.course-modes-table td {
+    padding: 12px;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.course-modes-table tr:hover {
+    background: #f9f9f9;
+}
+
+.empty-message {
+    text-align: center;
+    padding: 40px !important;
+    color: #666;
+    font-style: italic;
+}
+
+.mode-actions {
+    white-space: nowrap;
+}
+
+.mode-actions .button {
+    margin-right: 5px;
+    padding: 6px 12px;
+    font-size: 13px;
+    border: none !important;
+    border-radius: 6px !important;
+    box-shadow: none !important;
+}
+
+.introduction {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px 24px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    color: white;
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+}
+
+/* Spacing between main table and sidebar list on stacked layouts */
+.content-supplementary {
+    margin-top: 60px;
+}
+
+.intro-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+.intro-icon .icon {
+    font-size: 20px;
+    color: white;
+}
+
+.intro-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    color: white;
+}
+
+.intro-description {
+    margin: 6px 0;
+    line-height: 1.5;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.intro-tags {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
+
+.intro-tag {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 13px;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.intro-tag .icon {
+    font-size: 14px;
+}
+
+/* Sidebar Mode Guide Styles */
+.mode-guide-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 12px 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.mode-item {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+/* Ensure a small gap below the heading before the first item */
+.mode-item:first-of-type {
+    margin-top: 6px;
+}
+
+.mode-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.mode-item-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.mode-icon {
+    color: #667eea;
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
+}
+
+.mode-item-header strong {
+    font-size: 15px;
+    color: #333;
+    font-weight: 600;
+}
+
+.mode-item-description {
+    margin: 0;
+    padding-left: 24px;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* Modal Styles */
+#course-mode-modal.modal-cover {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: rgba(0, 0, 0, 0.7) !important;
+    z-index: 999999 !important;
+    overflow-y: auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+/* Apply same overlay rules to confirm delete modal */
+#confirm-delete-modal.modal-cover {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: rgba(0, 0, 0, 0.7) !important;
+    z-index: 999999 !important;
+    overflow-y: auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+#course-mode-modal .modal {
+    max-width: 720px !important;
+    width: 92% !important;
+    /* Fill viewport minus margins to ensure actual height increase */
+    max-height: calc(100vh - 160px) !important;
+    height: calc(100vh - 160px) !important;
+    /* Ensure the modal appears taller even with little content */
+    min-height: 60vh !important;
+    margin: 40px auto !important;
+    background: #ffffff !important;
+    border-radius: 16px !important;
+    border: 1px solid #e6e6e6 !important;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22) !important;
+    position: relative !important;
+    z-index: 10000 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    visibility: visible !important;
+    left: 0 !important;
+    right: 0 !important;
+    overflow: hidden !important;
+}
+/* Match modal card styles for confirm delete modal */
+#confirm-delete-modal .modal {
+    max-width: 520px !important;
+    width: 90% !important;
+    max-height: 60vh !important;
+    margin: 80px auto !important;
+    background: white !important;
+    border-radius: 16px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+    position: relative !important;
+    z-index: 10000 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    visibility: visible !important;
+    left: 0 !important;
+    right: 0 !important;
+    overflow: hidden !important;
+}
+
+.modal-cover .modal-header {
+    padding: 20px 24px !important;
+    border-bottom: 1px solid #e9e9e9 !important;
+    position: sticky !important;
+    top: 0 !important;
+    background: #ffffff !important;
+    backdrop-filter: saturate(1.2) blur(2px);
+    z-index: 2 !important;
+    flex-shrink: 0 !important;
+}
+
+.modal-cover .modal-title {
+    margin: 0 !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: #222 !important;
+}
+
+.modal-cover .modal-close {
+    position: absolute !important;
+    top: 20px !important;
+    right: 20px !important;
+    background: none !important;
+    border: none !important;
+    font-size: 24px !important;
+    cursor: pointer !important;
+    color: #666 !important;
+}
+
+.modal-cover .modal-close:hover {
+    color: #000 !important;
+}
+
+.modal-cover .modal-body {
+    padding: 20px 24px !important;
+    background: #fff !important;
+    flex: 1 !important;
+    overflow-y: auto !important;
+    min-height: 0 !important;
+}
+
+.modal-cover .form-group {
+    margin-bottom: 16px !important;
+}
+
+.modal-cover label {
+    display: block !important;
+    margin-bottom: 5px !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    color: #333 !important;
+    letter-spacing: 0.01em !important;
+}
+
+.modal-cover input[type="text"],
+.modal-cover input[type="url"],
+.modal-cover input[type="number"],
+.modal-cover input[type="datetime-local"],
+.modal-cover select,
+.modal-cover textarea {
+    width: 100% !important;
+    padding: 10px 14px !important;
+    border: 1.5px solid #d4d4d4 !important;
+    border-radius: 6px !important;
+    font-size: 14px !important;
+    box-sizing: border-box !important;
+    transition: all 0.2s ease !important;
+    background: #fafafa !important;
+}
+
+.modal-cover input[type="text"]:focus,
+.modal-cover input[type="url"]:focus,
+.modal-cover input[type="number"]:focus,
+.modal-cover input[type="datetime-local"]:focus,
+.modal-cover select:focus,
+.modal-cover textarea:focus {
+    outline: none !important;
+    border-color: #667eea !important;
+    background: #fff !important;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+}
+
+.modal-cover select {
+    cursor: pointer !important;
+    appearance: none !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 9L1 4h10z'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 12px center !important;
+    padding-right: 36px !important;
+}
+
+.modal-cover .help-text {
+    display: block !important;
+    margin-top: 6px !important;
+    color: #777 !important;
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+}
+
+.modal-cover .help-text.product-url-help {
+    color: #555 !important;
+    font-size: 12.5px !important;
+    background: #f0f4ff !important;
+    padding: 8px 12px !important;
+    border-radius: 6px !important;
+    border-left: 3px solid #667eea !important;
+    margin-top: 8px !important;
+}
+
+.modal-cover .required {
+    color: #d9534f !important;
+}
+
+.modal-cover .modal-footer {
+    text-align: right !important;
+    padding: 16px 24px !important;
+    border-top: 1px solid #e9e9e9 !important;
+    background: #fafafa !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    gap: 10px !important;
+    flex-shrink: 0 !important;
+}
+
+.modal-cover .modal-footer .button {
+    margin: 0 !important;
+    padding: 10px 20px !important;
+    font-size: 14px !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    border: none !important;
+}
+
+.modal-cover .cancel-button {
+    background: #e0e0e0 !important;
+    color: #333 !important;
+}
+
+.modal-cover .cancel-button:hover {
+    background: #d0d0d0 !important;
+}
+
+.modal-cover .save-button,
+.modal-cover .action-primary {
+    background: #0075b4 !important;
+    color: white !important;
+}
+
+.modal-cover .save-button:hover,
+.modal-cover .action-primary:hover {
+    background: #005a8b !important;
+}
+
+.new-course-mode-button {
+    background: #0075b4;
+    color: white;
+    border: none;
+}
+
+.new-course-mode-button:hover {
+    background: #005a8b;
+}
+
+/* Custom Notification Styles */
+.notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 999999;
+    max-width: 400px;
+}
+
+.notification {
+    background: white;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    animation: slideIn 0.3s ease-out;
+    border-left: 4px solid #667eea;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+}
+
+.notification.success {
+    border-left-color: #5cb85c;
+}
+
+.notification.error {
+    border-left-color: #d9534f;
+}
+
+.notification.warning {
+    border-left-color: #f0ad4e;
+}
+
+.notification-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.notification.success .notification-icon {
+    color: #5cb85c;
+}
+
+.notification.error .notification-icon {
+    color: #d9534f;
+}
+
+.notification.warning .notification-icon {
+    color: #f0ad4e;
+}
+
+.notification-content {
+    flex: 1;
+}
+
+.notification-title {
+    font-weight: 600;
+    font-size: 15px;
+    margin: 0 0 4px 0;
+    color: #333;
+}
+
+.notification-message {
+    font-size: 13px;
+    color: #666;
+    margin: 0;
+}
+
+.notification-close {
+    background: none;
+    border: none;
+    color: #999;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.notification-close:hover {
+    background: #f0f0f0;
+    color: #333;
+}
+
+.delete-mode-button,
+.action-delete {
+    background: #d9534f;
+    color: #fff;
+    border: none !important;
+    border-radius: 6px !important;
+    box-shadow: none !important;
+}
+.delete-mode-button:hover,
+.action-delete:hover {
+    background: #c9302c;
+}
+.delete-mode-button:focus,
+.action-delete:focus,
+.delete-mode-button:active,
+.action-delete:active {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(217,83,79,0.25) !important;
+}
+
+.edit-mode-button {
+    background: #5cb85c;
+    color: #fff;
+    border: none !important;
+    border-radius: 6px !important;
+    box-shadow: none !important;
+}
+.edit-mode-button:hover {
+    background: #449d44;
+}
+.edit-mode-button:focus,
+.edit-mode-button:active {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(92,184,92,0.25) !important;
+}
