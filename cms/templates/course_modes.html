@@ -1,0 +1,291 @@
+<%page expression_filter="h"/>
+<%!
+from django.utils.translation import gettext as _
+from django.urls import reverse
+from cms.djangoapps.contentstore import utils
+from openedx.core.djangolib.js_utils import dump_js_escaped_json, js_escaped_string
+%>
+
+<%def name="online_help_token()"><% return "course_modes" %></%def>
+<%inherit file="base.html" />
+
+<%namespace name='static' file='static_content.html'/>
+
+<%block name="title">${_("Course Modes")} | ${context_course.display_name_with_default}</%block>
+<%block name="bodyclass">is-signedin course settings course-modes</%block>
+
+<%block name="header_extras">
+<link rel="stylesheet" type="text/css" href="${static.url('css/course_modes.css')}">
+</%block>
+
+<%block name="content">
+<!-- Notification Container -->
+<div class="notification-container" id="notification-container"></div>
+
+<div class="wrapper-mast wrapper">
+    <header class="mast has-actions has-subtitle">
+        <h1 class="page-header">
+            <small class="subtitle">${_("Settings")}</small>
+            <span class="sr">&gt; </span>${_("Course Modes")}
+        </h1>
+        <nav class="nav-actions" aria-label="${_('Page Actions')}">
+            <h3 class="sr">${_("Page Actions")}</h3>
+            <ul>
+                <li class="nav-item">
+                    <a href="#" class="button new-button new-course-mode-button">
+                        <span class="icon fa fa-plus" aria-hidden="true"></span> ${_("New Course Mode")}
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+</div>
+
+<div class="wrapper-content wrapper">
+    <section class="content">
+        <article class="content-primary" role="main">
+            <div class="introduction">
+                <div class="intro-icon">
+                    <span class="icon fa fa-graduation-cap" aria-hidden="true"></span>
+                </div>
+                <h2 class="intro-title">${_("Course Modes")}</h2>
+                <p class="intro-description">${_("Course modes determine how learners can enroll in your course and what they receive upon completion.")}</p>
+                <p class="intro-description">${_("You can offer your course in multiple modes to provide learners with different experiences and benefits.")}</p>
+                <div class="intro-tags">
+                    <span class="intro-tag">
+                        <span class="icon fa fa-certificate" aria-hidden="true"></span>
+                        ${_("Certificates")}
+                    </span>
+                    <span class="intro-tag">
+                        <span class="icon fa fa-dollar" aria-hidden="true"></span>
+                        ${_("Pricing Options")}
+                    </span>
+                    <span class="intro-tag">
+                        <span class="icon fa fa-users" aria-hidden="true"></span>
+                        ${_("Learner Access")}
+                    </span>
+                </div>
+            </div>
+
+            <div class="course-modes-container">
+                <table class="course-modes-table">
+                    <thead>
+                        <tr>
+                            <th>${_("Mode")}</th>
+                            <th>${_("Display Name")}</th>
+                            <th>${_("Price")}</th>
+                            <th>${_("Currency")}</th>
+                            <th>${_("Upgrade Deadline")}</th>
+                            <th>${_("Product URL")}</th>
+                            <th>${_("Actions")}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        % for mode_slug, mode in course_modes.items():
+                        <tr class="course-mode-row" data-mode-slug="${mode_slug}">
+                            <td class="mode-slug">${mode_slug}</td>
+                            <td class="mode-display-name">${mode.name}</td>
+                            <td class="mode-price">
+                                % if mode.min_price > 0:
+                                    ${mode.min_price}
+                                % else:
+                                    ${_("Free")}
+                                % endif
+                            </td>
+                            <td class="mode-currency">${mode.currency.upper()}</td>
+                            <td class="mode-expiration">
+                                % if mode.expiration_datetime:
+                                    ${mode.expiration_datetime.strftime('%Y-%m-%d %H:%M')}
+                                % else:
+                                    ${_("None")}
+                                % endif
+                            </td>
+                            <td class="mode-product-url">
+                                % if mode.product_url:
+                                    <a href="${mode.product_url}" target="_blank" rel="noopener noreferrer">
+                                        ${mode.product_url[:50]}${"..." if len(mode.product_url) > 50 else ""}
+                                    </a>
+                                % else:
+                                    ${_("None")}
+                                % endif
+                            </td>
+                            <td class="mode-actions">
+                                <button class="button edit-mode-button" data-mode-slug="${mode_slug}">
+                                    <span class="icon fa fa-edit" aria-hidden="true"></span> ${_("Edit")}
+                                </button>
+                                <button class="button delete-mode-button action-delete" data-mode-slug="${mode_slug}">
+                                    <span class="icon fa fa-trash" aria-hidden="true"></span> ${_("Delete")}
+                                </button>
+                            </td>
+                        </tr>
+                        % endfor
+                        % if not course_modes:
+                        <tr>
+                            <td colspan="7" class="empty-message">
+                                ${_("No course modes have been configured yet. Click 'New Course Mode' to add one.")}
+                            </td>
+                        </tr>
+                        % endif
+                    </tbody>
+                </table>
+            </div>
+        </article>
+
+        <aside class="content-supplementary" role="complementary">
+            <div class="bit">
+                <h3 class="mode-guide-title">${_("Mode Types")}</h3>
+                
+                <div class="mode-item">
+                    <div class="mode-item-header">
+                        <span class="mode-icon fa fa-eye" aria-hidden="true"></span>
+                        <strong>${_("Audit")}</strong>
+                    </div>
+                    <p class="mode-item-description">${_("Free access to course content, no certificate")}</p>
+                </div>
+                
+                <div class="mode-item">
+                    <div class="mode-item-header">
+                        <span class="mode-icon fa fa-check-circle" aria-hidden="true"></span>
+                        <strong>${_("Verified")}</strong>
+                    </div>
+                    <p class="mode-item-description">${_("Paid access with verified certificate")}</p>
+                </div>
+                
+                <div class="mode-item">
+                    <div class="mode-item-header">
+                        <span class="mode-icon fa fa-certificate" aria-hidden="true"></span>
+                        <strong>${_("Honor")}</strong>
+                    </div>
+                    <p class="mode-item-description">${_("Free access with honor certificate (legacy)")}</p>
+                </div>
+                
+                <div class="mode-item">
+                    <div class="mode-item-header">
+                        <span class="mode-icon fa fa-briefcase" aria-hidden="true"></span>
+                        <strong>${_("Professional")}</strong>
+                    </div>
+                    <p class="mode-item-description">${_("Professional education track")}</p>
+                </div>
+            </div>
+        </aside>
+    </section>
+</div>
+
+<!-- Modal for Add/Edit Course Mode -->
+<div class="modal-cover" id="course-mode-modal" style="display: none;">
+    <div class="modal">
+        <div class="modal-header">
+            <h2 class="modal-title">${_("Add Course Mode")}</h2>
+            <button class="modal-close" aria-label="${_('Close')}">
+                <span class="icon fa fa-times" aria-hidden="true"></span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="course-mode-form">
+                <div class="form-group">
+                    <label for="mode-slug">${_("Mode Type")} <span class="required">*</span></label>
+                    <select id="mode-slug" name="mode_slug" required>
+                        <option value="">${_("Select a mode")}</option>
+                        <option value="audit">${_("Audit")}</option>
+                        <option value="verified">${_("Verified")}</option>
+                        <option value="honor">${_("Honor")}</option>
+                        <option value="professional">${_("Professional")}</option>
+                        <option value="no-id-professional">${_("No ID Professional")}</option>
+                        <option value="credit">${_("Credit")}</option>
+                        <option value="masters">${_("Masters")}</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mode-display-name">${_("Display Name")} <span class="required">*</span></label>
+                    <input type="text" id="mode-display-name" name="mode_display_name" required />
+                </div>
+                
+                <div class="form-group">
+                    <label for="mode-min-price">${_("Price")}</label>
+                    <input type="number" id="mode-min-price" name="min_price" min="0" value="0" />
+                    <span class="help-text">${_("Enter 0 for free modes")}</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mode-currency">${_("Currency")}</label>
+                    <select id="mode-currency" name="currency">
+                        <option value="inr">${_("INR (₹)")}</option>
+                        <option value="usd">${_("USD ($)")}</option>
+                        <option value="eur">${_("EUR (€)")}</option>
+                        <option value="gbp">${_("GBP (£)")}</option>
+                        <option value="cad">${_("CAD (C$)")}</option>
+                        <option value="aud">${_("AUD (A$)")}</option>
+                        <option value="cny">${_("CNY (¥)")}</option>
+                        <option value="jpy">${_("JPY (¥)")}</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mode-product-url">${_("Product URL")}</label>
+                    <input type="url" id="mode-product-url" name="product_url" placeholder="https://store.sherab.org/product/sherab-course/" />
+                    <span class="help-text product-url-help">${_("If you have created a product on Sherab EduStore, please provide the URL of that product here.")}</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mode-expiration">${_("Upgrade Deadline")}</label>
+                    <input type="datetime-local" id="mode-expiration" name="expiration_datetime" />
+                    <span class="help-text">${_("Optional: Date after which learners cannot upgrade to this mode")}</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mode-description">${_("Description")}</label>
+                    <textarea id="mode-description" name="description" rows="3"></textarea>
+                    <span class="help-text">${_("Optional: Description shown to learners")}</span>
+                </div>
+                
+                <div class="form-group" style="display: none;">
+                    <label for="mode-sku">${_("SKU")}</label>
+                    <input type="text" id="mode-sku" name="sku" />
+                    <span class="help-text">${_("Required for e-commerce integration")}</span>
+                </div>
+                
+                <div class="form-group" style="display: none;">
+                    <label for="mode-bulk-sku">${_("Bulk SKU")}</label>
+                    <input type="text" id="mode-bulk-sku" name="bulk_sku" />
+                    <span class="help-text">${_("Optional: For bulk purchase")}</span>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="button cancel-button">${_("Cancel")}</button>
+            <button class="button action-primary save-button">${_("Save")}</button>
+        </div>
+    </div>
+</div>
+
+<!-- Confirm Delete Modal -->
+<div class="modal-cover" id="confirm-delete-modal" style="display: none;">
+    <div class="modal">
+        <div class="modal-header">
+            <h2 class="modal-title">${_("Delete Course Mode")}</h2>
+            <button class="modal-close" aria-label="${_('Close')}">
+                <span class="icon fa fa-times" aria-hidden="true"></span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p class="confirm-text">${_("Are you sure you want to delete the course mode")}
+                <strong><span id="confirm-delete-mode"></span></strong>?<br/>
+                ${_("This action cannot be undone.")}
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button class="button cancel-button" id="confirm-delete-cancel">${_("Cancel")}</button>
+            <button class="button action-delete" id="confirm-delete-button">${_("Delete")}</button>
+        </div>
+    </div>
+    
+</div>
+
+<%block name="jsextra">
+<script type="text/javascript">
+    window.courseModesUrl = "${reverse('course_modes_handler', kwargs={'course_key_string': str(context_course.id)})}";
+</script>
+<script type="text/javascript" src="${static.url('js/course_modes.js')}"></script>
+</%block>
+</%block>
