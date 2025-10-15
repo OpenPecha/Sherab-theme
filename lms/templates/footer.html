@@ -16,7 +16,7 @@
       <img src="${static.url('images/logo.png')}" alt="${_('Your Brand')}" class="footer-logo" />
       <span class="custom-tooltip">${_('Go to main page')}</span>
     </a>
-    
+
     <div class="footer-links">
       <nav class="nav-footer" aria-label="${_('About')}">
         <ol>
@@ -49,6 +49,8 @@
     </div>
   </footer>
 </div>
+
+<%include file="widgets/userback_script.html"/>
 
 % if include_dependencies:
   <%static:js group='base_vendor'/>

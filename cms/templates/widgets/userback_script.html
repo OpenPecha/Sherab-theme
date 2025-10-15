@@ -1,0 +1,45 @@
+<%!
+from django.conf import settings
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+from openedx.core.djangolib.js_utils import js_escaped_string
+%>
+
+<%
+  userback_access_token = configuration_helpers.get_value(
+    "USERBACK_ACCESS_TOKEN",
+    getattr(settings, "USERBACK_ACCESS_TOKEN", None)
+  )
+
+  if userback_access_token:
+    if request.user.is_authenticated:
+      user_id = request.user.id
+      user_name = request.user.username
+      user_email = request.user.email
+    else:
+      if not request.session.session_key:
+        request.session.save()
+      user_id = f"anon-{request.session.session_key or ''}"
+      user_name = "Anonymous"
+      user_email = ""
+%>
+
+% if userback_access_token:
+  <script>
+    window.Userback = window.Userback || {};
+    Userback.access_token = "${userback_access_token}";
+    // Pass logged-in user info to Userback
+    Userback.user_data = {
+      id: "${user_id | n, js_escaped_string}",
+      info: {
+        name: "${user_name | n, js_escaped_string}",
+        email: "${user_email | n, js_escaped_string}"
+      }
+    };
+    (function(d) {
+      var s = d.createElement('script');
+      s.async = true;
+      s.src = 'https://static.userback.io/widget/v1.js';
+      (d.head || d.body).appendChild(s);
+    })(document);
+  </script>
+% endif
