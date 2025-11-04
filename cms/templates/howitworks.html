@@ -1,0 +1,110 @@
+<%page expression_filter="h"/>
+<%inherit file="base.html" />
+<%def name="online_help_token()"><% return "welcome" %></%def>
+<%namespace name='static' file='static_content.html'/>
+<%!
+  from django.conf import settings
+  from django.utils.translation import gettext as _
+  from urllib.parse import quote_plus
+  from django.urls import reverse
+  from openedx.core.djangolib.markup import HTML, Text
+%>
+
+<%block name="title">${_("Welcome")}</%block>
+<%block name="bodyclass">not-signedin index view-howitworks</%block>
+
+<%block name="content">
+
+<div class="wrapper-content-header wrapper">
+  <section class="content content-header">
+    <header>
+      <h1><span class="wrapper-text-welcome">${_("Welcome to {studio_name}").format(
+          studio_name=settings.STUDIO_NAME
+      )}</span></h1>
+      <p class="tagline">${_("{studio_name} simplifies course management for you.").format(
+        studio_name=settings.STUDIO_SHORT_NAME
+      )}</p>
+    </header>
+  </section>
+</div>
+
+<div class="wrapper-two-col wrapper">
+  <div class="col-about">
+    <section class="content content-about">
+      <div class="about-grid">
+        <div class="about-card">
+          <h2 class="about-title"><i class="icon fa fa-book title-icon" aria-hidden="true"></i>${_("What is Sherab\u200a-\u200aStudio?")}</h2>
+          <p><strong>${_("Sherab\u200a-\u200aStudio is a focused authoring workspace for course creators to build and publish courses on Sherab E-Learning Platform.")}</strong></p>
+          <ul class="about-list">
+            <li>${_("Rich problems: MCQ, checkbox, text, quizzes, ORA, exams")}</li>
+            <li>${_("Modes & pricing: set modes, prices, certificates, pacing")}</li>
+            <li>${_("Engagement: announcements, discussions, surveys, progress")}</li>
+            <li>${_("Safe publishing: draft, preview, history, staged releases")}</li>
+            <li>${_("Team workflows: roles, review notes, reusable libraries")}</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="col-contact">
+    <section class="content content-contact">
+      <div class="contact-form-container">
+        <h2 class="contact-title"><i class="icon fa fa-envelope title-icon" aria-hidden="true"></i>${_("Get Started with Sherab-{studio_name}").format(studio_name=settings.STUDIO_SHORT_NAME)}</h2>
+        <p class="tagline"><strong>${_("Interested in creating a course on Sherab? Fill out this form, and our team will review your submission and contact you soon.").format(studio_name=settings.STUDIO_SHORT_NAME)}</strong></p>
+        <form id="howitworks-contact-form" method="post" action="${reverse('submit_howitworks_contact')}" class="contact-form">
+          <input type="hidden" name="csrfmiddlewaretoken" value="${csrf_token}">
+          
+          <div class="form-row">
+            <div class="form-field">
+              <label for="contact-name" class="field-label">${_("Full Name")} <span class="required">*</span></label>
+              <input type="text" id="contact-name" name="name" class="field-input" required 
+                     placeholder="${_('Your full name')}">
+              <div class="field-error" id="name-error"></div>
+            </div>
+
+            <div class="form-field">
+              <label for="contact-email" class="field-label">${_("Email Address")} <span class="required">*</span></label>
+              <input type="email" id="contact-email" name="email" class="field-input" required 
+                     placeholder="${_('your.email@example.com')}">
+              <div class="field-error" id="email-error"></div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label for="contact-organization" class="field-label">${_("Organization")} <span class="required">*</span></label>
+              <input type="text" id="contact-organization" name="organization" class="field-input" required
+                     placeholder="${_('Your organization or institution')}">
+              <div class="field-error" id="organization-error"></div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field form-field-full">
+              <label for="contact-organization-description" class="field-label">${_("Organization Description")}</label>
+              <textarea id="contact-organization-description" name="organization_description" class="field-input field-textarea" rows="3"
+                        placeholder="${_("Briefly describe your organization")}"></textarea>
+              <div class="field-error" id="organization_description-error"></div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="action action-primary contact-submit-btn">
+              <span class="btn-text">${_("Send Message")}</span>
+              <span class="btn-loading" style="display: none;">${_("Sending...")}</span>
+            </button>
+          </div>
+
+          <div class="form-feedback" id="contact-form-feedback" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+  </div>
+</div>
+
+<%block name="jsextra">
+  <script type="text/javascript" src="${static.url('js/howitworks_form.js')}"></script>
+  <link rel="stylesheet" href="${static.url('css/howitworks.css')}">
+</%block>
+
+</%block>
