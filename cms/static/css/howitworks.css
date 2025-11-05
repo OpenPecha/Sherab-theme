@@ -701,6 +701,26 @@
     margin-right: 80px;
 }
 
+@media (min-width: 1025px) and (max-width: 1439px) {
+    .wrapper-two-col {
+        grid-template-columns: 1fr;
+        max-width: 900px;
+    }
+
+    .wrapper-two-col .col-about {
+        padding-left: 0;
+    }
+
+    .wrapper-two-col .about-card {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .wrapper-two-col .col-contact .contact-form-container {
+        margin: 0 auto;
+    }
+}
+
 @media (max-width: 1024px) {
     .wrapper-two-col {
         grid-template-columns: 1fr;
