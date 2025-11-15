@@ -324,16 +324,13 @@ from openedx.core.djangoapps.models.course_details import CourseDetails
                 <%include file="course_about_sidebar_header.html" />
                 <%block name="course_about_important_dates">
                     <ol class="important-dates">
-                        <li class="important-dates-item">
-                            <span class="icon fa fa-info-circle" aria-hidden="true"></span><p class="important-dates-item-title">${_("Course Number")}</p><span class="important-dates-item-text course-number">${course.display_number_with_default}</span>
-                        </li>
                         % if not course.start_date_is_still_default:
                             <%
                                 course_start_date = course.advertised_start or course.start
                             %>
                             <li class="important-dates-item">
-                                <span class="icon fa fa-calendar" aria-hidden="true"></span>
-                                <p class="important-dates-item-title">${_("Classes Start")}</p>
+                                <span class="icon fa fa-flag" aria-hidden="true"></span>
+                                <p class="important-dates-item-title">${_("Release Date")}</p>
                                 % if isinstance(course_start_date, string_types):
                                     <span class="important-dates-item-text start-date">${course_start_date}</span>
                                 % else:
@@ -351,8 +348,8 @@ from openedx.core.djangoapps.models.course_details import CourseDetails
                                 course_end_date = course.end
                             %>
                             <li class="important-dates-item">
-                                <span class="icon fa fa-calendar" aria-hidden="true"></span>
-                                <p class="important-dates-item-title">${_("Classes End")}</p>
+                                <span class="icon fa fa-archive" aria-hidden="true"></span>
+                                <p class="important-dates-item-title">${_("Archive Date")}</p>
                                 % if isinstance(course_end_date, string_types):
                                     <span class="important-dates-item-text final-date">${course_end_date}</span>
                                 % else:
@@ -423,6 +420,11 @@ from openedx.core.djangoapps.models.course_details import CourseDetails
                                 <span class="important-dates-item-text prerequisites">${prerequisites}</span>
                             </li>
                         % endif
+                        <li class="important-dates-item">
+                            <span class="icon fa fa-users" aria-hidden="true"></span>
+                            <p class="important-dates-item-title">${_("Students Enrolled")}</p>
+                            <span class="important-dates-item-text students-enrolled">${enrolled_students_count}</span>
+                        </li>
                     </ol>
                 </%block>
             </div>

@@ -108,7 +108,7 @@ from openedx.core.djangoapps.content.course_overviews.models import CourseOvervi
                                 <a href="${reverse('about_course', args=[text_type(course.id)])}">
                                   <header class="course-image">
                                     <div class="cover-image">
-                                      <img src="${course.course_image_url}" alt="${course.display_name_with_default} ${course.display_number_with_default}" />
+                                      <img src="${course.course_image_url}" alt="${course.display_name_with_default}" />
                                       <div class="learn-more" aria-hidden="true">${_("LEARN MORE")}</div>
                                     </div>
                                     <div class="partner-logo-wrapper">
@@ -118,7 +118,6 @@ from openedx.core.djangoapps.content.course_overviews.models import CourseOvervi
                                   <div class="course-info" aria-hidden="true">
                                     <h2 class="course-name">
                                       <span class="course-organization">${course.display_org_with_default}</span>
-                                      <span class="course-code">${course.display_number_with_default}</span>
                                       <span class="course-title">${course.display_name_with_default}</span>
                                     </h2>
                                     <%
@@ -136,7 +135,6 @@ from openedx.core.djangoapps.content.course_overviews.models import CourseOvervi
                                   <div class="sr">
                                     <ul>
                                       <li>${course.display_org_with_default}</li>
-                                      <li>${course.display_number_with_default}</li>
                                       % if course.advertised_start is not None:
                                           <li>${_("Starts")}: <time itemprop="startDate">${course.advertised_start}</time></li>
                                       % else:

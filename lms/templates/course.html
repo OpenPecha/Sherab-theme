@@ -20,7 +20,7 @@ from six import text_type
   <a href="${reverse('about_course', args=[text_type(course.id)])}">
     <header class="course-image">
       <div class="cover-image">
-        <img src="${course.course_image_url}" alt="${course.display_name_with_default} ${course.display_number_with_default}" />
+        <img src="${course.course_image_url}" alt="${course.display_name_with_default}" />
         <div class="learn-more" aria-hidden="true">${_("LEARN MORE")}</div>
       </div>
       % if logo_url:
@@ -32,7 +32,6 @@ from six import text_type
     <div class="course-info" aria-hidden="true">
       <h2 class="course-name">
         <span class="course-organization">${course.display_org_with_default}</span>
-        <span class="course-code">${course.display_number_with_default}</span>
         <span class="course-title">${course.display_name_with_default}</span>
       </h2>
       <%
