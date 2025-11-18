@@ -62,12 +62,14 @@
 
     <div class="cert-right">
 		<div class="cert-header">
-			% if partner_logo:
-				<img src="${partner_logo.url if getattr(partner_logo, 'url', None) else partner_logo}" alt="${platform_name}"
-					class="cert-logo">
-			% else:
-				<img src="${static.url('images/logo.png')}" alt="${platform_name}" class="cert-logo">
-			% endif
+			<div class="cert-logo-wrapper">
+				% if partner_logo:
+					<img src="${partner_logo.url if getattr(partner_logo, 'url', None) else partner_logo}" alt="${platform_name}"
+						class="cert-logo">
+				% else:
+					<img src="${static.url('images/logo.png')}" alt="${platform_name}" class="cert-logo">
+				% endif
+			</div>
 			<h1 class="cert-title">${_("CERTIFICATE")}</h1>
 			<h2 class="cert-subtitle">${_("OF COMPLETION")}</h2>
 			<p class="cert-presented">${_("Proudly Presented To")}</p>

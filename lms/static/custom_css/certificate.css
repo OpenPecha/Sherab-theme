@@ -72,9 +72,18 @@
 	position: relative;
 }
 
+.cert-logo-wrapper {
+	height: 125px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto;
+}
+
 .cert-logo {
-	width: 120px;
+	height: 120px;
 	display: block;
+	object-fit: contain;
 }
 
 .cert-title {
@@ -151,6 +160,7 @@
 .cert-signature {
 	margin-top: 0.5rem;
 	display: flex;
+	height: 140px;
 	justify-content: center;
 	align-items: flex-start;
 	flex-wrap: wrap;
