@@ -1,0 +1,326 @@
+.course-creators-wrapper {
+    margin: 1rem auto;
+    padding: 0 20px;
+    overflow: visible;
+}
+
+.creators-slider .creator-card {
+    display: block !important;
+    margin: 0 10px;
+    padding: 10px 0;
+    width: 100% !important;
+    max-width: 350px;
+}
+
+.creator-card,
+.creator-card-inner {
+    width: 100%;
+    max-width: 350px;
+}
+
+.creator-card-inner {
+    min-height: 260px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start !important;
+    padding: 1rem;
+    padding-bottom: 1.25rem;
+    border-radius: 14px;
+    background: #ffffff;
+    box-sizing: border-box;
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.05),
+        0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: 0.2s ease;
+}
+
+.creator-card-inner:hover {
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.08),
+        0 3px 6px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+}
+
+.creator-row-top {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.creator-card-inner.expanded-card {
+    z-index: 2;
+    position: relative;
+}
+
+.creator-media {
+    flex: 0 0 90px;
+    margin-right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible !important;
+}
+
+.creator-image {
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center center !important;
+    display: block;
+    border: 2px solid #f0f0f0;
+    background: #fff;
+}
+
+.creator-image.placeholder {
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    background: #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+    font-weight: 600;
+    font-size: 26px;
+}
+
+.creator-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.creator-name {
+    color: #000000;
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+}
+
+.creator-title {
+    color: #6b7280;
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+}
+
+.creator-experience {
+    color: #6b7280;
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+}
+
+.creator-bio {
+    position: relative;
+    width: 100%;
+    margin-top: 0.75rem;
+}
+
+.creator-bio .bio-preview {
+    font-size: 0.95rem;
+    color: #333;
+    line-height: 1.45;
+    overflow: hidden;
+    position: relative;
+    transition: max-height 0.3s ease;
+}
+
+.creator-bio .bio-preview:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 20px;
+    width: 100%;
+    background: linear-gradient(to bottom, transparent, #ffffff);
+    pointer-events: none;
+}
+
+.creator-bio.expanded .bio-preview {
+    overflow-y: auto;
+    position: relative;
+    scrollbar-width: none;
+}
+
+.creator-bio.expanded .bio-preview::-webkit-scrollbar {
+    width: 0;
+}
+
+.creator-bio.expanded .bio-preview::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 18px;
+    width: 100%;
+    background: linear-gradient(to bottom, #ffffff, transparent);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.creator-bio.expanded .bio-preview::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 18px;
+    width: 100%;
+    background: linear-gradient(to top, #ffffff, transparent);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.creator-bio.expanded .bio-preview:after {
+    display: none !important;
+}
+
+.bio-toggle {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: #0b5fff;
+    cursor: pointer;
+    font-size: 0.9rem;
+    text-decoration: underline;
+}
+
+.creators-slider-wrapper,
+.creators-slider {
+    overflow: visible !important;
+}
+
+.slick-list {
+    overflow-y: visible !important;
+    overflow-x: hidden !important;
+}
+
+.slick-track {
+    display: flex !important;
+    align-items: flex-start !important;
+}
+
+.slick-slide {
+    min-width: 260px;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+.slick-prev,
+.slick-next {
+    box-shadow: none !important;
+}
+
+.slick-prev {
+    left: -15px;
+}
+
+.slick-next {
+    right: -15px;
+}
+
+.slick-dots button {
+    box-shadow: none !important;
+}
+
+.slick-dotted button:hover {
+    background-image: none !important;
+    background-color: transparent !important;
+}
+
+.creator-bio.expanded .scroll-hint {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 28px;
+    height: 28px;
+    pointer-events: none;
+    opacity: 0.75;
+    background: url("data:image/svg+xml,%3Csvg width='24' height='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='6,8 12,14 18,8' stroke='%230B5FFF' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center;
+    animation: scrollPulse 1.6s infinite ease-in-out;
+}
+
+@keyframes scrollPulse {
+    0% {
+        transform: translate(-50%, 0);
+        opacity: 0.4;
+    }
+
+    50% {
+        transform: translate(-50%, 4px);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-50%, 0);
+        opacity: 0.4;
+    }
+}
+
+.creator-bio.collapsed .scroll-hint {
+    display: none !important;
+}
+
+.creator-bio.expanded .bio-preview.scrolled+.scroll-hint {
+    display: none !important;
+}
+
+@media (max-width: 1200px) {
+    .creators-slider .creator-card {
+        max-width: 320px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .creators-slider .creator-card {
+        max-width: 290px;
+    }
+}
+
+@media (max-width: 992px) {
+    .creators-slider .creator-card {
+        max-width: 350px;
+    }
+}
+
+@media (max-width: 850px) {
+    .creators-slider .creator-card {
+        max-width: 330px;
+    }
+}
+
+@media (max-width: 768px) {
+    .creators-slider .creator-card {
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 650px) {
+    .creators-slider .creator-card {
+        max-width: 260px;
+    }
+}
+
+@media (max-width: 576px) {
+    .creators-slider .creator-card {
+        max-width: 100%;
+        width: 100% !important;
+        margin: 0 auto !important;
+    }
+
+    .creator-card-inner {
+        min-height: 220px;
+    }
+
+    .creator-media {
+        flex: 0 0 64px !important;
+    }
+
+    .creator-image,
+    .creator-image.placeholder {
+        width: 60px;
+        height: 60px;
+    }
+}

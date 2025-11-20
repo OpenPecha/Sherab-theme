@@ -1,0 +1,65 @@
+<%! from django.utils.translation import gettext as _ %>
+
+    % if course_creators:
+    <div class="container mw-lg course-creators-wrapper">
+        <h3 style="font-family: inherit;">${_("Course Creators")}</h3>
+
+        <div class="creators-slider-wrapper">
+            <div class="creators-slider">
+                % for course_creator in course_creators:
+                <div class="creator-card" aria-label="${course_creator.name}">
+                    <div class="creator-card-inner d-flex align-items-start">
+
+                        <div class="creator-row-top">
+                            <div class="creator-media">
+                                % if course_creator.profile_picture:
+                                <img src="${course_creator.profile_picture.url}"
+                                    alt="${course_creator.name} profile picture" class="creator-image" />
+                                % else:
+                                <div class="creator-image placeholder" aria-hidden="true">
+                                    <span class="placeholder-initial">
+                                        ${course_creator.name[:1] if course_creator.name else ''}
+                                    </span>
+                                </div>
+                                % endif
+                            </div>
+                            <div class="creator-info">
+                                <div class="creator-name">
+                                    <strong>${course_creator.name}</strong>
+                                </div>
+
+                                % if course_creator.title:
+                                <div class="creator-title">${course_creator.title}</div>
+                                % endif
+
+                                % if course_creator.experience:
+                                <div class="creator-experience">
+                                    ${course_creator.experience} ${_("years experience") if course_creator.experience != 1 else _("year experience")}
+                                </div>
+                                % endif
+                            </div>
+
+                        </div>
+                        % if course_creator.bio:
+                        <div class="creator-bio collapsed" data-full-bio="${course_creator.bio|h}">
+                            <div class="bio-preview">
+                                ${course_creator.bio[:250]}${"..." if len(course_creator.bio) > 250 else ""}
+                            </div>
+
+                            <div class="scroll-hint"></div>
+
+                            % if len(course_creator.bio) > 250:
+                            <button type="button" class="bio-toggle btn-link" aria-expanded="false">
+                                ${_("Read more")}
+                            </button>
+                            % endif
+                        </div>
+                        % endif
+
+                    </div>
+                </div>
+                % endfor
+            </div>
+        </div>
+    </div>
+    % endif
