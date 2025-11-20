@@ -74,21 +74,41 @@
       });
     }
 
+    function updateCollapsedFade() {
+      $('.creator-bio.collapsed').each(function () {
+        var bio = $(this);
+        var preview = bio.find('.bio-preview');
+        var toggle = bio.find('.bio-toggle'); // read more button
+        var contentHeight = preview[0].scrollHeight;
+        var visibleHeight = preview.outerHeight();
+
+        // If content fits fully AND there's no Read More button -> remove fade
+        if (contentHeight <= visibleHeight + 2 && toggle.length === 0) {
+          preview.addClass('no-fade');
+        } else {
+          preview.removeClass('no-fade');
+        }
+      });
+    }
+
     $('.creators-slider').on('setPosition', function () {
       normalizeCreatorCardHeights();
       adjustBioPreviewHeight();
+      updateCollapsedFade();
     });
 
     $(window).on('resize', function () {
       setTimeout(function () {
         normalizeCreatorCardHeights();
         adjustBioPreviewHeight();
+        updateCollapsedFade();
       }, 150);
     });
 
     setTimeout(function () {
       normalizeCreatorCardHeights();
       adjustBioPreviewHeight();
+      updateCollapsedFade();
     }, 300);
 
     /* ===========================================================
