@@ -170,6 +170,10 @@
     z-index: 2;
 }
 
+.creator-bio.expanded .bio-preview:after {
+    display: none !important;
+}
+
 .bio-preview.no-fade:after {
     display: none !important;
 }
