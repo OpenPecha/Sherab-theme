@@ -1,0 +1,126 @@
+<%page expression_filter="h"/>
+<%!
+	from django.utils.translation import gettext as _
+	from django.conf import settings
+	from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+	from organizations.models import OrganizationCourse
+	from course_partnerships.models import PartnerOrganizationMapping
+	from common.djangoapps.student.models import get_user_by_username_or_email
+%>
+<%namespace name='static' file='../static_content.html'/>
+
+<%
+	# PLATFORM NAME
+	platform_name = configuration_helpers.get_value("platform_name", settings.PLATFORM_NAME)
+
+	# PARTNER (LOGO + NAME)
+	partner_logo = None
+	partner_name = "Partner"
+	try:
+		# Fetch the organization course record associated with the given course_id
+		organization_course = OrganizationCourse.objects.filter(course_id=course_id).first()
+
+		# If an organization course is found, try to find the related partner organization mapping
+		if organization_course:
+			organization = organization_course.organization
+			partner_org_mapping = PartnerOrganizationMapping.objects.filter(
+			organization=organization
+			).first()
+
+		# If a partner organization mapping is found, get the partner and its logo
+		if partner_org_mapping:
+			partner = partner_org_mapping.partner
+			partner_logo = partner.logo if partner and partner.logo else None
+			partner_name = partner.name if partner and partner.name else "Partner"
+	except Exception:
+		pass
+
+	# USER FULL NAME
+	full_name = None
+	try:
+		user = get_user_by_username_or_email(accomplishment_copy_username)
+		full_name = f"{user.first_name} {user.last_name}".strip() or None
+	except Exception:
+		pass
+	if not full_name:
+		full_name = accomplishment_copy_name or accomplishment_copy_username
+%>
+
+<%block name="headextra">
+	<link rel="stylesheet" type="text/css" href="${static.url('custom_css/certificate.css')}">
+</%block>
+
+<main class="certificate-custom">
+  <div class="cert-container">
+	<div class="cert-left">
+      	<img src="${static.url('images/certificate-logo.png')}" alt="${platform_name}" class="cert-left-logo">
+    </div>
+
+    <div class="cert-side-art-wrapper">
+      	<img src="${static.url('images/certificate-side-asset.png')}" alt="Side Art" class="cert-side-art">
+    </div>
+
+    <div class="cert-right">
+		<div class="cert-header">
+			<div class="cert-logo-wrapper">
+				% if partner_logo:
+					<img src="${partner_logo.url if getattr(partner_logo, 'url', None) else partner_logo}" alt="${platform_name}"
+						class="cert-logo">
+				% else:
+					<img src="${static.url('images/logo.png')}" alt="${platform_name}" class="cert-logo">
+				% endif
+			</div>
+			<h1 class="cert-title">${_("CERTIFICATE")}</h1>
+			<h2 class="cert-subtitle">${_("OF COMPLETION")}</h2>
+			<p class="cert-presented">${_("Proudly Presented To")}</p>
+		</div>
+
+      	<div class="cert-name">${full_name}</div>
+
+		<div class="cert-description">
+			${_("Successfully completed and received a passing grade in")}
+			<div class="course-name">
+				${accomplishment_copy_course_name}
+			</div>
+			${_("an online")} ${course_mode} ${_("course authorized by")} ${partner_name} and
+			offered through ${platform_name}.
+		</div>
+
+		<div class="cert-signature">
+			% if certificate_data and certificate_data.get('signatories'):
+				% for signatory in certificate_data.get('signatories', []):
+					<div class="signatory">
+						% if signatory.get('signature_image_path'):
+							<div class="signatory-img-wrapper">
+							<img src="${static.url(signatory['signature_image_path'])}" alt="${signatory['name']}" class="signatory-img">
+							</div>
+						% endif
+						<div class="signatory-details">
+							<div class="signatory-name">${signatory['name']}</div>
+							<div class="signatory-role">${signatory['title']}</div>
+							<div class="signatory-org">${signatory['organization']}</div>
+						</div>
+					</div>
+				% endfor
+			% endif
+		</div>
+
+      <div class="cert-footer">
+        <div class="cert-issued">
+			<div class="cert-label">${_("VERIFIED CERTIFICATE")}</div>
+			<div class="cert-value">
+				${_("Issued")} ${certificate_date_issued}
+			</div>
+        </div>
+
+        <div class="cert-id">
+			<div class="cert-label">${_("VALID CERTIFICATE ID")}</div>
+			<div class="cert-value">
+				${certificate_id_number}
+			</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
