@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="${static.url('custom_css/slick.css')}" />
 <link rel="stylesheet" href="${static.url('custom_css/partners.css')}" />
 <link rel="stylesheet" href="${static.url('custom_css/development.css')}" />
+<link rel="stylesheet" href="${static.url('custom_css/course_creators.css')}" />
 
 <main id="main-content" name="main-content" class="" tabindex="-1" aria-label="Content">
     <div class="school-details" id="partner-details">
@@ -25,6 +26,7 @@
                 ${clean_dangerous_html(partner.content)}
             </div>
         </div>
+        <%include file="_course_creators.html" />
         % if centers:
             <div class="container mw-lg">
                 <h3 style="font-family: inherit;">${_("Centers")}</h3>
@@ -118,4 +120,5 @@
 <%block name="js_extra">
   <script src="${static.url('js/slick.min.js')}"></script>
   <script src="${static.url('js/development.js')}"></script>
+  <script src="${static.url('js/course_creators.js')}"></script>
 </%block>
