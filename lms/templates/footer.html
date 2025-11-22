@@ -5,12 +5,24 @@
   from django.utils.translation import gettext as _
   from lms.djangoapps.branding.api import get_footer
   from openedx.core.djangoapps.lang_pref.api import footer_language_selector_is_enabled
+  from django.conf import settings
 %>
 <% footer = get_footer(is_secure=is_secure) %>
 <% icp_license_info = getattr(settings, 'ICP_LICENSE_INFO', {})%>
 <%namespace name='static' file='static_content.html'/>
 
-<div class="scroll-footer-wrapper" aria-hidden="true">
+<% 
+  import datetime
+  scheme = 'https' if is_secure else 'http'
+  studio_base = getattr(settings, 'CMS_BASE', None) or getattr(settings, 'STUDIO_BASE', None)
+  studio_url = f"{scheme}://{studio_base}" if studio_base else getattr(settings, 'STUDIO_URL', None)
+  if not studio_url:
+      lms_base = getattr(settings, 'LMS_BASE', '')
+      studio_url = f"{scheme}://studio.{lms_base}" if lms_base else '#'
+  current_year = datetime.datetime.now().year
+%>
+
+<div class="scroll-footer-wrapper" aria-hidden="true" style="visibility:hidden">
   <footer id="scroll-footer" class="footer" role="contentinfo">
     <a href="${reverse('root')}" class="footer-logo-link" aria-label="${_('Go to main page')}">
       <img src="${static.url('images/logo.png')}" alt="${_('Your Brand')}" class="footer-logo" />
@@ -36,7 +48,6 @@
           <%include file="${static.get_template_path('widgets/footer-language-selector.html')}"/>
       % endif
 
-      <!-- App download badges -->
       <div class="footer-app-downloads" aria-label="${_('Download our mobile app')}">
         <div class="footer-app-label">${_('Download our app')}</div>
         <a class="footer-store-badge play" href="https://play.google.com/store/apps/details?id=org.sherab.app" aria-label="${_('Get it on Google Play')}" rel="noopener">
@@ -44,6 +55,27 @@
         </a>
         <a class="footer-store-badge appstore" href="https://apps.apple.com/us/app/sherab/id6747565399" aria-label="${_('Download on the App Store')}" rel="noopener">
           <img src="${static.url('images/appstore.png')}" alt="${_('Download on the App Store')}" loading="lazy" decoding="async" />
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-separator"></div>
+
+    <div class="footer-bottom">
+      <a class="footer-cta" href="${studio_url}" aria-label="${_('Become a course provider')}">${_('Become a course provider')} <i class="bi bi-chevron-right" aria-hidden="true"></i></a>
+      <div class="footer-copy">  © ${current_year} Sherab.</div>
+      <div class="footer-social" aria-label="${_('Social media')}">
+        <a href="https://www.facebook.com/profile.php?id=61580184195837" aria-label="${_('Facebook')}" class="social-icon social-facebook" rel="noopener">
+          <i class="bi bi-facebook" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.instagram.com/sherab.elearning/" aria-label="${_('Instagram')}" class="social-icon social-instagram" rel="noopener">
+          <i class="bi bi-instagram" aria-hidden="true"></i>
+        </a>
+        <a href="https://x.com/Sherab_edu" aria-label="${_('X')}" class="social-icon social-x" rel="noopener">
+          <i class="bi bi-twitter-x" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.youtube.com/@SherabLMS" aria-label="${_('YouTube')}" class="social-icon social-youtube" rel="noopener">
+          <i class="bi bi-youtube" aria-hidden="true"></i>
         </a>
       </div>
     </div>

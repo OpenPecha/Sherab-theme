@@ -3,18 +3,18 @@
  * Shows footer only when user reaches bottom of page
  * Hides footer when scrolling back up
  */
-(function() {
+(function () {
   // Configuration
   const SCROLL_THRESHOLD = 100; // Buffer in pixels from bottom to trigger footer
   const INITIAL_DELAY = 500;    // Delay before enabling footer on page load (ms)
-  
+
   // DOM elements
   let footer;
   let footerHeight;
   let isFooterEnabled = false;
   let lastScrollTop = 0;
   let ticking = false;
-  
+
   /**
    * Initialize the scroll footer
    */
@@ -23,43 +23,42 @@
     if (!footer) {
       return;
     }
-    
-    
+
+
     // Get footer height for calculations
     footerHeight = footer.offsetHeight;
-    
-    
+
+
     // Set initial state
     footer.parentElement.setAttribute('aria-hidden', 'true');
-    
+
     // Check if page is scrollable immediately
     const isScrollable = isPageScrollable();
-    
-    // Show footer immediately on non-scrollable pages
-    // Don't wait for the delay
+
+    // Show footer based on scroll position only (no immediate show on load)
     if (!isScrollable) {
-      showFooter();
     }
-    
+
     // Enable footer behavior after initial delay
     setTimeout(() => {
       isFooterEnabled = true;
-      
-      
+
+
       // Check if page is scrollable
       checkIfPageIsScrollable();
-      
+
       // Initial check in case page is already at bottom on load
       checkScrollPosition();
-      
+
       // Add scroll event listener with passive option for performance
       window.addEventListener('scroll', onScroll, { passive: true });
-      
+
       // Also listen for window resize to recalculate dimensions
       window.addEventListener('resize', onResize, { passive: true });
+      footer.parentElement.style.visibility = 'visible';
     }, INITIAL_DELAY);
   }
-  
+
   /**
    * Handle scroll events with throttling
    */
@@ -73,25 +72,25 @@
       ticking = true;
     }
   }
-  
+
   /**
    * Handle window resize events
    */
   function onResize() {
     // Recalculate footer height in case of responsive changes
     footerHeight = footer.offsetHeight;
-    
+
     // Check if page became scrollable or non-scrollable after resize
     checkIfPageIsScrollable();
-    
+
     // Force recalculation of scroll position
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const windowHeight = window.innerHeight;
     const documentHeight = getDocumentHeight();
-    
+
     // Check if user is near bottom of page
     const isAtBottom = (windowHeight + scrollTop) >= (documentHeight - SCROLL_THRESHOLD);
-    
+
     // If at bottom, explicitly show the footer
     if (isAtBottom) {
       showFooter(true);
@@ -100,7 +99,7 @@
       checkScrollPosition();
     }
   }
-  
+
   /**
    * Check if the page is scrollable
    * @returns {boolean} true if page can be scrolled, false otherwise
@@ -108,17 +107,17 @@
   function isPageScrollable() {
     const windowHeight = window.innerHeight;
     const documentHeight = getDocumentHeight();
-    
+
     // Add a small buffer (1px) to account for rounding errors
     return documentHeight > (windowHeight + 1);
   }
-  
+
   /**
    * Check if the page is scrollable and show footer if it's not
    */
   function checkIfPageIsScrollable() {
     if (!isFooterEnabled) return;
-    
+
     const isScrollable = isPageScrollable();
     if (!isScrollable) {
       // If not scrollable, always show footer and skip toggling logic
@@ -131,7 +130,7 @@
     // Use scroll position logic
     checkScrollPosition();
   }
-  
+
   /**
    * Check if user has scrolled to bottom of page
    */
@@ -159,7 +158,7 @@
       hideFooter();
     }
   }
-  
+
   /**
    * Set or remove bottom padding on content for scrollable pages
    * @param {boolean} enable - true to set, false to remove
@@ -168,10 +167,15 @@
     const contentWrapper = document.querySelector('.content-wrapper');
     if (contentWrapper) {
       if (enable) {
-        contentWrapper.style.paddingBottom = `${footerHeight + 20}px`;
+        contentWrapper.style.paddingBottom = (footerHeight + 60) + 'px';
       } else {
         contentWrapper.style.paddingBottom = '';
       }
+    }
+    if (enable) {
+      document.body.style.paddingBottom = (footerHeight + 60) + 'px';
+    } else {
+      document.body.style.paddingBottom = '';
     }
   }
 
@@ -185,7 +189,7 @@
       footer.parentElement.setAttribute('aria-hidden', 'false');
     }
   }
-  
+
   /**
    * Hide the footer
    */
@@ -195,7 +199,7 @@
       footer.parentElement.setAttribute('aria-hidden', 'true');
     }
   }
-  
+
   /**
    * Get the total height of the document
    * Cross-browser compatible method
@@ -210,31 +214,15 @@
       document.body.clientHeight,
       document.documentElement.clientHeight
     );
-    
-    
+
+
     return height;
   }
-  
+
   // Initialize when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initScrollFooter);
-    // Also add a direct call after a delay to ensure the footer shows up
-    setTimeout(() => {
-      const footer = document.getElementById('scroll-footer');
-      if (footer && !isPageScrollable()) {
-        
-        showFooter(true);
-      }
-    }, 1000);
   } else {
     initScrollFooter();
-    // Also add a direct call after a delay to ensure the footer shows up
-    setTimeout(() => {
-      const footer = document.getElementById('scroll-footer');
-      if (footer && !isPageScrollable()) {
-        
-        showFooter(true);
-      }
-    }, 1000);
   }
 })();
