@@ -2,142 +2,142 @@
 /* It includes styles for welcome message and search box on the homepage */
 
 .content-wrapper {
-	padding: 0 2rem 6rem !important;
+  padding: 0 2rem 0 !important;
 }
 
 .welcome-header {
-	background-color: #FFAF66 !important;
-	border-radius: 35px;
+  background-color: #FFAF66 !important;
+  border-radius: 35px;
 }
 
 .home>header .outer-wrapper {
-	padding: 3rem 8rem;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	margin: 0 auto;
-	animation: none;
-	max-width: none !important;
+  padding: 3rem 8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 auto;
+  animation: none;
+  max-width: none !important;
 }
 
 .home>header .title {
-	background: transparent;
-	box-shadow: none;
-	float: none;
-	margin: 0 auto;
-	width: 100%;
-	margin-left: 0 !important;
-	padding: 0 !important;
-	align-items: center;
-	text-align: center !important;
+  background: transparent;
+  box-shadow: none;
+  float: none;
+  margin: 0 auto;
+  width: 100%;
+  margin-left: 0 !important;
+  padding: 0 !important;
+  align-items: center;
+  text-align: center !important;
 }
 
 .home>header .title>.heading-group {
-	padding: 0 !important;
+  padding: 0 !important;
 }
 
 .home>header .title>.heading-group h1 {
-	color: #FFFFFF !important;
-	font-weight: bold;
-	text-shadow: none !important;
-	margin: 0 auto;
-	font-size: 2rem;
-	padding: 1rem 1.5rem 0 !important;
-	text-align: center !important;
+  color: #FFFFFF !important;
+  font-weight: bold;
+  text-shadow: none !important;
+  margin: 0 auto;
+  font-size: 2rem;
+  padding: 1rem 1.5rem 0 !important;
+  text-align: center !important;
 }
 
 .home>header .title .course-search .search-input {
-	border-radius: 22px;
-	border: none;
-	padding: 0 90px 0 30px;
-	height: 60px;
+  border-radius: 22px;
+  border: none;
+  padding: 0 90px 0 30px;
+  height: 60px;
 }
 
 .home>header .title .course-search .search-button {
-	background: none;
-	border: none;
-	color: #FFAF66;
-	margin: 0 10px;
-	right: 20px;
-	height: 60px;
+  background: none;
+  border: none;
+  color: #FFAF66;
+  margin: 0 10px;
+  right: 20px;
+  height: 60px;
 }
 
 .home>header .title .course-search .search-button:hover {
-	background: none;
-	transform: scale(1.1);
-	transition: transform 0.2s ease-in-out;
+  background: none;
+  transform: scale(1.1);
+  transition: transform 0.2s ease-in-out;
 }
 
 .home>header .title .course-search .search-button:focus {
-	background: none;
+  background: none;
 }
 
 
 @media (max-width: 992px) {
-	.welcome-header {
-		border-radius: 30px;
-	}
+  .welcome-header {
+    border-radius: 30px;
+  }
 
-	.home>header .outer-wrapper {
-		padding: 3rem 5rem !important;
-	}
+  .home>header .outer-wrapper {
+    padding: 3rem 5rem !important;
+  }
 
-	.home>header .title>.heading-group h1 {
-		font-size: 1.6rem;
-		padding: 1rem 1.5rem 0 !important;
-	}
+  .home>header .title>.heading-group h1 {
+    font-size: 1.6rem;
+    padding: 1rem 1.5rem 0 !important;
+  }
 
-	.content-wrapper {
-		padding: 0 1.5rem 6rem !important;
-	}
+  .content-wrapper {
+    padding: 0 1.5rem 0 !important;
+  }
 
-	.home>header .title .course-search .search-input {
-		height: 55px;
-		padding: 0 60px 0 25px;
-	}
+  .home>header .title .course-search .search-input {
+    height: 55px;
+    padding: 0 60px 0 25px;
+  }
 
-	.home>header .title .course-search .search-button {
-		height: 55px;
-		margin: 0;
-		padding: 0 12px;
-	}
+  .home>header .title .course-search .search-button {
+    height: 55px;
+    margin: 0;
+    padding: 0 12px;
+  }
 }
 
 @media (max-width: 768px) {
-	.welcome-header {
-		border-radius: 25px;
-	}
+  .welcome-header {
+    border-radius: 25px;
+  }
 
-	.home>header .outer-wrapper {
-		padding: 3rem 2rem !important;
-	}
+  .home>header .outer-wrapper {
+    padding: 3rem 2rem !important;
+  }
 
-	.home>header .title>.heading-group h1 {
-		font-size: 1.2rem;
-		padding: 1rem 1.5rem 0 !important;
-	}
+  .home>header .title>.heading-group h1 {
+    font-size: 1.2rem;
+    padding: 1rem 1.5rem 0 !important;
+  }
 
-	.content-wrapper {
-		padding: 0 1rem 6rem !important;
-	}
+  .content-wrapper {
+    padding: 0 1rem 0 !important;
+  }
 
-	.home>header .title .course-search .search-input {
-		height: 50px;
-		padding: 0 60px 0 25px;
-	}
+  .home>header .title .course-search .search-input {
+    height: 50px;
+    padding: 0 60px 0 25px;
+  }
 
-	.home>header .title .course-search .search-button {
-		height: 50px;
-		margin: 0;
-		padding: 0 5px;
-	}
+  .home>header .title .course-search .search-button {
+    height: 50px;
+    margin: 0;
+    padding: 0 5px;
+  }
 }
 
 @media (max-width: 480px) {
-	.content-wrapper {
-		padding: 0 1rem 4rem !important;
-	}
+  .content-wrapper {
+    padding: 0 1rem 0 !important;
+  }
 }
 
 /* Mobile App Banner */
@@ -148,7 +148,7 @@
   z-index: 10000;
   background: rgba(0, 0, 0, 0.85);
   color: #fff;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.24);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24);
   border-radius: 12px;
   width: min(92%, 560px);
   margin: 0 auto;
@@ -185,7 +185,7 @@
 
 .mobile-app-banner .banner-text .subtitle {
   font-size: 14px;
-  color: rgba(255,255,255,0.85);
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .mobile-app-banner .banner-actions {
@@ -219,16 +219,19 @@
   display: flex;
   justify-content: center;
 }
+
 .mobile-app-banner .qr-box {
   display: inline-block;
   padding: 8px;
   border-radius: 12px;
   background: #ffffff;
 }
+
 .mobile-app-banner .qr img {
   width: clamp(120px, 45vw, 180px);
   height: clamp(120px, 45vw, 180px);
-  border-radius: 4px; /* or 0; small rounding if desired */
+  border-radius: 4px;
+  /* or 0; small rounding if desired */
   background: #fff;
 }
 
@@ -238,6 +241,7 @@
     grid-template-columns: 1fr;
     row-gap: 12px;
   }
+
   .mobile-app-banner .store-button {
     justify-content: center;
   }
@@ -245,11 +249,13 @@
 
 .mobile-app-banner .banner-close {
   position: absolute;
-  top: -10px; /* float slightly outside */
+  top: -10px;
+  /* float slightly outside */
   right: -10px;
   width: 36px;
   height: 36px;
-  background: #e53935; /* red circle */
+  background: #e53935;
+  /* red circle */
   border: none;
   color: #ffffff;
   font-size: 22px;
@@ -264,34 +270,58 @@
   justify-content: center;
   -webkit-tap-highlight-color: transparent;
   outline: none !important;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   -webkit-appearance: none;
   appearance: none;
   z-index: 1;
 }
 
 /* Remove default focus ring to avoid blue outline on mobile browsers */
-.mobile-app-banner .banner-close:focus { outline: none !important; box-shadow: none !important; }
-.mobile-app-banner .banner-close:focus-visible { outline: none !important; box-shadow: none !important; }
-.mobile-app-banner .banner-close:active { outline: none !important; box-shadow: none !important; }
-.mobile-app-banner .banner-close::-moz-focus-inner { border: 0; }
+.mobile-app-banner .banner-close:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.mobile-app-banner .banner-close:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.mobile-app-banner .banner-close:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.mobile-app-banner .banner-close::-moz-focus-inner {
+  border: 0;
+}
 
 /* Style the inline SVG X icon */
 .mobile-app-banner .banner-close svg {
   width: 18px;
   height: 18px;
-  stroke: #ffffff; /* white X */
+  stroke: #ffffff;
+  /* white X */
   stroke-width: 2.4;
   stroke-linecap: round;
   fill: none;
 }
 
-.mobile-app-banner .banner-close:hover { box-shadow: 0 3px 10px rgba(0,0,0,0.3); background: #d32f2f; }
-.mobile-app-banner .banner-close:active { transform: scale(0.98); background: #c62828; }
+.mobile-app-banner .banner-close:hover {
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+  background: #d32f2f;
+}
+
+.mobile-app-banner .banner-close:active {
+  transform: scale(0.98);
+  background: #c62828;
+}
 
 /* Show banner only on small screens */
 @media (min-width: 769px) {
-  .mobile-app-banner { display: none !important; }
+  .mobile-app-banner {
+    display: none !important;
+  }
 }
 
 /* No need for extra bottom padding since banner is top-centered */
