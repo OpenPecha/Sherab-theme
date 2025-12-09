@@ -1,39 +1,76 @@
-$(document).ready(function(){
-    $('.partner-slider').slick({
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        arrows: true,
-        dots: false,
-        speed: 300,
-        infinite: true,
-        autoplaySpeed: 5000,
-        autoplay: false,
-        responsive: [
-            {
-                breakpoint: 1280,
-                settings: {
-                    slidesToShow: 3,
+$(document).ready(function () {
+    var $homePartnerSlider = $('#schools-partners-div .partner-slider');
+    if ($homePartnerSlider.length) {
+        $homePartnerSlider.slick({
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            arrows: true,
+            dots: false,
+            speed: 300,
+            infinite: true,
+            autoplaySpeed: 5000,
+            autoplay: false,
+            responsive: [
+                {
+                    breakpoint: 1280,
+                    settings: {
+                        slidesToShow: 3,
+                    }
+                },
+                {
+                    breakpoint: 980,
+                    settings: {
+                        slidesToShow: 2,
+                    }
+                },
+                {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 1,
+                    }
                 }
-            },
-            {
-                breakpoint: 980,
-                settings: {
-                    slidesToShow: 2,
+            ]
+        });
+    }
+
+    var $partnerCentersSlider = $('#partner-details .partner-slider');
+    if ($partnerCentersSlider.length) {
+        $partnerCentersSlider.slick({
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            arrows: true,
+            dots: false,
+            speed: 300,
+            infinite: true,
+            autoplaySpeed: 5000,
+            autoplay: false,
+            responsive: [
+                {
+                    breakpoint: 1280,
+                    settings: {
+                        slidesToShow: 3,
+                    }
+                },
+                {
+                    breakpoint: 980,
+                    settings: {
+                        slidesToShow: 2,
+                    }
+                },
+                {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 1,
+                    }
                 }
-            },
-            {
-                breakpoint: 768,
-                settings: {
-                    slidesToShow: 1,
-                }
-            }
-        ]
-    });
-    $('.events__trigger').click(function() {
+            ]
+        });
+    }
+    $('.events__trigger').click(function () {
         $('.events__tabs').toggleClass('-open');
     });
 
-    $('.events__tab').click(function(e) {
+    $('.events__tab').click(function (e) {
         e.preventDefault();
 
         var thisTabId = $(this).attr('data-tabcontent');
