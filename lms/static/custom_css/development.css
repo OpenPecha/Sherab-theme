@@ -112,6 +112,15 @@
     background: none !important;
     border: none !important;
     box-shadow: none !important;
+    z-index: 100 !important;
+}
+
+#partner-details .slick-next {
+    right: 5px !important;
+}
+
+#partner-details .slick-prev {
+    left: 5px !important;
 }
 
 #partner-details .slick-arrow:hover,
