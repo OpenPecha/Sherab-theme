@@ -632,19 +632,32 @@
 }
 
 @media (max-width: 768px) {
+    #partner-details {
+        overflow-x: hidden;
+    }
+
     .partner-hero {
         margin-bottom: 90px;
+        overflow: visible;
+    }
+
+    .partner-hero .school-banner {
+        overflow: hidden;
+        border-radius: 12px !important;
     }
 
     .partner-hero .school-banner .school-banner-img {
         height: 200px;
+        max-width: 100%;
+        border-radius: 12px !important;
     }
 
     .partner-profile-logo {
-        width: 200px;
-        height: 110px;
+        width: 180px;
+        height: 100px;
         bottom: -70px;
-        left: 20px;
+        left: 15px;
+        z-index: 10;
     }
 
     #partner-details h2.partner-name {
@@ -657,6 +670,20 @@
 
     .partner-content-box {
         padding: 15px;
+        margin-left: -5px;
+        margin-right: 20px;
+        width: auto;
+    }
+
+    #partner-details .static-card-list,
+    #center-details .static-card-list {
+        justify-content: center !important;
+    }
+
+    #partner-details .discovery-card,
+    #center-details .discovery-card {
+        margin-left: auto !important;
+        margin-right: auto !important;
     }
 }
 
@@ -671,6 +698,64 @@
 
     .partner-slider .partner-item a {
         padding: 10px;
+    }
+}
+
+@media (max-width: 375px) {
+    #partner-details .partner-slider {
+        padding: 0 25px;
+    }
+
+    #partner-details .partner-slider .partner-item {
+        padding: 5px;
+    }
+
+    #partner-details .partner-slider .partner-item img {
+        height: 70px;
+    }
+
+    .partner-content-box,
+    .partner-content-box * {
+        font-size: 13px !important;
+    }
+}
+
+@media (max-width: 425px) {
+
+    #partner-details .static-card-list,
+    #center-details .static-card-list {
+        justify-content: center !important;
+    }
+
+    #partner-details .discovery-card,
+    #center-details .discovery-card {
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    /* Content Box Adjustments for Mobile */
+    .partner-content-box {
+        margin-left: 15px !important;
+        margin-right: 5px !important;
+    }
+
+    .partner-content-box,
+    .partner-content-box * {
+        font-size: 14px !important;
+        line-height: 1.4 !important;
+    }
+}
+
+@media (max-width: 320px) {
+    #partner-details .partner-slider {
+        padding: 0;
+    }
+
+    .partner-content-box,
+    .partner-content-box * {
+        font-size: 12px !important;
+        margin-left: 10px !important;
+        margin-right: 2px !important;
     }
 }
 

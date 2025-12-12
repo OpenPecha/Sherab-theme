@@ -206,6 +206,11 @@ body {
     }
 }
 
+body.view-partner-details,
+body.view-center-details {
+    overflow-x: hidden;
+}
+
 body.view-partner-details .global-header,
 body.view-center-details .global-header {
     font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
@@ -238,6 +243,32 @@ body.view-center-details .global-header .nav-links .main .nav-tab a {
 body.view-partner-details .global-header .nav-links .main .nav-tab:first-child a,
 body.view-center-details .global-header .nav-links .main .nav-tab:first-child a {
     padding-left: 25px !important;
+}
+
+body.view-partner-details .global-header .nav-links .secondary,
+body.view-center-details .global-header .nav-links .secondary {
+    margin-left: auto !important;
+    margin-right: 15px !important;
+}
+
+body.view-partner-details .global-header .nav-links .secondary .toggle-user-dropdown,
+body.view-center-details .global-header .nav-links .secondary .toggle-user-dropdown {
+    font-size: 18px !important;
+    font-weight: 480 !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    margin-top: -10px !important;
+}
+
+body.view-partner-details .global-header .settings-language-form .language-selector,
+body.view-center-details .global-header .settings-language-form .language-selector {
+    font-size: 18px !important;
+    font-weight: 480 !important;
+}
+
+body.view-partner-details .global-header .nav-links .secondary .dropdown-user-menu,
+body.view-center-details .global-header .nav-links .secondary .dropdown-user-menu {
+    font-size: 18px !important;
 }
 
 body.view-partner-details .footer,
