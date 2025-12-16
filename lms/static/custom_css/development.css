@@ -10,6 +10,7 @@
 
 }
 
+/* Home Page Partners Carousel (default) */
 .partner-slider {
     padding: 0 70px;
     margin: 0 auto;
@@ -22,7 +23,7 @@
 }
 
 .partner-slider .partner-item:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 .partner-slider .slick-slide {
@@ -42,7 +43,6 @@
     display: inline-block;
 }
 
-
 .slick-next,
 .slick-prev {
     z-index: 5;
@@ -58,8 +58,75 @@
 
 .slick-next:before,
 .slick-prev:before {
-    color: #000;
-    font-size: 26px;
+    font-family: inherit;
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.slick-prev:before {
+    content: '‹';
+}
+
+.slick-next:before {
+    content: '›';
+}
+
+/* Partner Page Centers Carousel (scoped) */
+#partner-details .partner-slider {
+    padding: 0 50px;
+}
+
+#partner-details .partner-slider .slick-slide {
+    padding: 10px;
+    height: auto;
+}
+
+#partner-details .partner-slider .partner-item {
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#partner-details .partner-slider .partner-item a {
+    display: block;
+    background: #fff;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#partner-details .partner-slider .partner-item a:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+#partner-details .partner-slider .partner-item img {
+    width: 100%;
+    height: 120px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+#partner-details .slick-arrow {
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    z-index: 100 !important;
+}
+
+#partner-details .slick-next {
+    right: 5px !important;
+}
+
+#partner-details .slick-prev {
+    left: 5px !important;
+}
+
+#partner-details .slick-arrow:hover,
+#partner-details .slick-arrow:focus {
+    background: none !important;
+    box-shadow: none !important;
 }
 
 
@@ -461,9 +528,92 @@
     box-shadow: 0 0 1px #414c9b;
 }
 
+/* Partner Details Page - Hero Section */
+.partner-hero {
+    position: relative;
+    margin-bottom: 60px;
+}
+
+.partner-hero .school-banner {
+    width: 100%;
+    max-height: 300px;
+    overflow: hidden;
+    border-radius: 16px;
+}
+
+.partner-hero .school-banner .school-banner-img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.partner-logo-overlay {
+    position: relative;
+}
+
+.partner-profile-logo {
+    position: absolute;
+    bottom: -100px;
+    left: 15px;
+    width: 260px;
+    height: 140px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.partner-profile-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Partner Info Section */
+.partner-info-section {
+    padding-top: 60px;
+}
+
 #partner-details h2.partner-name {
     font-family: inherit !important;
-    padding: 25px 0;
+    padding: 15px 0;
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 600;
+}
+
+.partner-content-box {
+    border: 1px solid #e0e0e0;
+    border-radius: 18px;
+    padding: 20px;
+    margin-bottom: 30px;
+    background: transparent;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Partner Page Course Cards */
+#partner-details .discovery-card .d-card-wrapper {
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#partner-details .discovery-card .d-card-hero img {
+    border-radius: 16px 16px 0 0;
+}
+
+#partner-details .discovery-card .discovery-card-link:hover,
+#partner-details .discovery-card .discovery-card-link:focus {
+    text-decoration: none !important;
+}
+
+#partner-details .discovery-card .discovery-card-link:hover .d-card-wrapper,
+#partner-details .discovery-card .discovery-card-link:focus .d-card-wrapper {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .discovery-card .discovery-card-link:hover,
@@ -486,21 +636,142 @@
     font-family: inherit !important;
 }
 
+#partner-details>.container.mw-lg>h3 {
+    margin-top: 50px;
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    #partner-details .slick-next {
+        right: 15px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    #partner-details {
+        overflow-x: hidden;
+    }
+
+    .partner-hero {
+        margin-bottom: 90px;
+        overflow: visible;
+    }
+
+    .partner-hero .school-banner {
+        overflow: hidden;
+        border-radius: 12px !important;
+    }
+
+    .partner-hero .school-banner .school-banner-img {
+        height: 200px;
+        max-width: 100%;
+        border-radius: 12px !important;
+    }
+
+    .partner-profile-logo {
+        width: 180px;
+        height: 100px;
+        bottom: -70px;
+        left: 15px;
+        z-index: 10;
+    }
+
+    #partner-details h2.partner-name {
+        font-size: 1.5rem;
+    }
+
+    .partner-info-section {
+        padding-top: 40px;
+    }
+
+    .partner-content-box {
+        padding: 15px;
+        margin-left: -5px;
+        margin-right: 20px;
+        width: auto;
+    }
+
+    #partner-details .static-card-list,
+    #center-details .static-card-list {
+        justify-content: center !important;
+    }
+
+    #partner-details .discovery-card,
+    #center-details .discovery-card {
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+}
+
 @media (max-width: 480px) {
     .partner-slider {
-        padding: 0 10px;
+        padding: 0 35px;
     }
 
-    .partner-slider .slick-slide {
-        flex: 0 0 100%;
-        max-width: 100%;
-        margin: 0 auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    .partner-slider .partner-item img {
+        height: 100px;
     }
 
+    .partner-slider .partner-item a {
+        padding: 10px;
+    }
+}
 
+@media (max-width: 375px) {
+    #partner-details .partner-slider {
+        padding: 0 25px;
+    }
+
+    #partner-details .partner-slider .partner-item {
+        padding: 5px;
+    }
+
+    #partner-details .partner-slider .partner-item img {
+        height: 70px;
+    }
+
+    .partner-content-box,
+    .partner-content-box * {
+        font-size: 13px !important;
+    }
+}
+
+@media (max-width: 425px) {
+
+    #partner-details .static-card-list,
+    #center-details .static-card-list {
+        justify-content: center !important;
+    }
+
+    #partner-details .discovery-card,
+    #center-details .discovery-card {
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    /* Content Box Adjustments for Mobile */
+    .partner-content-box {
+        margin-left: 15px !important;
+        margin-right: 5px !important;
+    }
+
+    .partner-content-box,
+    .partner-content-box * {
+        font-size: 14px !important;
+        line-height: 1.4 !important;
+    }
+}
+
+@media (max-width: 320px) {
+    #partner-details .partner-slider {
+        padding: 0;
+    }
+
+    .partner-content-box,
+    .partner-content-box * {
+        font-size: 12px !important;
+        margin-left: 10px !important;
+        margin-right: 2px !important;
+    }
 }
 
 /* Courses Listing */

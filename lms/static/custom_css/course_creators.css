@@ -224,8 +224,36 @@
     right: -15px;
 }
 
-.slick-dots button {
+/* Simplified dots */
+.creators-slider .slick-dots {
+    bottom: -30px;
+}
+
+.creators-slider .slick-dots li {
+    margin: 0 4px;
+    width: 10px;
+    height: 10px;
+}
+
+.creators-slider .slick-dots li button {
+    width: 10px;
+    height: 10px;
+    padding: 0;
     box-shadow: none !important;
+}
+
+.creators-slider .slick-dots li button:before {
+    font-size: 10px;
+    width: 10px;
+    height: 10px;
+    line-height: 10px;
+    color: #ccc;
+    opacity: 1;
+}
+
+.creators-slider .slick-dots li.slick-active button:before {
+    color: #333;
+    opacity: 1;
 }
 
 .slick-dotted button:hover {

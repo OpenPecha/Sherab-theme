@@ -9,6 +9,7 @@
     from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 %>
 <%block name="pagetitle">${partner.name}</%block>
+<%block name="bodyclass">view-partner-details</%block>
 <link rel="stylesheet" href="${static.url('custom_css/slick-theme.css')}" />
 <link rel="stylesheet" href="${static.url('custom_css/slick.css')}" />
 <link rel="stylesheet" href="${static.url('custom_css/partners.css')}" />
@@ -17,13 +18,22 @@
 
 <main id="main-content" name="main-content" class="" tabindex="-1" aria-label="Content">
     <div class="school-details" id="partner-details">
-        <div class="school-banner clearfix pt-4 container mw-lg">
-            <img src="${partner.banner.url}" alt="" class="school-banner-img">
+        <div class="partner-hero">
+            <div class="school-banner">
+                <img src="${partner.banner.url}" alt="" class="school-banner-img">
+            </div>
+            <div class="partner-logo-overlay container mw-lg">
+                <div class="partner-profile-logo">
+                    <img src="${partner.logo.url}" alt="${partner.name} Logo">
+                </div>
+            </div>
         </div>
-        <div class="container mw-lg">
+        <div class="container mw-lg partner-info-section">
             <h2 class="partner-name">${partner.name}</h2>
-            <div class="partner-content">
-                ${clean_dangerous_html(partner.content)}
+            <div class="partner-content-box">
+                <div class="partner-content">
+                    ${clean_dangerous_html(partner.content)}
+                </div>
             </div>
         </div>
         <%include file="_course_creators.html" />
