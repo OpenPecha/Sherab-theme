@@ -640,6 +640,12 @@
     margin-top: 50px;
 }
 
+@media (min-width: 481px) and (max-width: 768px) {
+    #partner-details .slick-next {
+        right: 15px !important;
+    }
+}
+
 @media (max-width: 768px) {
     #partner-details {
         overflow-x: hidden;
