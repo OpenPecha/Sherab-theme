@@ -9,18 +9,28 @@
     from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 %>
 <%block name="pagetitle">${center.name}</%block>
+<%block name="bodyclass">view-center-details</%block>
 <link rel="stylesheet" href="${static.url('custom_css/partners.css')}" />
 <link rel="stylesheet" href="${static.url('custom_css/development.css')}" />
 
 <main id="main-content" name="main-content" class="" tabindex="-1" aria-label="Content">
     <div class="school-details" id="partner-details">
-        <div class="school-banner clearfix pt-4 container mw-lg">
-            <img src="${partner.banner.url}" alt="" class="school-banner-img">
+        <div class="partner-hero">
+            <div class="school-banner">
+                <img src="${partner.banner.url}" alt="" class="school-banner-img">
+            </div>
+            <div class="partner-logo-overlay container mw-lg">
+                <div class="partner-profile-logo">
+                    <img src="${center.logo.url}" alt="${center.name} Logo">
+                </div>
+            </div>
         </div>
-        <div class="container mw-lg">
+        <div class="container mw-lg partner-info-section">
             <h2 class="partner-name">${center.name}</h2>
-            <div class="partner-content">
-                ${clean_dangerous_html(center.content)}
+            <div class="partner-content-box">
+                <div class="partner-content">
+                    ${clean_dangerous_html(center.content)}
+                </div>
             </div>
         </div>
         % if categories:
