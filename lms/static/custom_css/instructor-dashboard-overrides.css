@@ -266,6 +266,13 @@ hr {
     font-weight: 400 !important;
 }
 
+.instructor-dashboard-wrapper-2 .instructor-nav .nav-item button.btn-link:hover,
+.instructor-dashboard-wrapper-2 ul.instructor-nav li.nav-item button:hover,
+.view-instructordash .instructor-nav li button:hover,
+.view-instructordash ul.instructor-nav button.btn-link:hover {
+    text-decoration: none !important;
+}
+
 /* Course navigation tabs (Course, Progress, Dates, Discussion, Instructor) use Noto Serif Tibetan */
 .course-tabs li.tab a,
 ol.tabs.course-tabs li.tab a,
@@ -285,39 +292,71 @@ a.instructor-info-action {
 }
 
 .proctoring-wrapper .wrap {
-    background: #f8f9fa;
-    border: 1px solid #e9ecef;
-    border-radius: 8px;
-    padding: 18px 20px;
-    margin-bottom: 16px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin-bottom: 24px;
 }
 
 .proctoring-wrapper .hd-3.special-exam-header {
-    margin: 0 0 12px 0;
-    line-height: 1.8;
-    font-size: 1.1rem;
-    padding: 8px 10px 8px 28px;
+    margin: 0 0 16px 0;
+    line-height: 1.6;
+    font-size: 1.25rem;
+    padding: 12px 16px 12px 32px;
     /* extra left space for dropdown icon */
-    background: #f1f3f5;
-    border-radius: 6px;
+    background: #f0f2f5;
+    border-radius: 8px;
+    color: #2c3e50;
+    font-weight: 600;
+    border: 1px solid #dce1e6;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.proctoring-wrapper .hd-3.special-exam-header:hover {
+    background: #e4e8eb;
 }
 
 .proctoring-wrapper .ui-accordion-header .ui-accordion-header-icon {
-    left: 10px;
+    left: 12px;
     margin-top: -8px;
+    opacity: 0.7;
 }
 
 .proctoring-wrapper .hd-6.escalation-email-container {
-    margin: 0 0 12px 0;
+    margin: 0 0 20px 0;
     line-height: 1.6;
+    padding: 12px;
+    background: #e3f2fd;
+    border-radius: 6px;
+    color: #0c5460;
 }
 
 .proctoring-wrapper button,
 .proctoring-wrapper input[type="button"],
 .proctoring-wrapper input[type="submit"] {
-    padding: 10px 18px;
-    min-height: 40px;
+    background-color: #0056b3;
+    /* Darker blue */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 24px;
+    min-height: 44px;
+    font-weight: 600;
     line-height: 1.6;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-size: 0.95rem;
+}
+
+.proctoring-wrapper button:hover,
+.proctoring-wrapper input[type="button"]:hover,
+.proctoring-wrapper input[type="submit"]:hover {
+    background-color: #004494;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
 }
 
 .proctoring-wrapper p,
@@ -327,15 +366,14 @@ a.instructor-info-action {
 }
 
 .proctoring-wrapper #proctoring-accordion {
-    border: 1px solid #e9ecef;
-    border-radius: 8px;
-    padding: 10px;
-    background: #fff;
+    border: none;
+    padding: 0;
+    background: transparent;
 }
 
 .proctoring-wrapper #proctoring-accordion .wrap {
-    margin: 10px 0;
-    padding: 16px 18px;
+    margin: 0 0 24px 0;
+    padding: 0;
 }
 
 .proctoring-wrapper .special-allowance-container,
@@ -344,16 +382,29 @@ a.instructor-info-action {
 .proctoring-wrapper .student-review-dashboard-container {
     background: #ffffff;
     border: 1px solid #e9ecef;
-    border-radius: 6px;
-    padding: 14px;
-    margin-top: 10px;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+/* Ensure header inside the containers looks good */
+.proctoring-wrapper .special-allowance-container h3,
+.proctoring-wrapper .student-proctored-exam-container h3 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #495057;
 }
 
 .proctoring-wrapper .special-allowance-container .actions,
 .proctoring-wrapper .student-proctored-exam-container .actions {
     display: flex;
     justify-content: flex-end;
-    gap: 8px;
+    gap: 12px;
+    padding-top: 10px;
+    border-top: 1px solid #f1f3f5;
+    margin-top: 16px;
 }
 
 /* Tibetan-friendly typography for headers and buttons in Special Exams */
