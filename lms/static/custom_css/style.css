@@ -102,6 +102,7 @@ a.course-target-link,
     font-weight: 600 !important;
     margin-top: 6px;
     font-size: 22px;
+    line-height: 2;
 }
 
 /* Course about page - Jomolhari for all heading elements */
@@ -195,6 +196,7 @@ textarea {
 .courses-container .courses .course .course-info .course-title {
     height: 50px;
     font-size: 22px;
+    line-height: 1.6;
 }
 
 .global-header .nav-links .secondary .dropdown-user-menu {
