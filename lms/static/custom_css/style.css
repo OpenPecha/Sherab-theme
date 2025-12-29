@@ -274,6 +274,10 @@ textarea {
     background: #098c2c;
 }
 
+.view-wishlist .info-date-block {
+    font-family: "Noto Serif Tibetan", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+
 @media (max-width: 768px) {
     .course-info header.course-profile .intro-inner-wrapper .intro .main-cta {
         float: none;
