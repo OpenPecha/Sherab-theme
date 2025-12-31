@@ -167,25 +167,23 @@ hr,
   }
 }
 
-/* Apply Jomolhari for user-uploaded Tibetan content, Open Sans for static text */
-.course-info .container .details h1,
-.course-info .container .details h2,
-.course-info .container .details h3,
-.course-info .container .details p,
-.course-info .container .details li,
-.course-info .container .details span,
-.course-info .container .details div,
-.course-info .container .details .instructor-name,
-.course-info .container .details p.instructor-name,
-.course-info .container .details .instructor-name strong,
-.course-info .container .details p.instructor-name strong {
+/* Apply Jomolhari for user-uploaded Tibetan content in course about page only */
+.course-info-page .container .details h1,
+.course-info-page .container .details h2,
+.course-info-page .container .details h3,
+.course-info-page .container .details p,
+.course-info-page .container .details li,
+.course-info-page .container .details span,
+.course-info-page .container .details .instructor-name,
+.course-info-page .container .details p.instructor-name,
+.course-info-page .container .details .instructor-name strong,
+.course-info-page .container .details p.instructor-name strong {
   font-family: "Jomolhari 20px", "Jomolhari", "Noto Serif Tibetan", "Open Sans", "Helvetica Neue", Helvetica, sans-serif !important;
 }
 
-/* Increase line-height for Tibetan text - applies regardless of page language */
-.course-info .container .details p,
-.course-info .container .details li,
-.course-info .container .details div {
+/* Increase line-height for Tibetan text in course about page only */
+.course-info-page .container .details p,
+.course-info-page .container .details li {
   line-height: 2 !important;
 }
 
