@@ -167,23 +167,39 @@ hr,
   }
 }
 
-/* Apply Jomolhari for user-uploaded Tibetan content in course about page only */
-.course-info-page .container .details h1,
-.course-info-page .container .details h2,
-.course-info-page .container .details h3,
-.course-info-page .container .details p,
-.course-info-page .container .details li,
-.course-info-page .container .details span,
-.course-info-page .container .details .instructor-name,
-.course-info-page .container .details p.instructor-name,
-.course-info-page .container .details .instructor-name strong,
-.course-info-page .container .details p.instructor-name strong {
-  font-family: "Jomolhari 20px", "Jomolhari", "Noto Serif Tibetan", "Open Sans", "Helvetica Neue", Helvetica, sans-serif !important;
+/* Apply Noto Serif Tibetan for headings (static titles) in course about page */
+.course-info .container .details h1,
+.course-info .container .details h1 strong,
+.course-info .container .details h2,
+.course-info .container .details h2 strong,
+.course-info .container .details h3,
+.course-info .container .details h3 strong {
+  font-family: "Open Sans", "Noto Serif Tibetan", sans-serif !important;
+}
+
+:lang(bo) .course-info .container .details h1,
+:lang(bo) .course-info .container .details h1 strong,
+:lang(bo) .course-info .container .details h2,
+:lang(bo) .course-info .container .details h2 strong,
+:lang(bo) .course-info .container .details h3,
+:lang(bo) .course-info .container .details h3 strong {
+  font-family: "Noto Serif Tibetan", "Open Sans", sans-serif !important;
+}
+
+/* Apply Jomolhari for user-uploaded Tibetan content body in course about page */
+.course-info .container .details p,
+.course-info .container .details li,
+.course-info .container .details span,
+.course-info .container .details .instructor-name,
+.course-info .container .details p.instructor-name,
+.course-info .container .details .instructor-name strong,
+.course-info .container .details p.instructor-name strong {
+  font-family: "Open Sans", "Jomolhari 20px", "Jomolhari", "Noto Serif Tibetan", "Helvetica Neue", Helvetica, sans-serif !important;
 }
 
 /* Increase line-height for Tibetan text in course about page only */
-.course-info-page .container .details p,
-.course-info-page .container .details li {
+.course-info .container .details p,
+.course-info .container .details li {
   line-height: 2 !important;
 }
 
