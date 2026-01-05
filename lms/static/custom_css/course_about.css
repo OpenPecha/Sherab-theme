@@ -1,5 +1,18 @@
 /* Course About: Instructors section styling */
 
+/* Jomolhari 20px - custom font-face for larger Tibetan text in details section */
+@font-face {
+  font-family: "Jomolhari 20px";
+  src: url("../fonts/sherab_tibetan_fonts/Jomolhari/Jomolhari-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-display: swap;
+  unicode-range: U+0F00-0FFF;
+  size-adjust: 125%;
+  /* 20px / 16px = 1.25 = 125% */
+  line-gap-override: 100%;
+  /* Increase line spacing for Tibetan characters */
+}
+
 /* Style course card with light grey rounded border */
 .course-info header.course-profile {
   border-radius: 15px !important;
@@ -154,15 +167,49 @@ hr,
   }
 }
 
-/* Apply Arial font to all text elements in the details section */
+/* Apply Noto Serif Tibetan for headings (static titles) in course about page */
 .course-info .container .details h1,
+.course-info .container .details h1 strong,
 .course-info .container .details h2,
+.course-info .container .details h2 strong,
 .course-info .container .details h3,
+.course-info .container .details h3 strong {
+  font-family: "Open Sans", "Noto Serif Tibetan", sans-serif !important;
+}
+
+:lang(bo) .course-info .container .details h1,
+:lang(bo) .course-info .container .details h1 strong,
+:lang(bo) .course-info .container .details h2,
+:lang(bo) .course-info .container .details h2 strong,
+:lang(bo) .course-info .container .details h3,
+:lang(bo) .course-info .container .details h3 strong {
+  font-family: "Noto Serif Tibetan", "Open Sans", sans-serif !important;
+}
+
+/* Apply Jomolhari for user-uploaded Tibetan content body in course about page */
 .course-info .container .details p,
 .course-info .container .details li,
 .course-info .container .details span,
-.course-info .container .details div {
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, sans-serif !important;
+.course-info .container .details .instructor-name,
+.course-info .container .details p.instructor-name,
+.course-info .container .details .instructor-name strong,
+.course-info .container .details p.instructor-name strong {
+  font-family: "Open Sans", "Jomolhari 20px", "Jomolhari", "Noto Serif Tibetan", "Helvetica Neue", Helvetica, sans-serif !important;
+}
+
+/* Increase line-height for Tibetan text in course about page only */
+.course-info .container .details p,
+.course-info .container .details li {
+  line-height: 2 !important;
+}
+
+/* View Course and Wishlist buttons use Noto Serif Tibetan for static text */
+.course-info header.course-profile .intro .main-cta a,
+.course-info header.course-profile .intro .main-cta a strong,
+.course-info header.course-profile .intro .main-cta .wishlist-btn,
+.add-to-wishlist,
+.remove-from-wishlist {
+  font-family: "Noto Serif Tibetan", "Open Sans", "Helvetica Neue", Helvetica, sans-serif !important;
 }
 
 .course-info .container .course-sidebar {
