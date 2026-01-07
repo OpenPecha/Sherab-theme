@@ -183,9 +183,17 @@ textarea {
 }
 
 .courses-container .courses .course .course-info .course-title {
-    height: 50px;
+    display: block;
+    margin: 0 0 10px;
+    min-height: 66px;
     font-size: 22px;
-    line-height: 1.6;
+    line-height: 1.4;
+}
+
+.courses-container .courses .course .course-info .course-date {
+    display: block;
+    margin-top: 30px;
+    line-height: 1.4;
 }
 
 .global-header .nav-links .secondary .dropdown-user-menu {
