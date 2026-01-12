@@ -209,6 +209,7 @@ endorser_org = endorser_position.get('organization_name') or corporate_endorseme
     <div class="col col-12 col-lg-5">
       <div class="facts">
         <ul class="list-unstyled">
+          % if weeks_to_complete:
           <li class="row">
             <div class="label col col-6">
               <span class="fa fa-clock-o fa-lg" aria-hidden="true"></span>
@@ -220,6 +221,8 @@ endorser_org = endorser_position.get('organization_name') or corporate_endorseme
               )}
             </div>
           </li>
+          % endif
+          % if min_hours_effort_per_week and max_hours_effort_per_week:
           <li class="row">
             <div class="label col col-6">
               <span class="fa fa-tachometer fa-lg" aria-hidden="true"></span>
@@ -232,6 +235,7 @@ endorser_org = endorser_position.get('organization_name') or corporate_endorseme
               )}
             </div>
           </li>
+          % endif
           <li class="row">
             <div class="label col col-6">
               <span class="fa fa-book fa-lg" aria-hidden="true"></span>
