@@ -1,5 +1,9 @@
 /* Programs page styling */
 
+.progress-bar {
+    flex-direction: row !important;
+}
+
 .all-programs .program-card {
     border-bottom: 1px solid #a0a0a0;
 }
