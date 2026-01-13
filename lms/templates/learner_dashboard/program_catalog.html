@@ -1,0 +1,47 @@
+<%! main_css = "css/bootstrap/lms-main.css" %>
+
+<%page expression_filter="h"/>
+<%inherit file="../main.html" />
+<%def name="online_help_token()"><% return "programs" %></%def>
+<%!
+from django.urls import reverse
+from django.utils.translation import gettext as _
+from openedx.core.djangolib.markup import HTML
+from openedx.core.djangolib.js_utils import (
+    dump_js_escaped_json, js_escaped_string
+)
+%>
+<%namespace name='static' file='../static_content.html'/>
+
+<%block name="pagetitle">${_('All Programs')}</%block>
+
+<%include file="_dashboard_navigation_programs.html"/>
+
+<link rel="stylesheet" href="${static.url('custom_css/programs.css')}" />
+
+<main id="main" class="all-programs" aria-label="Content" tabindex="-1">
+  <div class="program-list-wrapper grid-container">
+    <div class="program-list-container col-12 col-md-9">
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>${_('All Programs')}</h2>
+        <div class="program-header-cta mt-2"></div>
+      </div>
+      <div class="js-program-list-header" style="display: none;"></div>
+      <div class="program-cards-container col"></div>
+    </div>
+
+    <div class="sidebar col-12 col-md-3"></div>
+  </div>
+</main>
+
+<%block name="js_extra">
+<%static:webpack entry="ProgramListFactory">
+ProgramListFactory({
+    title: '${_('All programs') | n, js_escaped_string}',
+    programsData: ${programs | n, dump_js_escaped_json},
+    userProgress: [],
+    userPreferences: {},
+    mobileOnly: false
+});
+</%static:webpack>
+</%block>
