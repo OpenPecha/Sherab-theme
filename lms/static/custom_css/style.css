@@ -83,6 +83,50 @@ a.course-target-link,
     font-weight: 600 !important;
 }
 
+/* XBlock / Course Content Iframe Overrides */
+/* Ensure Jomolhari is used for course content bodies, problems, and headings loaded via iframe */
+.xblock h1,
+.xblock h2,
+.xblock h3,
+.xblock h4,
+.xblock h5,
+.xblock h6,
+.xblock p,
+.xblock li,
+.xblock span,
+.xblock div,
+.problem,
+.problem p,
+.problem h1,
+.problem h2,
+.problem h3,
+.xblock-student_view-vertical,
+.xblock-student_view-vertical .vert-mod .vert,
+.xblock-student_view-vertical .vert-mod .vert .xblock-student_view-html,
+.xblock-student_view-vertical .vert-mod .vert .xblock-student_view-problem,
+/* MCQ Specific Selectors */
+.wrapper-problem-response,
+.choicegroup,
+.field-input,
+.field-label,
+.problem .choicegroup label,
+.problem .choicegroup input,
+.problem .choicegroup .field-input,
+.problem .choicegroup .field-label,
+.problem .wrapper-problem-response .choicegroup label,
+.problem .wrapper-problem-response .choicegroup input,
+/* Unit Title - Multiple selectors to ensure coverage */
+h3.h3,
+.vert-mod h3,
+.vert h3,
+.xblock h3.h3,
+body h3.h3,
+.xmodule_display h3,
+.xmodule_VerticalModule h3,
+h3[role="heading"] {
+    font-family: "Jomolhari", "Noto Serif Tibetan", "Open Sans", sans-serif !important;
+}
+
 /* Course about page - Jomolhari for all heading elements */
 .course-info h1,
 .course-info .heading-group,
