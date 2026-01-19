@@ -41,18 +41,14 @@
 
                         </div>
                         % if course_creator.bio:
-                        <div class="creator-bio collapsed" data-full-bio="${course_creator.bio|h}">
-                            <div class="bio-preview">
-                                ${course_creator.bio[:250]}${"..." if len(course_creator.bio) > 250 else ""}
+                        <div class="creator-bio">
+                            <div class="bio-text">
+                                ${course_creator.bio}
                             </div>
 
-                            <div class="scroll-hint"></div>
-
-                            % if len(course_creator.bio) > 250:
-                            <button type="button" class="bio-toggle btn-link" aria-expanded="false">
-                                ${_("Read more")}
-                            </button>
-                            % endif
+                            <div class="scroll-text">
+                                ${_("Scroll to read more")}
+                            </div>
                         </div>
                         % endif
 
