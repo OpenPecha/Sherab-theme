@@ -6,8 +6,12 @@
 }
 
 .welcome-header {
-  background-color: #FFAF66 !important;
+  background-color: #FFFFFF !important;
   border-radius: 35px;
+}
+
+.home>header {
+  box-shadow: none !important;
 }
 
 .home>header .outer-wrapper {
@@ -38,7 +42,7 @@
 }
 
 .home>header .title>.heading-group h1 {
-  color: #FFFFFF !important;
+  color: #000000 !important;
   font-weight: bold;
   text-shadow: none !important;
   margin: 0 auto;
@@ -49,7 +53,6 @@
 
 .home>header .title .course-search .search-input {
   border-radius: 22px;
-  border: none;
   padding: 0 90px 0 30px;
   height: 60px;
 }
@@ -67,6 +70,14 @@
   background: none;
   transform: scale(1.1);
   transition: transform 0.2s ease-in-out;
+}
+
+.home>header .title .course-search .search-input:hover {
+  border-color: #FFAF66;
+}
+
+.home>header .title .course-search .search-input:focus {
+  border-color: #FFAF66;
 }
 
 .home>header .title .course-search .search-button:focus {
