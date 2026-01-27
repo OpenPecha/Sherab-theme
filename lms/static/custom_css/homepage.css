@@ -15,7 +15,7 @@
 }
 
 .home>header .outer-wrapper {
-  padding: 3rem 8rem;
+  padding: 1.5rem 8rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,7 +47,7 @@
   text-shadow: none !important;
   margin: 0 auto;
   font-size: 2rem;
-  padding: 1rem 1.5rem 0 !important;
+  padding: 0.5rem 1.5rem 0 !important;
   text-align: center !important;
 }
 
@@ -55,6 +55,7 @@
   border-radius: 22px;
   padding: 0 90px 0 30px;
   height: 60px;
+  border: 2px solid #FEA859;
 }
 
 .home>header .title .course-search .search-button {
@@ -72,8 +73,8 @@
   transition: transform 0.2s ease-in-out;
 }
 
-.home>header .title .course-search .search-input:hover {
-  border-color: #FFAF66;
+.home>header .title .course-search .search-input:hover::placeholder {
+  color: #FC6E2B;
 }
 
 .home>header .title .course-search .search-input:focus {
@@ -91,12 +92,12 @@
   }
 
   .home>header .outer-wrapper {
-    padding: 3rem 5rem !important;
+    padding: 1.5rem 4rem !important;
   }
 
   .home>header .title>.heading-group h1 {
     font-size: 1.6rem;
-    padding: 1rem 1.5rem 0 !important;
+    padding: 0.5rem 1.5rem 0 !important;
   }
 
   .content-wrapper {
@@ -121,12 +122,12 @@
   }
 
   .home>header .outer-wrapper {
-    padding: 3rem 2rem !important;
+    padding: 1.5rem 1.5rem !important;
   }
 
   .home>header .title>.heading-group h1 {
     font-size: 1.2rem;
-    padding: 1rem 1.5rem 0 !important;
+    padding: 0.5rem 1.5rem 0 !important;
   }
 
   .content-wrapper {
