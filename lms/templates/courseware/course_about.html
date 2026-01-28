@@ -3,6 +3,7 @@
 <%!
 from django.utils.translation import gettext as _
 from django.utils.translation import pgettext
+from django.utils.html import strip_tags
 from django.urls import reverse
 from lms.djangoapps.courseware.courses import get_course_about_section
 from django.conf import settings
@@ -216,8 +217,9 @@ from openedx.core.djangoapps.models.course_details import CourseDetails
                     % endif
 
                     <%
-                        overview = get_course_about_section(request, course, "overview")
-                        has_overview = overview and overview.strip()
+                        overview = get_course_about_section(request, course, "overview") or ''
+                        overview_text = strip_tags(overview).replace(u'\xa0', ' ').replace('&nbsp;', ' ')
+                        has_overview = overview_text.strip()
                     %>
                     % if has_overview:
                         <div class="course-overview">
