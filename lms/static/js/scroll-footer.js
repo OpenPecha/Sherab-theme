@@ -121,7 +121,7 @@
     const isScrollable = isPageScrollable();
     if (!isScrollable) {
       // If not scrollable, always show footer and skip toggling logic
-      setContentPadding(false);
+      setContentPadding(true); /* solution1-if we keep true even if its not scrollable then content padding still works and overlapping doesnt happen*/
       showFooter(true);
       return;
     }
