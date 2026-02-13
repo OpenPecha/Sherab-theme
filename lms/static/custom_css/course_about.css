@@ -1085,3 +1085,16 @@ body.is-dark-theme .instructor-title-org {
     flex: 0 0 100% !important;
   }
 }
+/* this is to safe the space if the content is empty.  -solution2  */
+html, body {
+  height: 100%;
+}
+
+.course-info body {
+  display: flex;
+  flex-direction: column;
+}
+
+.course-info .content-wrapper {
+  flex: 1;
+}
