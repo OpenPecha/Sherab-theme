@@ -67,6 +67,17 @@
   color: #fff !important;
 }
 
+/* Ensure Font Awesome 6 brand icons display properly */
+.social-sharing .fa-brands::before {
+  font-family: "Font Awesome 6 Brands" !important;
+  font-weight: 400 !important;
+}
+
+.social-sharing .fa-solid::before {
+  font-family: "Font Awesome 6 Free" !important;
+  font-weight: 900 !important;
+}
+
 /* Screen reader text and tooltip */
 .social-sharing .sr {
   position: absolute;

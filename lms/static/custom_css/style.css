@@ -41,6 +41,15 @@ body {
     unicode-range: U+0F00-0FFF;
 }
 
+/* VideoJS icon font for video player controls */
+@font-face {
+    font-family: "VideoJS";
+    src: url("../fonts/VideoJS.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 /* Tibetan fonts - static/platform text uses Noto Serif Tibetan */
 :lang(bo) {
     font-family: "Noto Serif Tibetan", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -847,6 +856,109 @@ body.view-center-details {
     display: block !important;
     text-decoration: none !important;
     transition: background-color 0.5s ease !important;
+}
+
+/* Hide all checkboxes in transcript/download sections */
+.video-transcript input[type="checkbox"],
+.transcripts input[type="checkbox"],
+input[type="checkbox"][disabled],
+li input[type="checkbox"]:disabled {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Ensure download icon displays properly */
+.icon.fa.fa-download::before,
+span.icon.fa.fa-download::before {
+    font-family: "FontAwesome" !important;
+    content: "\f019" !important;
+    margin-right: 8px !important;
+}
+
+/* Force video player controls to use VideoJS icons */
+.video-js .icon.fa.fa-play::before,
+span.icon.fa.fa-play::before {
+    font-family: "VideoJS" !important;
+    content: "\f101" !important;
+}
+
+.video-js .icon.fa.fa-pause::before,
+span.icon.fa.fa-pause::before {
+    font-family: "VideoJS" !important;
+    content: "\f103" !important;
+}
+
+.video-js .icon.fa.fa-volume-off::before,
+span.icon.fa.fa-volume-off::before {
+    font-family: "VideoJS" !important;
+    content: "\f104" !important;
+}
+
+.video-js .icon.fa.fa-volume-down::before,
+span.icon.fa.fa-volume-down::before {
+    font-family: "VideoJS" !important;
+    content: "\f105" !important;
+}
+
+.video-js .icon.fa.fa-volume-up::before,
+span.icon.fa.fa-volume-up::before {
+    font-family: "VideoJS" !important;
+    content: "\f107" !important;
+}
+
+.video-js .icon.fa.fa-expand::before,
+.video-js .icon.fa.fa-arrows-alt::before,
+span.icon.fa.fa-expand::before,
+span.icon.fa.fa-arrows-alt::before {
+    font-family: "VideoJS" !important;
+    content: "\f108" !important;
+}
+
+.video-js .icon.fa.fa-compress::before,
+span.icon.fa.fa-compress::before {
+    font-family: "VideoJS" !important;
+    content: "\f109" !important;
+}
+
+/* Additional video player controls */
+/* CC icon - captions */
+.video-js .icon.fa.fa-cc::before,
+span.icon.fa.fa-cc::before {
+    font-family: "VideoJS" !important;
+    content: "\f10c" !important;
+}
+
+/* Transcript/subtitles icon */
+.video-js .icon.fa.fa-subtitles::before,
+.video-js .icon.fa.fa-list::before,
+span.icon.fa.fa-subtitles::before,
+span.icon.fa.fa-list::before {
+    font-family: "VideoJS" !important;
+    content: "\f10d" !important;
+}
+
+.video-js .icon.fa.fa-cog::before,
+.video-js .icon.fa.fa-gear::before,
+span.icon.fa.fa-cog::before,
+span.icon.fa.fa-gear::before {
+    font-family: "VideoJS" !important;
+    content: "\f110" !important;
+}
+
+.video-js .icon.fa.fa-circle::before,
+span.icon.fa.fa-circle::before {
+    font-family: "VideoJS" !important;
+    content: "\f111" !important;
+}
+
+/* Playback speed and other controls */
+.video-js .icon.fa::before,
+span.icon.fa::before {
+    font-family: "VideoJS" !important;
 }
 
 .dropdown-user-menu .dropdown-item a:hover {
