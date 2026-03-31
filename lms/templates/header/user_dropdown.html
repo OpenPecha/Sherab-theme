@@ -23,11 +23,14 @@
     </div>
     
     <div class="dropdown-user-menu hidden" aria-label="More Options" role="menu" id="user-menu" tabindex="-1">
+        <!-- TODO: Replace with environment-based MFE base URL (do not hardcode for production) -->
         <div class="mobile-nav-item dropdown-item">
-            <a href="/u/${user.username}">Profile</a>
+            % set mfe_base = mfe_base if mfe_base else "http://apps.local.openedx.io:1995"
+            <a href="${mfe_base}/profile/u/${user.username}">Profile</a>
+            <a href="${mfe_base}/profile/u/${user.username}">Profile</a>
         </div>
         <div class="mobile-nav-item dropdown-item">
-            <a href="${'/user/account/settings' if user.is_authenticated else '/login'}">Account</a>
+            <a href="${'/account/settings' if user.is_authenticated else '/login'}">Account</a>
         </div>
         <div class="mobile-nav-item dropdown-item signout-item">
             <a href="/logout">Sign Out</a>
