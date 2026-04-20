@@ -127,6 +127,67 @@ h3[role="heading"] {
     font-family: "Jomolhari", "Noto Serif Tibetan", "Open Sans", sans-serif !important;
 }
 
+/* Video player icons: override FontAwesome glyphs with Bootstrap Icons,
+   because legacy `.fa` markup from the video xblock doesn't render under FA6. */
+.video .icon.fa::before,
+.video-controls .icon.fa::before,
+.xblock .video .icon.fa::before,
+.xblock .video-controls .icon.fa::before {
+    font-family: "bootstrap-icons" !important;
+    font-weight: normal !important;
+    font-style: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    line-height: 1 !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.video .icon.fa.fa-play::before,
+.xblock .video .icon.fa.fa-play::before { content: "\f4f4" !important; }
+
+.video .icon.fa.fa-pause::before,
+.xblock .video .icon.fa.fa-pause::before { content: "\f4c3" !important; }
+
+.video .icon.fa.fa-volume-up::before,
+.xblock .video .icon.fa.fa-volume-up::before { content: "\f610" !important; }
+
+.video .icon.fa.fa-volume-off::before,
+.xblock .video .icon.fa.fa-volume-off::before,
+.video .icon.fa.fa-volume-mute::before,
+.xblock .video .icon.fa.fa-volume-mute::before { content: "\f60c" !important; }
+
+.video .icon.fa.fa-cog::before,
+.xblock .video .icon.fa.fa-cog::before,
+.video .icon.fa.fa-gear::before,
+.xblock .video .icon.fa.fa-gear::before { content: "\f3e2" !important; }
+
+.video .icon.fa.fa-arrows-alt::before,
+.xblock .video .icon.fa.fa-arrows-alt::before,
+.video .icon.fa.fa-expand::before,
+.xblock .video .icon.fa.fa-expand::before { content: "\f3df" !important; }
+
+.video .icon.fa.fa-compress::before,
+.xblock .video .icon.fa.fa-compress::before { content: "\f3de" !important; }
+
+.video .icon.fa.fa-step-forward::before,
+.xblock .video .icon.fa.fa-step-forward::before { content: "\f55d" !important; }
+
+.video .icon.fa.fa-step-backward::before,
+.xblock .video .icon.fa.fa-step-backward::before { content: "\f551" !important; }
+
+.video .icon.fa.fa-cc::before,
+.xblock .video .icon.fa.fa-cc::before,
+.video .icon.fa.fa-closed-captioning::before,
+.xblock .video .icon.fa.fa-closed-captioning::before,
+.video .icon.fa.fa-caption::before,
+.xblock .video .icon.fa.fa-caption::before { content: "\f164" !important; }
+
+.video .icon.fa.fa-language::before,
+.xblock .video .icon.fa.fa-language::before,
+.video .icon.fa.fa-comment::before,
+.xblock .video .icon.fa.fa-comment::before { content: "\f658" !important; }
+
 /* Course about page - Jomolhari for all heading elements */
 .course-info h1,
 .course-info .heading-group,
