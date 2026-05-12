@@ -132,10 +132,16 @@
 /* Bottom row layout */
 .footer-bottom {
   width: 100%;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  display: flex;
+  justify-content: center;
   align-items: center;
+  position: relative;
   padding: 14px 24px 10px 24px;
+}
+
+.footer-social {
+  position: absolute;
+  right: 24px;
 }
 
 .footer-cta {
