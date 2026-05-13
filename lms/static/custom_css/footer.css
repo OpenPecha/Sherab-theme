@@ -141,7 +141,7 @@
 
 .footer-social {
   position: absolute;
-  right: 24px;
+  right: 80px;
 }
 
 .footer-cta {
@@ -178,17 +178,14 @@
 }
 
 .footer-copy {
-  justify-self: center;
   color: #212222;
   font-size: 15px;
 }
 
 .footer-social {
-  justify-self: end;
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  margin-right: 80px;
 }
 
 .footer-social .social-icon {
@@ -369,9 +366,14 @@
   }
 
   .footer-bottom {
-    grid-template-columns: 1fr;
+    flex-direction: column;
     row-gap: 10px;
     padding: 10px 0 0 0;
+  }
+
+  .footer-social {
+    position: static;
+    right: auto;
   }
 
   .footer-cta {
@@ -380,11 +382,6 @@
 
   .footer-copy {
     justify-self: center;
-  }
-
-  .footer-social {
-    justify-self: center;
-    margin-right: 0;
   }
 }
 
