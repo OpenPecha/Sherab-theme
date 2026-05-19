@@ -132,7 +132,9 @@ h3[role="heading"] {
 .video .icon.fa::before,
 .video-controls .icon.fa::before,
 .xblock .video .icon.fa::before,
-.xblock .video-controls .icon.fa::before {
+.xblock .video-controls .icon.fa::before,
+.video .btn-play.fa::before,
+.xblock .video .btn-play.fa::before {
     font-family: "bootstrap-icons" !important;
     font-weight: normal !important;
     font-style: normal !important;
@@ -142,6 +144,9 @@ h3[role="heading"] {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+.video .btn-play.fa-youtube-play::before,
+.xblock .video .btn-play.fa-youtube-play::before { content: "\f4f0" !important; } /* bi-play-circle-fill */
 
 .video .icon.fa.fa-play::before,
 .xblock .video .icon.fa.fa-play::before { content: "\f4f4" !important; }
