@@ -225,11 +225,6 @@ h3[role="heading"] {
     display: none !important;
 }
 
-/* Nudge action buttons (like Submit and Show Answer) upwards together */
-.problem .action {
-    margin-top: -30px !important;
-}
-
 /* imporoved ui styling for Correct/Incorrect notifications */
 .problem .notification.success {
     background: linear-gradient(135deg, #e6f9ed 0%, #d1f3e0 100%) !important;
