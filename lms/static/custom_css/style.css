@@ -188,6 +188,41 @@ h3[role="heading"] {
 .video .icon.fa.fa-comment::before,
 .xblock .video .icon.fa.fa-comment::before { content: "\f658" !important; }
 
+/* Problem block notifications and CTAs icons: override FontAwesome glyphs with Bootstrap Icons,
+   because legacy `.fa` markup doesn't render under FA6 in Learning MFE. */
+.notification .icon.fa::before,
+.submit-cta-description .fa::before {
+    font-family: "bootstrap-icons" !important;
+    font-weight: normal !important;
+    font-style: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    line-height: 1 !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 1.25em !important;
+    vertical-align: -0.15em !important;
+    margin-right: 6px !important;
+}
+
+.notification .icon.fa.fa-check::before { content: "\f26a" !important; } /* bi-check-circle-fill */
+.notification .icon.fa.fa-close::before { content: "\f622" !important; } /* bi-x-circle-fill */
+.notification .icon.fa.fa-asterisk::before { content: "\f151" !important; } /* bi-asterisk */
+.notification .icon.fa.fa-info-circle::before,
+.submit-cta-description .fa.fa-info-circle::before { content: "\f432" !important; } /* bi-info-circle-fill */
+.notification .icon.fa.fa-exclamation-circle::before { content: "\f33b" !important; } /* bi-exclamation-circle-fill */
+.notification .icon.fa.fa-save::before { content: "\f525" !important; } /* bi-save */
+.notification .icon.fa.fa-question::before { content: "\f4e4" !important; } /* bi-question-circle-fill */
+
+/* Hide the redundant legacy status icon that appears above the submit button
+   (next to problem inputs) since we now have the large notification below. */
+.problem .status .status-icon,
+.problem .status.correct::after,
+.problem .status.incorrect::after,
+.problem .status.unanswered::after {
+    display: none !important;
+}
+
 /* Course about page - Jomolhari for all heading elements */
 .course-info h1,
 .course-info .heading-group,
