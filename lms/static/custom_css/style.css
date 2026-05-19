@@ -225,6 +225,11 @@ h3[role="heading"] {
     display: none !important;
 }
 
+/* Nudge action buttons (like Submit and Show Answer) upwards together */
+.problem .action {
+    margin-top: -30px !important;
+}
+
 /* imporoved ui styling for Correct/Incorrect notifications */
 .problem .notification.success {
     background: linear-gradient(135deg, #e6f9ed 0%, #d1f3e0 100%) !important;
@@ -244,6 +249,30 @@ h3[role="heading"] {
     color: #a1231a !important;
     margin-top: 20px !important;
     transition: all 0.3s ease !important;
+}
+
+.problem .notification.general {
+    background: linear-gradient(135deg, #f8fbff 0%, #eef5ff 100%) !important;
+    border: 1px solid #cce0ff !important;
+    border-radius: 8px !important;
+    padding: 16px 20px !important;
+    color: #004085 !important;
+    margin-top: 20px !important;
+    transition: all 0.3s ease !important;
+}
+
+.problem .notification.warning {
+    background: linear-gradient(135deg, #fffcf5 0%, #fff4cc 100%) !important;
+    border: 1px solid #ffeaa7 !important;
+    border-radius: 8px !important;
+    padding: 16px 20px !important;
+    color: #856404 !important;
+    margin-top: 20px !important;
+    transition: all 0.3s ease !important;
+}
+
+.problem .notification {
+    margin-bottom: 20px !important;
 }
 
 .problem .notification .notification-message {
@@ -266,14 +295,13 @@ h3[role="heading"] {
 
 /* Premium UI styling for Show Answer button */
 .problem .problem-action-btn.show {
-    background: linear-gradient(135deg, #ffffff 0%, #f1f3f5 100%) !important;
+    background: #f8f9fa !important;
     border: 1px solid #dee2e6 !important;
     border-radius: 6px !important;
     padding: 10px 20px !important;
     color: #495057 !important;
     font-weight: 600 !important;
     font-size: 0.95em !important;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05) !important;
     transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
     cursor: pointer !important;
     display: inline-flex !important;
@@ -282,16 +310,13 @@ h3[role="heading"] {
 }
 
 .problem .problem-action-btn.show:hover {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
-    transform: translateY(-2px) !important;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1) !important;
+    background: #f1f3f5 !important;
     color: #212529 !important;
     border-color: #ced4da !important;
 }
 
 .problem .problem-action-btn.show:active {
-    transform: translateY(1px) !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+    background: #e9ecef !important;
 }
 
 /* Course about page - Jomolhari for all heading elements */
