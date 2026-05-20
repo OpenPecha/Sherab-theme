@@ -132,7 +132,9 @@ h3[role="heading"] {
 .video .icon.fa::before,
 .video-controls .icon.fa::before,
 .xblock .video .icon.fa::before,
-.xblock .video-controls .icon.fa::before {
+.xblock .video-controls .icon.fa::before,
+.video .btn-play.fa::before,
+.xblock .video .btn-play.fa::before {
     font-family: "bootstrap-icons" !important;
     font-weight: normal !important;
     font-style: normal !important;
@@ -142,6 +144,9 @@ h3[role="heading"] {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+.video .btn-play.fa-youtube-play::before,
+.xblock .video .btn-play.fa-youtube-play::before { content: "\f4f0" !important; } /* bi-play-circle-fill */
 
 .video .icon.fa.fa-play::before,
 .xblock .video .icon.fa.fa-play::before { content: "\f4f4" !important; }
@@ -187,6 +192,243 @@ h3[role="heading"] {
 .xblock .video .icon.fa.fa-language::before,
 .video .icon.fa.fa-comment::before,
 .xblock .video .icon.fa.fa-comment::before { content: "\f658" !important; }
+
+/* Problem block notifications and CTAs icons: override FontAwesome glyphs with Bootstrap Icons,
+   because legacy `.fa` markup doesn't render under FA6 in Learning MFE. */
+.notification .icon.fa::before,
+.submit-cta-description .fa::before {
+    font-family: "bootstrap-icons" !important;
+    font-weight: normal !important;
+    font-style: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    line-height: 1 !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.notification .icon.fa.fa-check::before { content: "\f26a" !important; } /* bi-check-circle-fill */
+.notification .icon.fa.fa-close::before { content: "\f622" !important; } /* bi-x-circle-fill */
+.notification .icon.fa.fa-asterisk::before { content: "\f151" !important; } /* bi-asterisk */
+.notification .icon.fa.fa-info-circle::before,
+.submit-cta-description .fa.fa-info-circle::before { content: "\f432" !important; } /* bi-info-circle-fill */
+.notification .icon.fa.fa-exclamation-circle::before { content: "\f33b" !important; } /* bi-exclamation-circle-fill */
+.notification .icon.fa.fa-save::before { content: "\f525" !important; } /* bi-save */
+.notification .icon.fa.fa-question::before { content: "\f4e4" !important; } /* bi-question-circle-fill */
+
+/* ── ORA (Open Response Assessment) icons ──
+   edx-ora2 legacy templates use FA4 `.icon.fa.fa-*` classes extensively.
+   The theme's FA6 CDN conflicts with these, so we map them to Bootstrap Icons. */
+.openassessment .icon.fa::before,
+.wrapper--openassessment .icon.fa::before,
+.openassessment__steps .icon.fa::before,
+.step__header .icon.fa::before,
+.step__status .icon.fa::before,
+.ui-slidable .icon.fa::before,
+.ui-staff__button .icon.fa::before,
+.ui-staff_close_button .icon.fa::before {
+    font-family: "bootstrap-icons" !important;
+    font-weight: normal !important;
+    font-style: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    line-height: 1 !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* fa-caret-right — used on ORA step toggles, rubric toggles, response buttons */
+.openassessment .icon.fa.fa-caret-right::before,
+.wrapper--openassessment .icon.fa.fa-caret-right::before { content: "\f285" !important; } /* bi-caret-right-fill */
+
+/* fa-caret-down — expanded state (JS toggles fa-caret-right ↔ fa-caret-down) */
+.openassessment .icon.fa.fa-caret-down::before,
+.wrapper--openassessment .icon.fa.fa-caret-down::before { content: "\f282" !important; } /* bi-caret-down-fill */
+
+/* fa-spinner — loading indicator */
+.openassessment .icon.fa.fa-spinner::before,
+.wrapper--openassessment .icon.fa.fa-spinner::before { content: "\f116" !important; } /* bi-arrow-clockwise */
+
+/* fa-exclamation-triangle — warnings (closed, cancelled states) */
+.openassessment .icon.fa.fa-exclamation-triangle::before,
+.wrapper--openassessment .icon.fa.fa-exclamation-triangle::before { content: "\f337" !important; } /* bi-exclamation-triangle-fill */
+
+/* fa-exclamation-circle — validation errors */
+.openassessment .icon.fa.fa-exclamation-circle::before,
+.wrapper--openassessment .icon.fa.fa-exclamation-circle::before { content: "\f33b" !important; } /* bi-exclamation-circle-fill */
+
+/* fa-times-circle — error/close in edit header */
+.openassessment .icon.fa.fa-times-circle::before,
+.wrapper--openassessment .icon.fa.fa-times-circle::before { content: "\f622" !important; } /* bi-x-circle-fill */
+
+/* fa-close / fa-times — close button in staff area */
+.openassessment .icon.fa.fa-close::before,
+.openassessment .icon.fa.fa-times::before,
+.wrapper--openassessment .icon.fa.fa-close::before,
+.wrapper--openassessment .icon.fa.fa-times::before { content: "\f623" !important; } /* bi-x-lg */
+
+/* fa-external-link — "Grade Available Responses" staff link */
+.openassessment .icon.fa.fa-external-link::before,
+.wrapper--openassessment .icon.fa.fa-external-link::before { content: "\f1c5" !important; } /* bi-box-arrow-up-right */
+
+/* fa-info-circle — assessment title info */
+.openassessment .icon.fa.fa-info-circle::before,
+.wrapper--openassessment .icon.fa.fa-info-circle::before { content: "\f432" !important; } /* bi-info-circle-fill */
+
+/* fa-circle-o — draft save icon in response */
+.openassessment .icon.fa.fa-circle-o::before,
+.wrapper--openassessment .icon.fa.fa-circle-o::before { content: "\f28a" !important; } /* bi-circle */
+
+/* fa-check — completed step */
+.openassessment .icon.fa.fa-check::before,
+.wrapper--openassessment .icon.fa.fa-check::before { content: "\f26b" !important; } /* bi-check-lg */
+
+/* fa-check-circle — completed status */
+.openassessment .icon.fa.fa-check-circle::before,
+.wrapper--openassessment .icon.fa.fa-check-circle::before { content: "\f26a" !important; } /* bi-check-circle-fill */
+
+/* fa-calendar — deadline display in response step */
+.openassessment .icon.fa.fa-calendar::before,
+.wrapper--openassessment .icon.fa.fa-calendar::before {
+    font-family: "Font Awesome 6 Free" !important;
+    font-weight: 900 !important;
+    content: "\f073" !important;
+} /* fa-calendar-days (grid-style calendar) */
+
+/* fa-refresh — "Saving draft" spinner icon (set via JS) */
+.openassessment .icon.fa.fa-refresh::before,
+.wrapper--openassessment .icon.fa.fa-refresh::before,
+.openassessment .save__submission__icon.fa.fa-refresh::before,
+.wrapper--openassessment .save__submission__icon.fa.fa-refresh::before { content: "\f116" !important; } /* bi-arrow-clockwise */
+
+/* fa-check-circle-o — "Draft saved!" icon (set via JS) */
+.openassessment .icon.fa.fa-check-circle-o::before,
+.wrapper--openassessment .icon.fa.fa-check-circle-o::before,
+.openassessment .save__submission__icon.fa.fa-check-circle-o::before,
+.wrapper--openassessment .save__submission__icon.fa.fa-check-circle-o::before { content: "\f26a" !important; } /* bi-check-circle-fill */
+
+/* Add spin animation for the saving draft refresh icon */
+.openassessment .icon.fa.fa-refresh,
+.wrapper--openassessment .icon.fa.fa-refresh,
+.openassessment .save__submission__icon.fa.fa-refresh,
+.wrapper--openassessment .save__submission__icon.fa.fa-refresh {
+    animation: fa-spin 2s infinite linear !important;
+    display: inline-block !important;
+}
+
+/* Keep the spin animation working for Bootstrap Icons */
+.openassessment .icon.fa.fa-spin,
+.wrapper--openassessment .icon.fa.fa-spin {
+    animation: fa-spin 2s infinite linear !important;
+    display: inline-block !important;
+}
+
+/* ── Global fallback for any remaining .icon.fa elements ──
+   Catch all `.icon.fa` that slipped through the specific rules above.
+   This ensures the correct font-family is applied globally. */
+.icon.fa::before {
+    font-family: "Font Awesome 6 Free", "FontAwesome", "bootstrap-icons" !important;
+    font-weight: 900 !important;
+}
+
+
+/* Hide the redundant legacy status icon that appears above the submit button
+   (next to problem inputs) since we now have the large notification below. */
+.problem .status .status-icon,
+.problem .status.correct::after,
+.problem .status.incorrect::after,
+.problem .status.unanswered::after {
+    display: none !important;
+}
+
+/* imporoved ui styling for Correct/Incorrect notifications */
+.problem .notification.success {
+    background: linear-gradient(135deg, #e6f9ed 0%, #d1f3e0 100%) !important;
+    border: 1px solid #a3e4b5 !important;
+    border-radius: 8px !important;
+    padding: 16px 20px !important;
+    color: #1e7039 !important;
+    margin-top: 20px !important;
+    transition: all 0.3s ease !important;
+}
+
+.problem .notification.error {
+    background: linear-gradient(135deg, #fdecea 0%, #fad1cd 100%) !important;
+    border: 1px solid #f1a9a0 !important;
+    border-radius: 8px !important;
+    padding: 16px 20px !important;
+    color: #a1231a !important;
+    margin-top: 20px !important;
+    transition: all 0.3s ease !important;
+}
+
+.problem .notification.general {
+    background: linear-gradient(135deg, #f8fbff 0%, #eef5ff 100%) !important;
+    border: 1px solid #cce0ff !important;
+    border-radius: 8px !important;
+    padding: 16px 20px !important;
+    color: #004085 !important;
+    margin-top: 20px !important;
+    transition: all 0.3s ease !important;
+}
+
+.problem .notification.warning {
+    background: linear-gradient(135deg, #fffcf5 0%, #fff4cc 100%) !important;
+    border: 1px solid #ffeaa7 !important;
+    border-radius: 8px !important;
+    padding: 16px 20px !important;
+    color: #856404 !important;
+    margin-top: 20px !important;
+    transition: all 0.3s ease !important;
+}
+
+.problem .notification {
+    margin-bottom: 20px !important;
+}
+
+.problem .notification .notification-message {
+    font-weight: 600 !important;
+    font-size: 1.1em !important;
+    letter-spacing: 0.2px !important;
+    vertical-align: middle !important;
+    display: inline-block !important;
+    position: relative !important;
+    top: 6px !important;
+}
+
+.problem .notification .icon {
+    font-size: 1.6em !important;
+    margin-right: 14px !important;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)) !important;
+    vertical-align: middle !important;
+    display: inline-block !important;
+}
+
+/* Premium UI styling for Show Answer button */
+.problem .problem-action-btn.show {
+    background: #f8f9fa !important;
+    border: 1px solid #dee2e6 !important;
+    border-radius: 6px !important;
+    padding: 10px 20px !important;
+    color: #495057 !important;
+    font-weight: 600 !important;
+    font-size: 0.95em !important;
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.problem .problem-action-btn.show:hover {
+    background: #f1f3f5 !important;
+    color: #212529 !important;
+    border-color: #ced4da !important;
+}
+
+.problem .problem-action-btn.show:active {
+    background: #e9ecef !important;
+}
 
 /* Course about page - Jomolhari for all heading elements */
 .course-info h1,
