@@ -183,6 +183,35 @@
     background-color: white !important;
 }
 
+/*
+ * Course card title/date sizing:
+ * - Title reserves a fixed 4-line area, so every card has the SAME height
+ *   (consistency). Titles longer than 4 lines are truncated; shorter titles
+ *   simply leave white space below the text (accepted trade-off).
+ * - The start date sits at a consistent position just below that area and is
+ *   always fully visible inside the card.
+ * The platform caps .courses-listing-item at max-height:360px, which would
+ * clip the taller uniform card, so we lift that cap here.
+ */
+.find-courses .courses-container .courses .courses-listing .courses-listing-item {
+    max-height: none !important;
+}
+
+.courses-listing .course .course-info {
+    height: auto !important;
+    padding-bottom: 15px !important;
+}
+
+.courses-listing .course .course-info .course-title {
+    height: 124px !important;  /* fixed 4 lines @ 22px / 1.4 line-height */
+    margin: 5px 0 0 0 !important;
+    overflow: hidden !important;
+}
+
+.courses-listing .course .course-info .course-date {
+    margin-top: 12px !important;
+}
+
 /* Target the body element to ensure no gray background */
 body,
 html,
