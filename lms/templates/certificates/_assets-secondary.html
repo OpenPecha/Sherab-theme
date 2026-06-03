@@ -1,0 +1,103 @@
+<script type="text/javascript">
+
+    document.getElementById("action-download-view").addEventListener("click", downloadCertificateView);
+
+    function downloadCertificateView(event) {
+       event.preventDefault();
+
+       var downloadButton = document.getElementById("action-download-view");
+       if (!downloadButton) {
+           return;
+       }
+
+       var certificateElement = document.querySelector(".certificate-custom") || document.querySelector(".accomplishment-main") || document.body;
+       var originalButtonLabel = downloadButton.innerHTML;
+
+       downloadButton.disabled = true;
+       downloadButton.setAttribute("aria-disabled", "true");
+       downloadButton.innerHTML = '<span class="icon fa fa-spinner fa-spin" aria-hidden="true"></span> Downloading...';
+
+       loadScript("https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js")
+           .then(function() {
+               return loadScript("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js");
+           })
+           .then(function() {
+               return window.html2canvas(certificateElement, {
+                   scale: 2,
+                   useCORS: true,
+                   backgroundColor: "#ffffff"
+               });
+           })
+           .then(function(canvas) {
+               var jsPdfConstructor = window.jspdf && window.jspdf.jsPDF;
+               if (!jsPdfConstructor) {
+                   throw new Error("PDF library unavailable");
+               }
+
+               var pageWidth = 297;
+               var pageHeight = 210;
+               var margin = 6;
+               var availableWidth = pageWidth - (margin * 2);
+               var availableHeight = pageHeight - (margin * 2);
+               var imageWidth = availableWidth;
+               var imageHeight = (canvas.height * imageWidth) / canvas.width;
+
+               if (imageHeight > availableHeight) {
+                   imageHeight = availableHeight;
+                   imageWidth = (canvas.width * imageHeight) / canvas.height;
+               }
+
+               var x = (pageWidth - imageWidth) / 2;
+               var y = (pageHeight - imageHeight) / 2;
+
+               var pdf = new jsPdfConstructor({
+                   orientation: "landscape",
+                   unit: "mm",
+                   format: "a4"
+               });
+
+               pdf.addImage(canvas.toDataURL("image/jpeg", 1.0), "JPEG", x, y, imageWidth, imageHeight);
+
+               var fileName = "certificate.pdf";
+               var certificateIdElement = document.querySelector(".cert-id .cert-value");
+               if (certificateIdElement && certificateIdElement.textContent) {
+                   fileName = "certificate-" + certificateIdElement.textContent.trim().replace(/[^a-zA-Z0-9-_]/g, "") + ".pdf";
+               }
+
+               pdf.save(fileName);
+           })
+           .catch(function() {
+               alert("Unable to download certificate right now. Please try again.");
+           })
+           .finally(function() {
+               restoreDownloadButton(downloadButton, originalButtonLabel);
+           });
+    }
+
+    function loadScript(src) {
+       return new Promise(function(resolve, reject) {
+           if (document.querySelector('script[data-cert-lib="' + src + '"]')) {
+               resolve();
+               return;
+           }
+
+           var script = document.createElement("script");
+           script.src = src;
+           script.async = true;
+           script.setAttribute("data-cert-lib", src);
+           script.onload = function() {
+               resolve();
+           };
+           script.onerror = function() {
+               reject(new Error("Failed to load script"));
+           };
+           document.head.appendChild(script);
+       });
+    }
+
+    function restoreDownloadButton(button, labelHtml) {
+       button.disabled = false;
+       button.removeAttribute("aria-disabled");
+       button.innerHTML = labelHtml;
+    }
+</script>
