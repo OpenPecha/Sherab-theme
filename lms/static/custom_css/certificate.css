@@ -248,6 +248,26 @@
 	white-space: nowrap;
 }
 
+.cert-download-capture-mode .certificate-custom {
+	overflow: visible !important;
+	padding: 0 !important;
+	background: #fff !important;
+}
+
+.cert-download-capture-mode .cert-container,
+.cert-download-capture-target {
+	transform: none !important;
+	margin-bottom: 0 !important;
+	width: 1200px !important;
+	max-width: none !important;
+}
+
+.cert-download-capture-mode .wrapper-view,
+.cert-download-capture-mode .accomplishment-main,
+.cert-download-capture-mode .wrapper-accomplishment-rendering {
+	overflow: visible !important;
+}
+
 .layout-accomplishment .wrapper-about,
 .layout-accomplishment .wrapper-about .about-item {
 	margin-bottom: 0.5rem;
