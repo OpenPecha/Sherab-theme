@@ -1,0 +1,218 @@
+<script type="text/javascript">
+    (function() {
+        var captureModeClass = "cert-download-capture-mode";
+        var captureTargetClass = "cert-download-capture-target";
+
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", initializeCertificateDownload);
+        } else {
+            initializeCertificateDownload();
+        }
+
+        function initializeCertificateDownload() {
+            var downloadButton = document.getElementById("action-download-view");
+            if (!downloadButton || downloadButton.getAttribute("data-cert-download-bound") === "true") {
+                return;
+            }
+
+            downloadButton.setAttribute("data-cert-download-bound", "true");
+            downloadButton.addEventListener("click", downloadCertificateView);
+        }
+
+        function downloadCertificateView(event) {
+            event.preventDefault();
+
+            var downloadButton = document.getElementById("action-download-view");
+            if (!downloadButton) {
+                return;
+            }
+
+            var certificateElement = getCertificateElement();
+            var originalButtonLabel = downloadButton.innerHTML;
+            var statusRegion = ensureStatusRegion();
+
+            setDownloadState(downloadButton, true);
+            setStatusMessage(statusRegion, "Preparing certificate download...");
+
+            document.body.classList.add(captureModeClass);
+            certificateElement.classList.add(captureTargetClass);
+
+            loadScript("https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js", "html2canvas")
+                .then(function() {
+                    return loadScript("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js", "jsPDF");
+                })
+                .then(function() {
+                    if (!window.html2canvas) {
+                        throw createDownloadError("capture-missing", "Screenshot library unavailable");
+                    }
+
+                    return window.html2canvas(certificateElement, {
+                        scale: 2,
+                        useCORS: true,
+                        backgroundColor: "#ffffff",
+                        windowWidth: Math.ceil(certificateElement.scrollWidth),
+                        windowHeight: Math.ceil(certificateElement.scrollHeight)
+                    }).catch(function() {
+                        throw createDownloadError("capture-failed", "Certificate screenshot failed");
+                    });
+                })
+                .then(function(canvas) {
+                    var jsPdfConstructor = window.jspdf && window.jspdf.jsPDF;
+                    if (!jsPdfConstructor) {
+                        throw createDownloadError("pdf-missing", "PDF library unavailable");
+                    }
+
+                    try {
+                        var pdf = new jsPdfConstructor({
+                            orientation: "landscape",
+                            unit: "mm",
+                            format: "a4"
+                        });
+                        var pageWidth = pdf.internal.pageSize.getWidth();
+                        var pageHeight = pdf.internal.pageSize.getHeight();
+                        var imageWidth = canvas.width;
+                        var imageHeight = canvas.height;
+                        var imageRatio = imageWidth / imageHeight;
+                        var pageRatio = pageWidth / pageHeight;
+                        var renderWidth = pageWidth;
+                        var renderHeight = pageHeight;
+
+                        if (imageRatio > pageRatio) {
+                            renderHeight = pageWidth / imageRatio;
+                        } else {
+                            renderWidth = pageHeight * imageRatio;
+                        }
+
+                        var x = (pageWidth - renderWidth) / 2;
+                        var y = (pageHeight - renderHeight) / 2;
+
+                        pdf.addImage(canvas.toDataURL("image/png"), "PNG", x, y, renderWidth, renderHeight);
+                        pdf.save(getCertificateFileName());
+                    } catch (pdfError) {
+                        throw createDownloadError("pdf-failed", "Failed to render certificate PDF");
+                    }
+
+                    setStatusMessage(statusRegion, "Certificate download started.");
+                })
+                .catch(function(error) {
+                    setStatusMessage(statusRegion, getUserFriendlyError(error), true);
+                })
+                .finally(function() {
+                    certificateElement.classList.remove(captureTargetClass);
+                    document.body.classList.remove(captureModeClass);
+                    restoreDownloadButton(downloadButton, originalButtonLabel);
+                });
+        }
+
+        function getCertificateElement() {
+            return document.querySelector(".cert-container") ||
+                document.querySelector(".certificate-custom") ||
+                document.querySelector(".accomplishment-main") ||
+                document.body;
+        }
+
+        function getCertificateFileName() {
+            var certificateIdElement = document.querySelector(".cert-id .cert-value, .certificate-id .cert-value, [data-certificate-id]");
+            var rawValue = "";
+
+            if (!certificateIdElement) {
+                return "certificate.pdf";
+            }
+
+            rawValue = certificateIdElement.getAttribute("data-certificate-id") || certificateIdElement.textContent || "";
+            rawValue = rawValue.trim().replace(/[^a-zA-Z0-9-_]/g, "");
+
+            if (!rawValue) {
+                return "certificate.pdf";
+            }
+
+            return "certificate-" + rawValue + ".pdf";
+        }
+
+        function loadScript(src, label) {
+            return new Promise(function(resolve, reject) {
+                if (document.querySelector('script[data-cert-lib="' + src + '"]')) {
+                    resolve();
+                    return;
+                }
+
+                var script = document.createElement("script");
+                script.src = src;
+                script.async = true;
+                script.setAttribute("data-cert-lib", src);
+                script.onload = function() {
+                    resolve();
+                };
+                script.onerror = function() {
+                    reject(createDownloadError("dependency-load", "Failed to load " + label));
+                };
+                document.head.appendChild(script);
+            });
+        }
+
+        function setDownloadState(button, isBusy) {
+            if (isBusy) {
+                button.disabled = true;
+                button.setAttribute("aria-disabled", "true");
+                button.setAttribute("aria-busy", "true");
+                button.innerHTML = '<span class="icon fa fa-spinner fa-spin" aria-hidden="true"></span> Downloading...';
+            } else {
+                button.disabled = false;
+                button.removeAttribute("aria-disabled");
+                button.removeAttribute("aria-busy");
+            }
+        }
+
+        function restoreDownloadButton(button, labelHtml) {
+            setDownloadState(button, false);
+            button.innerHTML = labelHtml;
+        }
+
+        function ensureStatusRegion() {
+            var statusRegion = document.getElementById("certificate-download-status");
+
+            if (!statusRegion) {
+                statusRegion = document.createElement("div");
+                statusRegion.id = "certificate-download-status";
+                statusRegion.className = "sr-only";
+                statusRegion.setAttribute("aria-live", "polite");
+                statusRegion.setAttribute("role", "status");
+                document.body.appendChild(statusRegion);
+            }
+
+            return statusRegion;
+        }
+
+        function setStatusMessage(statusRegion, message, isError) {
+            statusRegion.textContent = message;
+            statusRegion.setAttribute("role", isError ? "alert" : "status");
+            statusRegion.setAttribute("aria-live", isError ? "assertive" : "polite");
+
+            if (isError) {
+                window.alert(message);
+            }
+        }
+
+        function getUserFriendlyError(error) {
+            if (error && error.code === "dependency-load") {
+                return "Unable to load certificate tools. Please check your network and try again.";
+            }
+
+            if (error && (error.code === "capture-missing" || error.code === "capture-failed")) {
+                return "Unable to capture the certificate preview. Please refresh the page and try again.";
+            }
+
+            if (error && (error.code === "pdf-missing" || error.code === "pdf-failed")) {
+                return "Unable to generate the certificate PDF right now. Please try again.";
+            }
+
+            return "Unable to download certificate right now. Please try again.";
+        }
+
+        function createDownloadError(code, message) {
+            var error = new Error(message);
+            error.code = code;
+            return error;
+        }
+    })();
+</script>
