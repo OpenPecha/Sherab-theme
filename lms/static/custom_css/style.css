@@ -404,30 +404,88 @@ h3[role="heading"] {
     display: inline-block !important;
 }
 
-/* Premium UI styling for Show Answer button */
-.problem .problem-action-btn.show {
-    background: #f8f9fa !important;
-    border: 1px solid #dee2e6 !important;
+/* Consistent, subtle styling for ALL problem action buttons (Save, Show answer, Reset, Hint) */
+.xmodule_display.xmodule_ProblemBlock div.problem .action .problem-action-btn {
+    background: transparent !important;
+    border: 1px solid #d8dbe0 !important;
     border-radius: 6px !important;
-    padding: 10px 20px !important;
-    color: #495057 !important;
-    font-weight: 600 !important;
-    font-size: 0.95em !important;
-    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    padding: 4px 12px !important;            /* smaller than the old 10px 20px */
+    max-width: none !important;
+    color: #6c757d !important;               /* muted, less prominent */
+    font-weight: 500 !important;
+    font-size: 0.8125rem !important;         /* ~13px */
+    line-height: 1.4 !important;
+    transition: all 0.15s ease !important;
     cursor: pointer !important;
+    text-decoration: none !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
 }
 
-.problem .problem-action-btn.show:hover {
+.xmodule_display.xmodule_ProblemBlock div.problem .action .problem-action-btn:hover,
+.xmodule_display.xmodule_ProblemBlock div.problem .action .problem-action-btn:focus {
     background: #f1f3f5 !important;
     color: #212529 !important;
-    border-color: #ced4da !important;
+    border-color: #c2c7cd !important;
+    text-decoration: none !important;
 }
 
-.problem .problem-action-btn.show:active {
+.xmodule_display.xmodule_ProblemBlock div.problem .action .problem-action-btn:active {
     background: #e9ecef !important;
+}
+
+/* Optional: remove the vertical divider lines between buttons for a cleaner row */
+.xmodule_display.xmodule_ProblemBlock div.problem .action .problem-action-button-wrapper {
+    border-right: none !important;
+    padding: 0 6px !important;
+}
+
+/* Icons for each action button (Font Awesome 6 Free, already loaded in main.html).
+   Markup classes: .hint-button, .save, .reset, .show */
+.xmodule_display.xmodule_ProblemBlock div.problem .action .problem-action-btn::before {
+    font-family: "Font Awesome 6 Free", "FontAwesome" !important;
+    font-weight: 900 !important;
+    margin-right: 6px !important;
+    font-size: 0.95em !important;
+    line-height: 1 !important;
+}
+
+.xmodule_display.xmodule_ProblemBlock div.problem .action .problem-action-btn.hint-button::before {
+    content: "\f0eb" !important;   /* lightbulb */
+}
+
+.xmodule_display.xmodule_ProblemBlock div.problem .action .problem-action-btn.save::before {
+    content: "\f0c7" !important;   /* floppy disk */
+}
+
+.xmodule_display.xmodule_ProblemBlock div.problem .action .problem-action-btn.reset::before {
+    content: "\f0e2" !important;   /* arrow-rotate-left */
+}
+
+.xmodule_display.xmodule_ProblemBlock div.problem .action .problem-action-btn.show::before {
+    content: "\f06e" !important;   /* eye */
+}
+
+/* Intent-based coloring: Reset is destructive -> red tint on hover/focus */
+.xmodule_display.xmodule_ProblemBlock div.problem .action .problem-action-btn.reset:hover,
+.xmodule_display.xmodule_ProblemBlock div.problem .action .problem-action-btn.reset:focus {
+    background: #fdf0ef !important;
+    color: #c0392b !important;
+    border-color: #e8b3ad !important;
+}
+
+/* Show answer: quieter, slightly distinct (borderless, lighter) so it reads as tertiary */
+.xmodule_display.xmodule_ProblemBlock div.problem .action .problem-action-btn.show {
+    border-color: transparent !important;
+    color: #868e96 !important;
+}
+
+.xmodule_display.xmodule_ProblemBlock div.problem .action .problem-action-btn.show:hover,
+.xmodule_display.xmodule_ProblemBlock div.problem .action .problem-action-btn.show:focus {
+    background: #f1f3f5 !important;
+    color: #495057 !important;
+    border-color: transparent !important;
 }
 
 /* Course about page - Jomolhari for all heading elements */
