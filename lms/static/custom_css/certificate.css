@@ -1,3 +1,101 @@
+/* styles for dark mode protection in mobile apps */
+
+.sherab-themed-certificate .cert-container,
+.sherab-themed-certificate .cert-container * {
+	color-scheme: only light !important;
+	forced-color-adjust: none !important;
+	-webkit-text-size-adjust: 100%;
+	-webkit-print-color-adjust: exact;
+	print-color-adjust: exact;
+}
+
+.sherab-themed-certificate .cert-container {
+	background: #fff !important;
+	color: #222 !important;
+}
+
+.sherab-themed-certificate .cert-left {
+	background-color: #F36F2A !important;
+}
+
+.sherab-themed-certificate .cert-right {
+	background: #fff !important;
+}
+
+.sherab-themed-certificate .cert-title,
+.sherab-themed-certificate .cert-name,
+.sherab-themed-certificate .signatory-details,
+.sherab-themed-certificate .signatory-name {
+	color: #222 !important;
+	-webkit-text-fill-color: #222 !important;
+}
+
+.sherab-themed-certificate .cert-subtitle {
+	color: #d4a34b !important;
+	-webkit-text-fill-color: #d4a34b !important;
+}
+
+.sherab-themed-certificate .cert-presented,
+.sherab-themed-certificate .cert-description,
+.sherab-themed-certificate .course-name,
+.sherab-themed-certificate .cert-footer,
+.sherab-themed-certificate .cert-footer .cert-value {
+	color: #444 !important;
+	-webkit-text-fill-color: #444 !important;
+}
+
+.sherab-themed-certificate .cert-footer .cert-label {
+	color: #000 !important;
+	-webkit-text-fill-color: #000 !important;
+}
+
+.sherab-themed-certificate .cert-name {
+	border-bottom-color: #222 !important;
+}
+
+.sherab-themed-certificate .signatory-img-wrapper {
+	border-bottom-color: #ccc !important;
+}
+
+@media (prefers-color-scheme: dark) {
+	html.sherab-cert-ios-webview .sherab-themed-certificate .cert-container {
+		filter: invert(100%) hue-rotate(180deg) !important;
+		background-color: #fff !important;
+		color-scheme: only light !important;
+	}
+
+	html.sherab-cert-android-webview .sherab-themed-certificate .cert-container {
+		filter: none !important;
+		background-color: #fff !important;
+		color-scheme: only light !important;
+	}
+
+	html.sherab-cert-mobile-webview .sherab-themed-certificate .cert-side-art,
+	html.sherab-cert-mobile-webview .sherab-themed-certificate .cert-logo,
+	html.sherab-cert-mobile-webview .sherab-themed-certificate .signatory-img {
+		filter: none !important;
+	}
+
+	html.sherab-cert-mobile-webview .sherab-themed-certificate .cert-left-logo {
+		filter: brightness(0) invert(1) !important;
+	}
+}
+
+.sherab-default-cert-android-frame {
+	display: none;
+	width: 100%;
+	border: 0;
+	overflow: hidden;
+}
+
+html.sherab-cert-android-frame-ready .sherab-themed-certificate > .cert-container {
+	display: none !important;
+}
+
+html.sherab-cert-android-frame-ready .sherab-default-cert-android-frame {
+	display: block;
+}
+
 /* styles for branded certificate */
 
 .layout-accomplishment .wrapper-introduction {
