@@ -1,5 +1,8 @@
 <%page expression_filter="h"/>
 <%!
+	import base64
+	import mimetypes
+
 	from django.utils.translation import gettext as _
 	from django.conf import settings
 	from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
@@ -15,6 +18,7 @@
 
 	# PARTNER (LOGO + NAME)
 	partner_logo = None
+	partner_logo_src = None
 	partner_name = "Partner"
 	try:
 		# Fetch the organization course record associated with the given course_id
@@ -32,6 +36,18 @@
 			partner = partner_org_mapping.partner
 			partner_logo = partner.logo if partner and partner.logo else None
 			partner_name = partner.name if partner and partner.name else "Partner"
+
+		# Inline the partner logo so html2canvas can paint it without CORS issues.
+		if partner_logo:
+			try:
+				mime_type = mimetypes.guess_type(partner_logo.name)[0] or "image/png"
+				with partner_logo.open("rb") as logo_file:
+					partner_logo_src = "data:{};base64,{}".format(
+						mime_type,
+						base64.b64encode(logo_file.read()).decode("ascii"),
+					)
+			except Exception:
+				partner_logo_src = partner_logo.url if getattr(partner_logo, "url", None) else partner_logo
 	except Exception:
 		pass
 
@@ -63,8 +79,10 @@
     <div class="cert-right">
 		<div class="cert-header">
 			<div class="cert-logo-wrapper">
-				% if partner_logo:
-					<img src="${partner_logo.url if getattr(partner_logo, 'url', None) else partner_logo}" alt="${platform_name}"
+				% if partner_logo_src:
+					<img src="${partner_logo_src}" alt="${partner_name}" class="cert-logo">
+				% elif partner_logo:
+					<img src="${partner_logo.url if getattr(partner_logo, 'url', None) else partner_logo}" alt="${partner_name}"
 						class="cert-logo">
 				% else:
 					<img src="${static.url('images/logo.png')}" alt="${platform_name}" class="cert-logo">
