@@ -260,6 +260,12 @@
 	margin-bottom: 0 !important;
 	width: 1200px !important;
 	max-width: none !important;
+	align-items: stretch !important;
+	box-shadow: none !important;
+}
+
+.cert-download-capture-mode .cert-left {
+	align-self: stretch !important;
 }
 
 .cert-download-capture-mode .wrapper-view,

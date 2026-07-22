@@ -42,6 +42,9 @@
                     return loadScript("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js", "jsPDF");
                 })
                 .then(function() {
+                    return waitForCertificateImages(certificateElement);
+                })
+                .then(function() {
                     if (!window.html2canvas) {
                         throw createDownloadError("capture-missing", "Screenshot library unavailable");
                     }
@@ -49,7 +52,10 @@
                     return window.html2canvas(certificateElement, {
                         scale: 2,
                         useCORS: true,
+                        allowTaint: false,
                         backgroundColor: "#ffffff",
+                        width: Math.ceil(certificateElement.offsetWidth),
+                        height: Math.ceil(certificateElement.offsetHeight),
                         windowWidth: Math.ceil(certificateElement.scrollWidth),
                         windowHeight: Math.ceil(certificateElement.scrollHeight)
                     }).catch(function() {
@@ -63,30 +69,26 @@
                     }
 
                     try {
+                        // Size the PDF page to the captured certificate (no A4 letterboxing).
+                        // Divide by capture scale so page mm match CSS layout size.
+                        var captureScale = 2;
+                        var PX_TO_MM = 25.4 / 96;
+                        var pageWidth = (canvas.width / captureScale) * PX_TO_MM;
+                        var pageHeight = (canvas.height / captureScale) * PX_TO_MM;
                         var pdf = new jsPdfConstructor({
-                            orientation: "landscape",
+                            orientation: pageWidth >= pageHeight ? "landscape" : "portrait",
                             unit: "mm",
-                            format: "a4"
+                            format: [pageWidth, pageHeight]
                         });
-                        var pageWidth = pdf.internal.pageSize.getWidth();
-                        var pageHeight = pdf.internal.pageSize.getHeight();
-                        var imageWidth = canvas.width;
-                        var imageHeight = canvas.height;
-                        var imageRatio = imageWidth / imageHeight;
-                        var pageRatio = pageWidth / pageHeight;
-                        var renderWidth = pageWidth;
-                        var renderHeight = pageHeight;
 
-                        if (imageRatio > pageRatio) {
-                            renderHeight = pageWidth / imageRatio;
-                        } else {
-                            renderWidth = pageHeight * imageRatio;
-                        }
-
-                        var x = (pageWidth - renderWidth) / 2;
-                        var y = (pageHeight - renderHeight) / 2;
-
-                        pdf.addImage(canvas.toDataURL("image/png"), "PNG", x, y, renderWidth, renderHeight);
+                        pdf.addImage(
+                            canvas.toDataURL("image/jpeg", 1),
+                            "JPEG",
+                            0,
+                            0,
+                            pageWidth,
+                            pageHeight
+                        );
                         pdf.save(getCertificateFileName());
                     } catch (pdfError) {
                         throw createDownloadError("pdf-failed", "Failed to render certificate PDF");
@@ -102,6 +104,38 @@
                     document.body.classList.remove(captureModeClass);
                     restoreDownloadButton(downloadButton, originalButtonLabel);
                 });
+        }
+
+        function waitForCertificateImages(element) {
+            var images = element.querySelectorAll("img");
+
+            if (!images.length) {
+                return Promise.resolve();
+            }
+
+            return Promise.all(Array.prototype.map.call(images, function(img) {
+                if (img.complete && img.naturalWidth > 0) {
+                    return Promise.resolve();
+                }
+
+                return new Promise(function(resolve) {
+                    var settled = false;
+
+                    function finish() {
+                        if (settled) {
+                            return;
+                        }
+                        settled = true;
+                        resolve();
+                    }
+
+                    img.addEventListener("load", finish, { once: true });
+                    img.addEventListener("error", finish, { once: true });
+
+                    // Avoid hanging forever if the browser never fires load/error.
+                    setTimeout(finish, 5000);
+                });
+            }));
         }
 
         function getCertificateElement() {
