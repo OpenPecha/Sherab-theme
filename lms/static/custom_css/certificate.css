@@ -102,6 +102,45 @@ html.sherab-cert-android-frame-ready .sherab-default-cert-android-frame {
 	margin-bottom: 0rem;
 }
 
+.mobile-app-certificate-message {
+	display: none;
+}
+
+html.sherab-cert-mobile-webview .mobile-app-certificate-message {
+	display: block;
+	box-sizing: border-box;
+	width: min(92%, 680px);
+	margin: 0 auto 1.5rem;
+	padding: 1rem 1.25rem;
+	background: #fff !important;
+	border-left: 4px solid #DEAD2D;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+	color: #222 !important;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 1rem;
+	line-height: 1.5;
+	text-align: left;
+}
+
+html.sherab-cert-mobile-webview .mobile-app-certificate-message p {
+	margin: 0;
+	color: #222 !important;
+}
+
+html.sherab-cert-mobile-webview .mobile-app-certificate-message p + p {
+	margin-top: 0.35rem;
+}
+
+html.sherab-cert-mobile-webview .mobile-app-certificate-message-title {
+	font-weight: 700;
+}
+
+html.sherab-cert-mobile-webview .mobile-app-certificate-message a {
+	color: #8a5d00 !important;
+	font-weight: 700;
+	text-decoration: underline;
+}
+
 .certificate-custom {
 	width: 100%;
 	display: flex;
