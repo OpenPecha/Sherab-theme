@@ -79,6 +79,7 @@ from openedx.core.release import RELEASE_LINE
     % else:
       <%static:css group='${self.attr.main_css}'/>
     % endif
+    <link rel="stylesheet" href="${static.url('css/sock.css')}" type="text/css" media="all" />
 
     <%include file="widgets/segment-io.html" />
 

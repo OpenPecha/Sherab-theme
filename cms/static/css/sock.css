@@ -1,0 +1,21 @@
+/* Center Studio help sock buttons to match Authoring MFE footer.
+   Overrides platform floated .support column (8/12 width). */
+.wrapper-sock .sock .support {
+  float: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+.wrapper-sock .sock .support .list-actions {
+  display: flex !important;
+  justify-content: center !important;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  text-align: center;
+}
+
+.wrapper-sock .sock .support .list-actions .action-item {
+  float: none !important;
+  width: auto !important;
+  margin-right: 0 !important;
+}
