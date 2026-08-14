@@ -15,7 +15,7 @@ micro-frontends (MFEs) based on the ReactJS.
 This repository hosts the monolith at the center which is derived from the Open edX
 platform.  Functionally, the sherab.org repository provides two services:
 
-* CMS (Content Management Service), which powers Open sherab Studio, the platform's learning content authoring environment; and
+* CMS (Content Management Service), which powers Open WeBuddhist Academy Studio, the platform's learning content authoring environment; and
 * LMS (Learning Management Service), which delivers learning content.
 
 Getting Started
