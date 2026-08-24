@@ -12,6 +12,22 @@
   flex: 1 0 auto;
 }
 
+@font-face {
+  font-family: "DM Sans";
+  src: url("../fonts/DM_Sans/DMSans-Variable.woff2") format("woff2-variations");
+  font-weight: 100 1000;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("../fonts/Cormorant_Garamond/CormorantGaramond-Variable.woff2") format("woff2-variations");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 .site-footer {
   display: flex;
   flex-direction: column;
