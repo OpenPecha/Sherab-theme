@@ -1,6 +1,10 @@
 /* Stylings for header section on homepage */
 /* It includes styles for welcome message and search box on the homepage */
 
+#schools-partners-div {
+  scroll-margin-top: calc(50vh - 15rem);
+}
+
 .content-wrapper {
   padding: 0 2rem 0 !important;
 }

@@ -6,80 +6,115 @@
   from lms.djangoapps.branding.api import get_footer
   from openedx.core.djangoapps.lang_pref.api import footer_language_selector_is_enabled
   from django.conf import settings
+  import datetime
 %>
 <% footer = get_footer(is_secure=is_secure) %>
-<% icp_license_info = getattr(settings, 'ICP_LICENSE_INFO', {})%>
 <%namespace name='static' file='static_content.html'/>
 
-<% 
-  import datetime
-  scheme = 'https' if is_secure else 'http'
-  studio_base = getattr(settings, 'CMS_BASE', None) or getattr(settings, 'STUDIO_BASE', None)
-  studio_url = f"{scheme}://{studio_base}" if studio_base else getattr(settings, 'STUDIO_URL', None)
-  if not studio_url:
-      lms_base = getattr(settings, 'LMS_BASE', '')
-      studio_url = f"{scheme}://studio.{lms_base}" if lms_base else '#'
+<%
   current_year = datetime.datetime.now().year
+  google_play_url = 'https://play.google.com/store/apps/details?id=org.sherab.app'
+  app_store_url = 'https://apps.apple.com/us/app/sherab/id6747565399'
+  become_partner_url = '#'
+  catalog_base = (getattr(settings, 'CATALOG_MICROFRONTEND_URL', None) or '').rstrip('/')
+  schools_partners_url = catalog_base + '/#partner-carousel-title' if catalog_base else reverse('root')
 %>
 
-<div class="scroll-footer-wrapper" aria-hidden="true" style="visibility:hidden">
-  <footer id="scroll-footer" class="footer" role="contentinfo">
-    <a href="${reverse('root')}" class="footer-logo-link" aria-label="${_('Go to main page')}">
-      <img src="${static.url('images/logo.png')}" alt="${_('Your Brand')}" class="footer-logo" />
-      <span class="custom-tooltip">${_('Go to main page')}</span>
-    </a>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <div class="footer-links">
-      <nav class="nav-footer" aria-label="${_('About')}">
-        <ol>
-          <li class="nav-footer-item">
-            <a id="about" href="/about">${_('About Us')}</a>
-          </li>
-          <li class="nav-footer-item">
-            <a id="contact" href="/contact">${_('Contact Us')}</a>
-          </li>
-          <li class="nav-footer-item">
-            <a id="privacy" href="/privacy">${_('Privacy Policy')}</a>
-          </li>
-        </ol>
-      </nav>
-
-      % if context.get('include_language_selector', footer_language_selector_is_enabled()):
-          <%include file="${static.get_template_path('widgets/footer-language-selector.html')}"/>
-      % endif
-
-      <div class="footer-app-downloads" aria-label="${_('Download our mobile app')}">
-        <div class="footer-app-label">${_('Download our app')}</div>
-        <a class="footer-store-badge play" href="https://play.google.com/store/apps/details?id=org.sherab.app" aria-label="${_('Get it on Google Play')}" rel="noopener">
-          <img src="${static.url('images/googleplay.png')}" alt="${_('Get it on Google Play')}" loading="lazy" decoding="async" />
+<footer class="site-footer" role="contentinfo" aria-label="${_('Site footer')}">
+  <div class="footer-container">
+    <div class="ft-grid">
+      <div class="ft-brand">
+        <a href="${reverse('root')}" class="logo-link" aria-label="${_('Go to main page')}">
+          <img src="${static.url('images/logo.png')}" alt="${_('WeBuddhist Academy')}" class="logo-image" />
+          <span class="ft-brand-name">${_('WeBuddhist Academy')}</span>
+          <span class="custom-tooltip">${_('Go to main page')}</span>
         </a>
-        <a class="footer-store-badge appstore" href="https://apps.apple.com/us/app/sherab/id6747565399" aria-label="${_('Download on the App Store')}" rel="noopener">
-          <img src="${static.url('images/appstore.png')}" alt="${_('Download on the App Store')}" loading="lazy" decoding="async" />
+        <p class="ft-tagline">${_('A global platform for authentic Buddhist education, connecting students with qualified teachers and institutions.')}</p>
+      </div>
+
+      <div class="ft-col">
+        <button type="button" class="ft-col-title" aria-expanded="true" aria-controls="ft-col-company">
+          ${_('Company')}
+          <svg class="ft-col-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </button>
+        <nav class="ft-col-body" id="ft-col-company" aria-label="${_('Company')}">
+          <a class="footer-link" href="/about">${_('About Us')}</a>
+          <a class="footer-link" href="/contact">${_('Contact Us')}</a>
+          <a class="footer-link" href="/privacy">${_('Privacy Policy')}</a>
+        </nav>
+      </div>
+
+      <div class="ft-col">
+        <button type="button" class="ft-col-title" aria-expanded="true" aria-controls="ft-col-learn">
+          ${_('Learn')}
+          <svg class="ft-col-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </button>
+        <nav class="ft-col-body" id="ft-col-learn" aria-label="${_('Learn')}">
+          <a class="footer-link" href="/courses">${_('Explore Courses')}</a>
+          <a class="footer-link" href="${schools_partners_url}">${_('Schools & Partners')}</a>
+          <a class="footer-link" href="${become_partner_url}">${_('Become a Course Partner')}</a>
+        </nav>
+      </div>
+
+      <div class="ft-col ft-col-app">
+        <button type="button" class="ft-col-title" aria-expanded="true" aria-controls="ft-col-app">
+          ${_('Download our app')}
+          <svg class="ft-col-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </button>
+        <div class="ft-col-body footer-badges" id="ft-col-app">
+          <a class="ft-store" href="${google_play_url}" rel="noopener" aria-label="${_('Get it on Google Play')}">
+            <i class="fa-brands fa-google-play ft-store-icon" aria-hidden="true"></i>
+            <span class="ft-store-text">
+              <span class="ft-store-prefix">${_('Get it on')}</span>
+              <span class="ft-store-name">${_('Google Play')}</span>
+            </span>
+          </a>
+          <a class="ft-store" href="${app_store_url}" rel="noopener" aria-label="${_('Download on the App Store')}">
+            <i class="fa-brands fa-apple ft-store-icon" aria-hidden="true"></i>
+            <span class="ft-store-text">
+              <span class="ft-store-prefix">${_('Download on the')}</span>
+              <span class="ft-store-name">${_('App Store')}</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="ft-bottom">
+      <div class="ft-copy">${_('© {year} WeBuddhist Academy. All rights reserved.').format(year=current_year)}</div>
+      <div class="footer-social-icons" aria-label="${_('Social media')}">
+        <a href="https://www.facebook.com/profile.php?id=61580184195837" class="social-icon" aria-label="${_('Facebook')}" rel="noopener">
+          <i class="fa-brands fa-facebook" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.instagram.com/webuddhist_academy/" class="social-icon" aria-label="${_('Instagram')}" rel="noopener">
+          <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+        </a>
+        <a href="https://x.com/WB_Academy_" class="social-icon" aria-label="${_('X')}" rel="noopener">
+          <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.youtube.com/@SherabLMS" class="social-icon" aria-label="${_('YouTube')}" rel="noopener">
+          <i class="fa-brands fa-youtube" aria-hidden="true"></i>
         </a>
       </div>
     </div>
 
-    <div class="footer-separator"></div>
-
-    <div class="footer-bottom">
-      <div class="footer-copy">  © ${current_year} WeBuddhist Academy.</div>
-      <div class="footer-social" aria-label="${_('Social media')}">
-        <a href="https://www.facebook.com/profile.php?id=61580184195837" aria-label="${_('Facebook')}" class="social-icon social-facebook" rel="noopener">
-          <i class="bi bi-facebook" aria-hidden="true"></i>
-        </a>
-        <a href="https://www.instagram.com/webuddhist_academy/" aria-label="${_('Instagram')}" class="social-icon social-instagram" rel="noopener">
-          <i class="bi bi-instagram" aria-hidden="true"></i>
-        </a>
-        <a href="https://x.com/Sherab_edu" aria-label="${_('X')}" class="social-icon social-x" rel="noopener">
-          <i class="bi bi-twitter-x" aria-hidden="true"></i>
-        </a>
-        <a href="https://www.youtube.com/@SherabLMS" aria-label="${_('YouTube')}" class="social-icon social-youtube" rel="noopener">
-          <i class="bi bi-youtube" aria-hidden="true"></i>
-        </a>
+    % if context.get('include_language_selector', footer_language_selector_is_enabled()):
+      <div class="language-selector-wrapper">
+        <%include file="${static.get_template_path('widgets/footer-language-selector.html')}"/>
       </div>
-    </div>
-  </footer>
-</div>
+    % endif
+  </div>
+</footer>
 
 <%include file="widgets/userback_script.html"/>
 
@@ -90,11 +125,11 @@
   <%include file="widgets/segment-io-footer.html" />
 % endif
 
-<link rel="stylesheet" type="text/css" href="${static.url('custom_css/footer.css')}"></link>
+<link rel="stylesheet" type="text/css" href="${static.url('custom_css/footer.css')}">
 <script type="text/javascript" src="${static.url('js/scroll-footer.js')}"></script>
 
 % if footer_css_urls:
   % for url in footer_css_urls:
-    <link rel="stylesheet" type="text/css" href="${url}"></link>
+    <link rel="stylesheet" type="text/css" href="${url}">
   % endfor
 % endif
