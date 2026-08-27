@@ -8,7 +8,7 @@
   min-height: 100vh;
 }
 
-.window-wrap > .content-wrapper {
+.window-wrap>.content-wrapper {
   flex: 1 0 auto;
 }
 
@@ -467,7 +467,22 @@
 
   .site-footer .ft-store,
   .site-footer a.ft-store {
+    width: 100%;
+    max-width: 100%;
     min-width: 0;
+  }
+
+  .site-footer .ft-col-app {
+    width: 100%;
+    max-width: none;
+  }
+
+  .site-footer .ft-col-app .footer-badges {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: fit-content;
+    max-width: 100%;
   }
 
   .site-footer .footer-container {
@@ -545,6 +560,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .site-footer .logo-link,
   .site-footer .custom-tooltip,
   .site-footer .ft-col-body .footer-link,
